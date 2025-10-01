@@ -37,31 +37,43 @@ interface Blog {
 export default function HomePage() {
   const [featuredWorks, setFeaturedWorks] = useState<Work[]>([]);
   const [featuredBlog, setFeaturedBlog] = useState<Blog | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [worksLoading, setWorksLoading] = useState(true);
+  const [blogLoading, setBlogLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
+    // Fetch featured works in background
+    async function fetchWorks() {
       try {
-        // Fetch featured works
         const worksResponse = await fetch('/api/our-work');
         const worksData = await worksResponse.json();
         const featured = worksData.filter((work: Work) => work.featured).slice(0, 3);
         setFeaturedWorks(featured);
+      } catch (error) {
+        console.error('Error fetching works:', error);
+      } finally {
+        setWorksLoading(false);
+      }
+    }
 
-        // Fetch top featured blog
+    fetchWorks();
+  }, []);
+
+  useEffect(() => {
+    // Fetch top featured blog in background
+    async function fetchBlog() {
+      try {
         const blogsResponse = await fetch('/api/blogs');
         const blogsData = await blogsResponse.json();
         const topBlog = blogsData.find((blog: Blog) => blog.top_featured);
         setFeaturedBlog(topBlog || null);
-
-        setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
+        console.error('Error fetching blog:', error);
+      } finally {
+        setBlogLoading(false);
       }
     }
 
-    fetchData();
+    fetchBlog();
   }, []);
 
   const services = [
@@ -226,20 +238,6 @@ export default function HomePage() {
     { number: "15+", label: "Years Experience", description: "Proven track record in event management" }
   ];
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-bg-primary">
-        <Navbar />
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-neutral">Loading...</p>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-bg-primary">
@@ -441,7 +439,20 @@ export default function HomePage() {
           </div>
 
           {/* Featured Work Cards */}
-          {featuredWorks.length > 0 && (
+          {worksLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-clr-white border border-gray-200 shadow-lg animate-pulse">
+                  <div className="h-[180px] sm:h-[200px] md:h-[250px] lg:h-[280px] bg-gray-200"></div>
+                  <div className="p-4 sm:p-6">
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-3 bg-gray-200 rounded mb-4"></div>
+                    <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : featuredWorks.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
               {featuredWorks.map((work) => (
                 <article key={work.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300">
@@ -482,6 +493,10 @@ export default function HomePage() {
                   </div>
                 </article>
               ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-body-medium txt-clr-neutral">No featured work available at the moment.</p>
             </div>
           )}
 
@@ -815,7 +830,6 @@ export default function HomePage() {
       </section>
 
       {/* Featured Blog Section */}
-      {featuredBlog && (
       <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
@@ -827,7 +841,24 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
+          {blogLoading ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
+              <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[400px] xl:min-h-[500px] bg-gray-200 animate-pulse rounded"></div>
+              <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8">
+                <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5 w-full">
+                  <div className="h-6 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-8 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+                  <div className="flex gap-4 mt-6">
+                    <div className="h-10 bg-gray-200 rounded w-32 animate-pulse"></div>
+                    <div className="h-10 bg-gray-200 rounded w-32 animate-pulse"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : featuredBlog ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
             {/* Image */}
             <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[400px] xl:min-h-[500px]">
               <Image
@@ -881,9 +912,13 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-body-medium txt-clr-neutral">No featured blog available at the moment.</p>
+            </div>
+          )}
         </div>
       </section>
-      )}
 
       {/* CTA Section */}
       <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 txt-clr-white bg-clr-secondary-medium">
