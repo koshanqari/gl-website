@@ -18,7 +18,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Dashboard Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Blogs Card */}
           <Link
             href="/intellsys/blogs"
@@ -101,6 +101,36 @@ export default function AdminDashboardPage() {
                 </p>
                 <div className="flex items-center text-primary font-medium group-hover:translate-x-2 transition-transform">
                   Go to Testimonials
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Contact Inquiries Card */}
+          <Link
+            href="/intellsys/contact-inquiries"
+            className="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-8 border border-gray-200 group"
+          >
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <svg className="w-6 h-6 txt-clr-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="ml-4 flex-1">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                  Contact Inquiries
+                </h2>
+                <p className="text-gray-600 mb-4">
+                  Manage customer inquiries and event requests from your contact form.
+                </p>
+                <div className="flex items-center text-primary font-medium group-hover:translate-x-2 transition-transform">
+                  View Inquiries
                   <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>

@@ -94,28 +94,43 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      phone: '',
-      country: 'India',
-      pincode: '',
-      state: '',
-      city: '',
-      eventType: '',
-      eventDate: '',
-      budget: '',
-      guestCount: '',
-      message: ''
-    });
-    
-    setIsSubmitting(false);
-    alert('Thank you for your inquiry! We\'ll get back to you within 24 hours.');
+    try {
+      const response = await fetch('/api/contact-inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          phone: '',
+          country: 'India',
+          pincode: '',
+          state: '',
+          city: '',
+          eventType: '',
+          eventDate: '',
+          budget: '',
+          guestCount: '',
+          message: ''
+        });
+        
+        alert('Thank you for your inquiry! We\'ll get back to you within 24 hours.');
+      } else {
+        alert('There was an error submitting your inquiry. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting your inquiry. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

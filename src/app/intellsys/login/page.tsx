@@ -43,7 +43,11 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-block">
-            <div className="text-4xl font-bold txt-clr-primary mb-2">Golden Lotus</div>
+            <img 
+              alt="Intellsys" 
+              className="h-16 w-auto mx-auto mb-4" 
+              src="https://cdn-sleepyhug-prod.b-cdn.net/media/intellsys-logo.webp" 
+            />
             <div className="text-body-large txt-clr-white">Admin Panel</div>
           </div>
         </div>
@@ -100,9 +104,6 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          <div className="mt-6 text-center text-body-small txt-clr-neutral">
-            Default credentials: admin / changeme123
-          </div>
         </div>
       </div>
     </div>

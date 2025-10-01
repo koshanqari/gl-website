@@ -25,6 +25,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { name: 'Blogs', href: '/intellsys/blogs' },
     { name: 'Work', href: '/intellsys/our-work' },
     { name: 'Testimonials', href: '/intellsys/testimonials' },
+    { name: 'Inquiries', href: '/intellsys/contact-inquiries' },
   ];
 
   return (
