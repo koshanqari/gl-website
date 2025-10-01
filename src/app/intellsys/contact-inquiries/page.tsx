@@ -18,9 +18,7 @@ interface ContactInquiry {
   budget?: string;
   guest_count?: number;
   message: string;
-  status: string;
   priority: string;
-  assigned_to?: string;
   notes?: string;
   created_at: string;
   updated_at: string;
@@ -30,7 +28,6 @@ export default function ContactInquiriesPage() {
   const [inquiries, setInquiries] = useState<ContactInquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterStatus, setFilterStatus] = useState('All');
   const [filterPriority, setFilterPriority] = useState('All');
   const [sortBy, setSortBy] = useState<'created_at' | 'name' | 'event_type'>('created_at');
 
@@ -50,23 +47,6 @@ export default function ContactInquiriesPage() {
     }
   };
 
-  const handleStatusUpdate = async (id: string, newStatus: string) => {
-    try {
-      const response = await fetch(`/api/intellsys/contact-inquiries/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (response.ok) {
-        setInquiries(inquiries.map(inquiry => 
-          inquiry.id === id ? { ...inquiry, status: newStatus } : inquiry
-        ));
-      }
-    } catch (error) {
-      console.error('Error updating status:', error);
-    }
-  };
 
   const handlePriorityUpdate = async (id: string, newPriority: string) => {
     try {
@@ -102,15 +82,78 @@ export default function ContactInquiriesPage() {
     }
   };
 
+  const handleDownloadCSV = () => {
+    // Create CSV headers
+    const headers = [
+      'ID',
+      'Name',
+      'Email',
+      'Company',
+      'Phone',
+      'Country',
+      'Pincode',
+      'State',
+      'City',
+      'Event Type',
+      'Event Date',
+      'Budget',
+      'Guest Count',
+      'Message',
+      'Priority',
+      'Notes',
+      'Created At',
+      'Updated At'
+    ];
+
+    // Create CSV rows
+    const csvRows = [
+      headers.join(','),
+      ...filteredInquiries.map(inquiry => [
+        inquiry.id,
+        `"${inquiry.name}"`,
+        `"${inquiry.email}"`,
+        `"${inquiry.company || ''}"`,
+        `"${inquiry.phone || ''}"`,
+        `"${inquiry.country}"`,
+        `"${inquiry.pincode || ''}"`,
+        `"${inquiry.state || ''}"`,
+        `"${inquiry.city || ''}"`,
+        `"${inquiry.event_type}"`,
+        `"${inquiry.event_date || ''}"`,
+        `"${inquiry.budget || ''}"`,
+        inquiry.guest_count || '',
+        `"${inquiry.message.replace(/"/g, '""')}"`,
+        `"${inquiry.priority}"`,
+        `"${(inquiry.notes || '').replace(/"/g, '""')}"`,
+        `"${inquiry.created_at}"`,
+        `"${inquiry.updated_at}"`
+      ].join(','))
+    ];
+
+    // Create and download CSV file
+    const csvContent = csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `contact-inquiries-${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   // Filter and sort inquiries
   const filteredInquiries = inquiries
     .filter(inquiry => {
       const matchesSearch = inquiry.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            inquiry.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            inquiry.company?.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesStatus = filterStatus === 'All' || inquiry.status === filterStatus;
       const matchesPriority = filterPriority === 'All' || inquiry.priority === filterPriority;
-      return matchesSearch && matchesStatus && matchesPriority;
+      return matchesSearch && matchesPriority;
     })
     .sort((a, b) => {
       switch (sortBy) {
@@ -124,16 +167,6 @@ export default function ContactInquiriesPage() {
       }
     });
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'new': return 'bg-blue-100 text-blue-800';
-      case 'contacted': return 'bg-yellow-100 text-yellow-800';
-      case 'quoted': return 'bg-purple-100 text-purple-800';
-      case 'followed_up': return 'bg-green-100 text-green-800';
-      case 'closed': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
@@ -182,7 +215,7 @@ export default function ContactInquiriesPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <h3 className="text-2xl font-bold txt-clr-primary mb-2">
               {inquiries.length}
@@ -191,27 +224,27 @@ export default function ContactInquiriesPage() {
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <h3 className="text-2xl font-bold txt-clr-primary mb-2">
-              {inquiries.filter(i => i.status === 'new').length}
-            </h3>
-            <p className="text-body-medium txt-clr-neutral">New Inquiries</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h3 className="text-2xl font-bold txt-clr-primary mb-2">
               {inquiries.filter(i => i.priority === 'high' || i.priority === 'urgent').length}
             </h3>
             <p className="text-body-medium txt-clr-neutral">High Priority</p>
           </div>
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h3 className="text-2xl font-bold txt-clr-primary mb-2">
-              {inquiries.filter(i => i.status === 'closed').length}
-            </h3>
-            <p className="text-body-medium txt-clr-neutral">Closed</p>
-          </div>
         </div>
 
-        {/* Filters */}
+        {/* Filters and Actions */}
         <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+            <h3 className="text-lg font-semibold txt-clr-black">Filters & Actions</h3>
+            <button
+              onClick={handleDownloadCSV}
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download CSV
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-body-medium font-semibold txt-clr-black mb-2">
                 Search
@@ -223,23 +256,6 @@ export default function ContactInquiriesPage() {
                 placeholder="Search by name, email, or company..."
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
               />
-            </div>
-            <div>
-              <label className="block text-body-medium font-semibold txt-clr-black mb-2">
-                Status
-              </label>
-              <select
-                value={filterStatus}
-                onChange={(e) => setFilterStatus(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
-              >
-                <option value="All">All Status</option>
-                <option value="new">New</option>
-                <option value="contacted">Contacted</option>
-                <option value="quoted">Quoted</option>
-                <option value="followed_up">Followed Up</option>
-                <option value="closed">Closed</option>
-              </select>
             </div>
             <div>
               <label className="block text-body-medium font-semibold txt-clr-black mb-2">
@@ -285,9 +301,6 @@ export default function ContactInquiriesPage() {
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Details
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Priority
@@ -336,19 +349,6 @@ export default function ContactInquiriesPage() {
                           </div>
                         )}
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <select
-                        value={inquiry.status}
-                        onChange={(e) => handleStatusUpdate(inquiry.id, e.target.value)}
-                        className={`text-xs font-medium px-2 py-1 rounded-full border-0 ${getStatusColor(inquiry.status)}`}
-                      >
-                        <option value="new">New</option>
-                        <option value="contacted">Contacted</option>
-                        <option value="quoted">Quoted</option>
-                        <option value="followed_up">Followed Up</option>
-                        <option value="closed">Closed</option>
-                      </select>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <select
