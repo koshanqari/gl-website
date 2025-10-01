@@ -44,12 +44,11 @@ export default function HomePage() {
     // Fetch featured works in background
     async function fetchWorks() {
       try {
-        const worksResponse = await fetch('/api/our-work');
+        const worksResponse = await fetch('/api/our-work/featured');
         const worksData = await worksResponse.json();
-        const featured = worksData.filter((work: Work) => work.featured).slice(0, 3);
-        setFeaturedWorks(featured);
+        setFeaturedWorks(worksData);
       } catch (error) {
-        console.error('Error fetching works:', error);
+        console.error('Error fetching featured works:', error);
       } finally {
         setWorksLoading(false);
       }
@@ -62,12 +61,12 @@ export default function HomePage() {
     // Fetch top featured blog in background
     async function fetchBlog() {
       try {
-        const blogsResponse = await fetch('/api/blogs');
-        const blogsData = await blogsResponse.json();
-        const topBlog = blogsData.find((blog: Blog) => blog.top_featured);
-        setFeaturedBlog(topBlog || null);
+        const blogsResponse = await fetch('/api/blogs/top-featured');
+        const blogData = await blogsResponse.json();
+        setFeaturedBlog(blogData);
       } catch (error) {
-        console.error('Error fetching blog:', error);
+        console.error('Error fetching top featured blog:', error);
+        setFeaturedBlog(null);
       } finally {
         setBlogLoading(false);
       }
@@ -125,9 +124,9 @@ export default function HomePage() {
             featured: false,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
-          },
-          {
-            id: 2,
+    },
+    {
+      id: 2,
             name: "Michael Chen",
             position: "CEO",
             company: "Luxury Auto Group",
