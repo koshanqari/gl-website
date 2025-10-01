@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Continuous scroll animation for client logos */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Source+Sans+3:wght@400;600&display=swap');
+
+@layer base {
+  :root {
+    /* 🎨 COMPLETE DESIGN SYSTEM - ONE FILE TO RULE THEM ALL */
+    /* Change any value here to update the entire website */
+    
+    /* ======================================== */
+    /* 🎨 COLOR PALETTE - PRIMARY FOUNDATION */
+    /* ======================================== */
+    
+    /* Primary Colors (Golden) */
+    --color-primary-light: #E0C28F;     /* Light Golden */
+    --color-primary-medium: #D4AF37;    /* Medium Golden (Main) */
+    --color-primary-dark: #B8860B;      /* Dark Golden */
+    
+    /* Secondary Colors (Blue) */
+    --color-secondary-light: #4A90E2;   /* Light Blue */
+    --color-secondary-medium: #0A1128;  /* Medium Blue (Main) */
+    --color-secondary-dark: #051A3A;    /* Dark Blue */
+    
+    /* Neutral Colors (Grey) */
+    --color-neutral-light: #F8F9FA;     /* Light Grey */
+    --color-neutral-medium: #6B7280;    /* Medium Grey */
+    --color-neutral-dark: #374151;       /* Dark Grey */
+    
+    /* Pure Colors */
+    --color-white: #FFFFFF;              /* Pure White */
+    --color-black: #000000;              /* Pure Black */
+    
+    /* ======================================== */
+    /* 🎯 SEMANTIC COLOR MAPPING */
+    /* ======================================== */
+    
+    /* Button Colors */
+    --cta-golden-color: var(--color-primary-dark);
+    --cta-white-color: var(--color-white);
+    
+    /* Component Colors */
+    --category-tag-bg: var(--color-primary-medium);
+    --overlay-brand: rgba(113, 93, 28, 0.884);  /* Brand overlay with 90% opacity */
+    --overlay-blue-dark: rgba(5, 26, 58, 0.8);   /* Blue dark overlay with 80% opacity */
+    --overlay-grey: rgba(128, 128, 128, 0.85);   /* Grey overlay with 85% opacity */
+    
+    /* Typography */
+    --font-primary: 'Montserrat', system-ui, sans-serif;     /* Headings */
+    --font-secondary: 'Source Sans 3', system-ui, sans-serif; /* Body text */
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 64px;
+    --spacing-4xl: 96px;
+    
+    /* Border Radius */
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 15px rgba(212, 175, 55, 0.3), 0 0 30px rgba(212, 175, 55, 0.1);
+  }
+
+  html {
+    font-family: var(--font-secondary);
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+    scrollbar-width: none; /* Firefox - hide scrollbar */
+    -ms-overflow-style: none; /* IE/Edge - hide scrollbar */
+  }
+  
+  html::-webkit-scrollbar {
+    display: none; /* Chrome/Safari - hide scrollbar */
+  }
+  
+  body {
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+    scrollbar-width: none; /* Firefox - hide scrollbar */
+    -ms-overflow-style: none; /* IE/Edge - hide scrollbar */
+  }
+  
+  body::-webkit-scrollbar {
+    display: none; /* Chrome/Safari - hide scrollbar */
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+  }
+}
+
+@layer components {
+  /* Input Field Styles */
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-400 rounded-4 text-body-large placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary;
+  }
+
+      /* Color Palette Background Classes */
+      .bg-clr-primary-light {
+        background-color: var(--color-primary-light);
+      }
+      .bg-clr-primary-medium {
+        background-color: var(--color-primary-medium);
+      }
+      .bg-clr-primary-dark {
+        background-color: var(--color-primary-dark);
+      }
+      .bg-clr-secondary-light {
+        background-color: var(--color-secondary-light);
+      }
+      .bg-clr-secondary-medium {
+        background-color: var(--color-secondary-medium);
+      }
+      .bg-clr-secondary-dark {
+        background-color: var(--color-secondary-dark);
+      }
+      .bg-clr-neutral-light {
+        background-color: var(--color-neutral-light);
+      }
+      .bg-clr-neutral-medium {
+        background-color: var(--color-neutral-medium);
+      }
+      .bg-clr-neutral-dark {
+        background-color: var(--color-neutral-dark);
+      }
+      .bg-clr-white {
+        background-color: var(--color-white);
+      }
+      .bg-clr-black {
+        background-color: var(--color-black);
+      }
+      
+      /* Text Color Classes */
+      .txt-clr-white {
+        color: var(--color-white);
+      }
+      .txt-clr-black {
+        color: var(--color-black);
+      }
+      .txt-clr-primary {
+        color: var(--color-primary-dark);
+      }
+      .txt-clr-secondary {
+        color: var(--color-secondary-dark);
+      }
+      .txt-clr-neutral {
+        color: var(--color-neutral-dark);
+      }
+
+  /* Component Styles */
+  .category-tag {
+    background-color: var(--category-tag-bg);
+  }
+
+  .text-heading-color {
+    color: var(--color-primary-dark);
+  }
+
+
+  /* Golden Primary Button */
+  .cta-btn-golden-primary {
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--cta-golden-color);
+    color: var(--cta-white-color);
+  }
+  .cta-btn-golden-primary:hover,
+  .cta-btn-golden-primary:active,
+  .cta-btn-golden-primary:focus {
+    background-color: transparent;
+    color: var(--cta-golden-color);
+    border-color: var(--cta-golden-color);
+  }
+
+  /* Golden Secondary Button */
+  .cta-btn-golden-secondary {
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+    color: var(--cta-golden-color);
+    border-color: var(--cta-golden-color);
+  }
+  .cta-btn-golden-secondary:hover,
+  .cta-btn-golden-secondary:active,
+  .cta-btn-golden-secondary:focus {
+    background-color: var(--cta-golden-color);
+    color: var(--cta-white-color);
+  }
+
+  /* White Primary Button */
+  .cta-btn-white-primary {
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--cta-white-color);
+    color: var(--cta-golden-color);
+  }
+  .cta-btn-white-primary:hover,
+  .cta-btn-white-primary:active,
+  .cta-btn-white-primary:focus {
+    background-color: transparent;
+    color: var(--cta-white-color);
+    border-color: var(--cta-white-color);
+  }
+
+  /* White Secondary Button */
+  .cta-btn-white-secondary {
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+    color: var(--cta-white-color);
+    border-color: var(--cta-white-color);
+  }
+  .cta-btn-white-secondary:hover,
+  .cta-btn-white-secondary:active,
+  .cta-btn-white-secondary:focus {
+    background-color: var(--cta-white-color);
+    color: var(--cta-golden-color);
+  }
+}

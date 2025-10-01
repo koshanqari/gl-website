@@ -1,0 +1,915 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import CTAButton from '@/components/ui/CTAButton';
+import { Testimonial } from '@/lib/supabase';
+
+interface Work {
+  id: number;
+  title: string;
+  description: string;
+  image_url: string;
+  category: string;
+  date: string;
+  client: string;
+  attendees: string;
+  location: string;
+  featured: boolean;
+}
+
+interface Blog {
+  id: number;
+  title: string;
+  excerpt: string;
+  image_url: string;
+  category: string;
+  date: string;
+  author: string;
+  read_time: string;
+  top_featured: boolean;
+  featured: boolean;
+}
+
+export default function HomePage() {
+  const [featuredWorks, setFeaturedWorks] = useState<Work[]>([]);
+  const [featuredBlog, setFeaturedBlog] = useState<Blog | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch featured works
+        const worksResponse = await fetch('/api/our-work');
+        const worksData = await worksResponse.json();
+        const featured = worksData.filter((work: Work) => work.featured).slice(0, 3);
+        setFeaturedWorks(featured);
+
+        // Fetch top featured blog
+        const blogsResponse = await fetch('/api/blogs');
+        const blogsData = await blogsResponse.json();
+        const topBlog = blogsData.find((blog: Blog) => blog.top_featured);
+        setFeaturedBlog(topBlog || null);
+
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const services = [
+    {
+      title: "Event Strategy & Conceptualization",
+      description: "Strategic planning and creative conceptualization that transforms your vision into memorable experiences.",
+      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80",
+      features: ["Strategic event planning", "Theme development", "Target audience analysis"]
+    },
+    {
+      title: "Corporate Event Management",
+      description: "End-to-end management of corporate events, conferences, and business gatherings with precision and excellence.",
+      image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80",
+      features: ["Conference management", "Team building events", "Executive retreats"]
+    },
+    {
+      title: "Product Launch & Brand Activation",
+      description: "Creating impactful product launches and brand activations that generate buzz and drive engagement.",
+      image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80",
+      features: ["Product launches", "Brand activations", "Media events"]
+    }
+  ];
+
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [testimonialsLoading, setTestimonialsLoading] = useState(true);
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch('/api/testimonials');
+        if (response.ok) {
+          const data = await response.json();
+          setTestimonials(data); // Show all testimonials
+        }
+      } catch (error) {
+        console.error('Error fetching testimonials:', error);
+        // Fallback to static testimonials if API fails
+        setTestimonials([
+          {
+            id: 1,
+            name: "Sarah Johnson",
+            position: "VP Marketing",
+            company: "TechCorp International",
+            content: "Golden Lotus transformed our annual conference into an unforgettable experience. Their attention to detail and innovative approach exceeded all our expectations.",
+            avatar_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+            rating: 5,
+            featured: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          },
+          {
+            id: 2,
+            name: "Michael Chen",
+            position: "CEO",
+            company: "Luxury Auto Group",
+            content: "The product launch event they orchestrated was flawless. Every element was perfectly executed, from the venue setup to the guest experience.",
+            avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+            rating: 5,
+            featured: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+    },
+    {
+      id: 3,
+            name: "Priya Sharma",
+            position: "Head of Events",
+            company: "Global Finance Ltd",
+            content: "Professional, creative, and reliable. Golden Lotus delivered our leadership retreat with exceptional quality and seamless execution.",
+            avatar_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+            rating: 5,
+            featured: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+    },
+    {
+      id: 4,
+            name: "David Thompson",
+            position: "VP Operations",
+            company: "StartupHub",
+            content: "Golden Lotus made our corporate retreat seamless and engaging. Their team handled every detail perfectly, allowing us to focus on our business.",
+            avatar_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+            rating: 5,
+            featured: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+    },
+    {
+      id: 5,
+            name: "Lisa Wang",
+            position: "Head of Marketing",
+            company: "GrowthTech",
+            content: "The creativity and professionalism of Golden Lotus is unmatched. They turned our brand activation into a memorable experience for all attendees.",
+            avatar_url: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+            rating: 5,
+            featured: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          },
+          {
+            id: 6,
+            name: "James Wilson",
+            position: "Founder",
+            company: "NextGen Ventures",
+            content: "Golden Lotus delivered beyond our expectations. Their strategic approach and flawless execution made our investor event a huge success.",
+            avatar_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+            rating: 5,
+            featured: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          },
+          {
+            id: 7,
+            name: "Emma Rodriguez",
+            position: "Event Manager",
+            company: "Global Enterprises",
+            content: "Working with Golden Lotus was a game-changer. They understood our vision and brought it to life with exceptional execution and creativity.",
+            avatar_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+            rating: 5,
+            featured: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          },
+          {
+            id: 8,
+            name: "Alex Kumar",
+            position: "Marketing Director",
+            company: "TechStart Inc",
+            content: "The team's professionalism and attention to detail made our product launch a huge success. Highly recommended!",
+            avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+            rating: 5,
+            featured: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }
+        ]);
+      } finally {
+        setTestimonialsLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const metrics = [
+    { number: "500+", label: "Events Delivered", description: "Successful corporate events and conferences" },
+    { number: "50+", label: "Fortune 500 Clients", description: "Leading companies trust our expertise" },
+    { number: "98%", label: "Client Satisfaction", description: "Consistently exceeding expectations" },
+    { number: "15+", label: "Years Experience", description: "Proven track record in event management" }
+  ];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg-primary">
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-neutral">Loading...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-bg-primary">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="relative h-[70vh] sm:h-[60vh] min-h-[400px] sm:min-h-[500px] flex items-center">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1561489396-888724a1543d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center"></div>
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-2xl">
+            <h1 className="text-headline-large sm:text-display-medium lg:text-display-large txt-clr-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">
+              Plan Your Next Event with Golden Lotus
+            </h1>
+            <p className="text-body-medium sm:text-body-large txt-clr-white mb-6 sm:mb-8 drop-shadow-md">
+              Corporate events designed with precision & elegance.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <Link href="/contact">
+                <CTAButton variant="white-primary" size="md" className="sm:size-lg">
+                Plan Your Event
+              </CTAButton>
+              </Link>
+              <Link href="/about-us">
+                <CTAButton variant="white-secondary" size="md" className="sm:size-lg">
+                  About Us
+              </CTAButton>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Client Logos Strip - Continuous Scroll */}
+      <section className="pt-6 sm:pt-8 md:pt-12 lg:pt-16 pb-2 sm:pb-3 md:pb-4 bg-clr-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Continuous Scrolling Logos */}
+          <div className="relative">
+            <div className="flex animate-scroll space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12">
+              {/* First set of logos */}
+              <div className="flex items-center space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 flex-shrink-0">
+                {/* TechCorp International */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">TC</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">TechCorp</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">International</p>
+                  </div>
+                </div>
+
+                {/* Luxury Auto Group */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">LA</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Luxury Auto</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">Group</p>
+                  </div>
+                </div>
+
+                {/* Global Finance Ltd */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">GF</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Global</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">Finance</p>
+                  </div>
+                </div>
+
+                {/* HealthTech India */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">HT</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">HealthTech</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">India</p>
+                  </div>
+                </div>
+
+                {/* Retail Giants Inc */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">RG</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Retail</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">Giants</p>
+                  </div>
+                </div>
+
+                {/* Mobile Tech Co */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">MT</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Mobile</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">Tech Co</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Duplicate set for seamless loop */}
+              <div className="flex items-center space-x-8 md:space-x-12 lg:space-x-16 flex-shrink-0">
+                {/* TechCorp International */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">TC</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">TechCorp</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">International</p>
+                  </div>
+                </div>
+
+                {/* Luxury Auto Group */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">LA</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Luxury Auto</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">Group</p>
+                  </div>
+                </div>
+
+                {/* Global Finance Ltd */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">GF</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Global</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">Finance</p>
+                  </div>
+                </div>
+
+                {/* HealthTech India */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">HT</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">HealthTech</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">India</p>
+                  </div>
+                </div>
+
+                {/* Retail Giants Inc */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">RG</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Retail</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">Giants</p>
+                  </div>
+                </div>
+
+                {/* Mobile Tech Co */}
+                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
+                  <div className="text-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
+                      <span className="text-white font-bold text-xs sm:text-sm">MT</span>
+                    </div>
+                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Mobile</p>
+                    <p className="text-xs sm:text-body-small txt-clr-neutral">Tech Co</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Client Stories Section */}
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 bg-clr-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-6 sm:mb-8 md:mb-12">
+            <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium mb-3 sm:mb-4 md:mb-6 txt-clr-primary">
+              Client Stories
+          </h2>
+            <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-black mb-4 sm:mb-6 md:mb-8 max-w-3xl mx-auto px-4">
+              Discover how we&apos;ve transformed corporate events for leading organizations across industries.
+            </p>
+          </div>
+
+          {/* Featured Work Cards */}
+          {featuredWorks.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+              {featuredWorks.map((work) => (
+                <article key={work.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300">
+                  <div className="relative h-[180px] sm:h-[200px] md:h-[250px] lg:h-[280px] overflow-hidden">
+                    <Image
+                      src={work.image_url}
+                      alt={work.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      quality={95}
+                    />
+                  </div>
+                  
+                  <div className="p-4 sm:p-5 md:p-6 lg:p-8">
+                    <div className="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-3 md:mb-4">
+                      <span className="px-2 py-1 text-xs sm:text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                        {work.category}
+                      </span>
+                      <span className="text-xs sm:text-body-small txt-clr-primary">
+                        {work.date}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-body-medium sm:text-body-large md:text-headline-small mb-2 sm:mb-3 md:mb-4 leading-tight txt-clr-black">
+                      {work.title}
+                    </h3>
+                    
+                    <p className="text-body-small sm:text-body-medium leading-relaxed mb-3 sm:mb-4 md:mb-6 txt-clr-neutral line-clamp-3">
+                      {work.description}
+                    </p>
+                    
+                    <div className="space-y-1 sm:space-y-2 text-xs sm:text-body-small txt-clr-neutral">
+                      {work.client && <div><span className="font-semibold">Client:</span> {work.client}</div>}
+                      {work.attendees && <div><span className="font-semibold">Scale:</span> {work.attendees}</div>}
+                      {work.location && <div><span className="font-semibold">Location:</span> {work.location}</div>}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+
+          {/* CTAs after cards */}
+          <div className="text-center mt-6 sm:mt-8 md:mt-10 lg:mt-12">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Link href="/our-work">
+                <CTAButton variant="golden-primary" size="md" className="sm:size-lg">
+                  View More
+                </CTAButton>
+              </Link>
+              <Link href="/capabilities">
+                <CTAButton variant="golden-secondary" size="md" className="sm:size-lg">
+                  Our Services
+                </CTAButton>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Impact Section */}
+      <section className="relative py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
+            alt="Our Impact"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            quality={95}
+          />
+        </div>
+        <div className="absolute inset-0" style={{ backgroundColor: 'var(--overlay-blue-dark)' }}></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-white text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+            Our Impact
+          </h2>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+            <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
+                500+
+              </div>
+              <div className="text-xs sm:text-body-small md:text-body-medium lg:text-body-large txt-clr-white px-1">
+                Events Delivered
+              </div>
+            </div>
+            
+            <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
+                50+
+              </div>
+              <div className="text-xs sm:text-body-small md:text-body-medium lg:text-body-large txt-clr-white px-1">
+                Fortune 500 Clients
+              </div>
+            </div>
+            
+            <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
+                98%
+              </div>
+              <div className="text-xs sm:text-body-small md:text-body-medium lg:text-body-large txt-clr-white px-1">
+                Client Satisfaction
+              </div>
+            </div>
+            
+            <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
+                15+
+              </div>
+              <div className="text-xs sm:text-body-small md:text-body-medium lg:text-body-large txt-clr-white px-1">
+                Years Experience
+              </div>
+            </div>
+            
+            <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
+                25+
+              </div>
+              <div className="text-xs sm:text-body-small md:text-body-medium lg:text-body-large txt-clr-white px-1">
+                Countries Served
+              </div>
+            </div>
+            
+            <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
+                1000+
+              </div>
+              <div className="text-xs sm:text-body-small md:text-body-medium lg:text-body-large txt-clr-white px-1">
+                Team Members
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Services Section 1: Event Strategy */}
+      <section className="bg-clr-neutral-light">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Image Left */}
+          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-auto lg:min-h-[360px] xl:min-h-[576px] order-2 lg:order-1">
+                      <Image
+              src={services[0].image}
+              alt={services[0].title}
+                        fill
+                        className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+                        quality={95}
+            />
+          </div>
+
+          {/* Content Right */}
+          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14 order-1 lg:order-2">
+            <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
+              <h3 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-primary leading-tight">
+                {services[0].title}
+              </h3>
+              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-black leading-relaxed">
+                {services[0].description}
+              </p>
+              <div className="space-y-2 sm:space-y-3 pt-2">
+                {services[0].features.map((feature, featureIndex) => (
+                  <div key={featureIndex} className="flex items-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium txt-clr-black">{feature}</span>
+                  </div>
+                ))}
+              </div>
+                        </div>
+                      </div>
+                    </div>
+      </section>
+
+      {/* Services Section 2: Corporate Event Management */}
+      <section className="bg-clr-neutral-light">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Content Left */}
+          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14">
+            <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
+              <h3 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-primary leading-tight">
+                {services[1].title}
+              </h3>
+              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-black leading-relaxed">
+                {services[1].description}
+              </p>
+              <div className="space-y-2 sm:space-y-3 pt-2">
+                {services[1].features.map((feature, featureIndex) => (
+                  <div key={featureIndex} className="flex items-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium txt-clr-black">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Image Right */}
+          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-auto lg:min-h-[360px] xl:min-h-[576px]">
+            <Image
+              src={services[1].image}
+              alt={services[1].title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={95}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16 bg-clr-neutral-light">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Link href="/capabilities">
+                <CTAButton variant="golden-primary" size="md" className="sm:size-lg">
+                  Our Capabilities
+                </CTAButton>
+              </Link>
+              <Link href="/our-work">
+                <CTAButton variant="golden-secondary" size="md" className="sm:size-lg">
+                  Client Stories
+                </CTAButton>
+              </Link>
+            </div>
+          </div>
+                  </div>
+      </section>
+
+      {/* Mission & Values Hero */}
+      <section className="relative bg-clr-secondary-medium">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Left Content */}
+          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
+            <div className="max-w-xl space-y-4 sm:space-y-6 md:space-y-8">
+              <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-white leading-tight">
+                Mission & Vision
+              </h2>
+              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white leading-relaxed">
+                We combine the talent, technology and creative power of our agency to connect brands, institutions and associations with their audiences in the digital age.
+              </p>
+              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white leading-relaxed">
+                We act as a bridge for transformation and growth, designing creative and strategic solutions executed with operational excellence.
+                  </p>
+                </div>
+              </div>
+
+          {/* Right Image */}
+          <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[560px]">
+            <Image
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
+              alt="Our Team"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={95}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 bg-clr-neutral-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium mb-3 sm:mb-4 md:mb-6 txt-clr-white">
+            Client Testimonials
+          </h2>
+            <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4 txt-clr-white">
+              Hear from our satisfied clients about their experience working with Golden Lotus.
+                    </p>
+                  </div>
+                </div>
+
+        {/* Testimonials Carousel */}
+        <div className="relative">
+          {testimonialsLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="text-lg txt-clr-white">Loading testimonials...</div>
+            </div>
+          ) : (
+            <>
+            {/* Navigation Arrows */}
+            <button
+                onClick={() => setCurrentTestimonialIndex(Math.max(0, currentTestimonialIndex - 1))}
+                disabled={currentTestimonialIndex === 0}
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-clr-white hover:bg-gray-100 text-clr-black p-2 sm:p-3 rounded-full shadow-xl border-2 border-gray-200 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+              
+            <button
+                onClick={() => setCurrentTestimonialIndex(Math.min(testimonials.length - (isMobile ? 2 : 3), currentTestimonialIndex + 1))}
+                disabled={currentTestimonialIndex >= testimonials.length - (isMobile ? 2 : 3)}
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-clr-white hover:bg-gray-100 text-clr-black p-2 sm:p-3 rounded-full shadow-xl border-2 border-gray-200 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+              {/* Testimonials Grid */}
+              <div className="flex justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl">
+                  {testimonials.slice(currentTestimonialIndex, currentTestimonialIndex + (isMobile ? 2 : 3)).map((testimonial) => (
+                    <div key={testimonial.id} className="bg-clr-white p-4 sm:p-5 md:p-6 shadow-lg">
+                      <div className="text-center">
+                        {testimonial.avatar_url && (
+                          <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mx-auto mb-2 sm:mb-3">
+                            <Image
+                              src={testimonial.avatar_url}
+                              alt={testimonial.name}
+                              fill
+                              className="object-cover"
+                              sizes="48px"
+                              quality={95}
+                            />
+                          </div>
+                        )}
+                        <h4 className="text-sm sm:text-base font-semibold txt-clr-black mb-1">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-xs sm:text-sm txt-clr-primary mb-1">
+                          {testimonial.position}
+                        </p>
+                        <p className="text-xs sm:text-sm txt-clr-neutral mb-2 sm:mb-3">
+                          {testimonial.company}
+                        </p>
+                        <div className="flex items-center justify-center mb-2 sm:mb-3">
+                          {[...Array(5)].map((_, i) => (
+                            <span
+                              key={i}
+                              className={`text-sm sm:text-lg ${
+                                i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'
+                              }`}
+                            >
+                              ★
+                            </span>
+                          ))}
+                        </div>
+                        <blockquote className="text-xs sm:text-sm txt-clr-black leading-relaxed italic text-center">
+                          &ldquo;{testimonial.content}&rdquo;
+                        </blockquote>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+          </div>
+
+          {/* Dots Indicator */}
+              <div className="flex justify-center mt-6 space-x-2">
+                {Array.from({ length: Math.max(1, testimonials.length - (isMobile ? 1 : 2)) }).map((_, index) => (
+              <button
+                key={index}
+                    onClick={() => setCurrentTestimonialIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                      index === currentTestimonialIndex ? 'bg-clr-white' : 'bg-clr-white/50'
+                }`}
+              />
+            ))}
+          </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* Featured Blog Section */}
+      {featuredBlog && (
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 bg-clr-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium mb-3 sm:mb-4 md:mb-6 txt-clr-black">
+              Latest Insights
+            </h2>
+            <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4 txt-clr-black">
+              Stay informed with our latest thoughts on corporate event trends and best practices.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
+            {/* Image */}
+            <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[400px] xl:min-h-[500px]">
+              <Image
+                src={featuredBlog.image_url}
+                alt={featuredBlog.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={95}
+              />
+            </div>
+
+            {/* Content */}
+            <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8">
+              <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <span className="px-2 py-1 text-xs sm:text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                    {featuredBlog.category}
+                  </span>
+                  <span className="text-xs sm:text-body-small txt-clr-primary">
+                    {featuredBlog.read_time}
+                  </span>
+                </div>
+                
+                <h3 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-primary leading-tight">
+                  {featuredBlog.title}
+                </h3>
+                
+                <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-black leading-relaxed">
+                  {featuredBlog.excerpt}
+                </p>
+                
+                <div className="flex items-center space-x-2 text-xs sm:text-body-small txt-clr-neutral">
+                  <span>By {featuredBlog.author}</span>
+                  <span>•</span>
+                  <span>{featuredBlog.date}</span>
+                </div>
+                
+                <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                  <Link href={`/blogs/${featuredBlog.id}`}>
+                    <CTAButton variant="golden-secondary" size="md" className="sm:size-lg">
+                      Read Article
+                    </CTAButton>
+                  </Link>
+                  <Link href="/blogs">
+                    <CTAButton variant="golden-primary" size="md" className="sm:size-lg">
+                      Our Blogs
+                    </CTAButton>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* CTA Section */}
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 txt-clr-white bg-clr-secondary-medium">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium mb-3 sm:mb-4 md:mb-6 px-4 txt-clr-white">
+            Ready to Elevate Your Next Event?
+          </h2>
+          <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
+            Let our team of experts help you create an unforgettable experience that exceeds expectations and delivers measurable results.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <Link href="/contact">
+              <CTAButton variant="white-secondary" size="md" className="sm:size-lg">
+                Get Started Today
+            </CTAButton>
+            </Link>
+            <Link href="/about-us">
+              <CTAButton variant="golden-secondary" size="md" className="sm:size-lg">
+                About Us
+            </CTAButton>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}

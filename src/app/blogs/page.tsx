@@ -1,0 +1,332 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import CTAButton from '@/components/ui/CTAButton';
+
+interface Blog {
+  id: number;
+  title: string;
+  excerpt: string;
+  image_url: string;
+  category: string;
+  date: string;
+  read_time: string;
+  author: string;
+  top_featured: boolean;
+  featured: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export default function BlogsPage() {
+  const [selectedCategory, setSelectedCategory] = useState('Featured');
+  const [allBlogs, setAllBlogs] = useState<Blog[]>([]);
+  const [topFeaturedBlog, setTopFeaturedBlog] = useState<Blog | null>(null);
+  const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const response = await fetch('/api/blogs');
+        const data = await response.json();
+        
+        // Find top featured blog (only 1)
+        const topFeatured = data.find((blog: Blog) => blog.top_featured);
+        
+        // Find featured blogs (up to 6, excluding top featured)
+        const featured = data.filter((blog: Blog) => blog.featured && !blog.top_featured).slice(0, 6);
+        
+        // Regular blogs (not top featured, not featured)
+        const regular = data.filter((blog: Blog) => !blog.top_featured && !blog.featured);
+        
+        // Extract unique categories from all blogs
+        const uniqueCategories = Array.from(new Set(data.map((blog: Blog) => blog.category))) as string[];
+        
+        setTopFeaturedBlog(topFeatured || null);
+        setFeaturedBlogs(featured);
+        setAllBlogs(data); // Store all blogs
+        setCategories(uniqueCategories);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+        setLoading(false);
+      }
+    }
+
+    fetchBlogs();
+  }, []);
+
+  const filteredBlogs = selectedCategory === 'All' 
+    ? allBlogs
+    : selectedCategory === 'Featured'
+    ? featuredBlogs
+    : allBlogs.filter(blog => blog.category === selectedCategory);
+
+  // Sort blogs for better user experience
+  const sortedBlogs = [...filteredBlogs].sort((a, b) => {
+    if (selectedCategory === 'Featured') {
+      // In featured view, show top_featured first, then regular featured
+      if (a.top_featured && !b.top_featured) return -1;
+      if (!a.top_featured && b.top_featured) return 1;
+    }
+    // Then sort by date (newest first)
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg-primary">
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-neutral">Loading blogs...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-bg-primary">
+      <Navbar />
+
+      {/* Hero Section */}
+      <section className="relative bg-clr-secondary-medium">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Left Content */}
+          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
+            <div className="max-w-xl">
+              <h1 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-4 sm:mb-6 md:mb-8 leading-tight txt-clr-white">
+                Insights, trends, and best practices in corporate event management
+              </h1>
+              <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-white">
+                Curated by the Golden Lotus team to help you stay ahead in the world of corporate events and experiential marketing.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Image */}
+          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:min-h-[500px]">
+            <Image
+              src="https://images.unsplash.com/photo-1553484771-371a605b060b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Business Insights and Content"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={95}
+              priority
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Top Featured Blog Section */}
+      {topFeaturedBlog && (
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-clr-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 txt-clr-primary">
+              Featured Article
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+            {/* Featured Image */}
+            <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-auto lg:min-h-[400px]">
+              <Image
+                src={topFeaturedBlog.image_url}
+                alt={topFeaturedBlog.title}
+                fill
+                className="object-cover shadow-lg"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={95}
+              />
+            </div>
+
+            {/* Featured Content */}
+            <div className="flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8">
+              <div className="flex items-center space-x-4">
+                <span className="px-3 py-1 text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                  {topFeaturedBlog.category}
+                </span>
+                <span className="text-body-small txt-clr-primary">
+                  {topFeaturedBlog.date}
+                </span>
+              </div>
+              
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight txt-clr-black">
+                {topFeaturedBlog.title}
+              </h3>
+              
+              <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-neutral">
+                {topFeaturedBlog.excerpt}
+              </p>
+
+              <div className="flex items-center space-x-4">
+                <div>
+                  <p className="text-body-small font-semibold txt-clr-neutral">
+                    By {topFeaturedBlog.author} • {topFeaturedBlog.read_time}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <Link href={`/blogs/${topFeaturedBlog.id}`}>
+                  <CTAButton variant="golden-secondary" size="lg">
+                    Read Full Article
+                  </CTAButton>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* Categories Filter */}
+      <section className="py-8 sm:py-10 md:py-12 lg:py-16 bg-clr-neutral-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 txt-clr-white">
+              Browse by Category
+            </h2>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
+            {/* Featured button first */}
+            {featuredBlogs.length > 0 && (
+              <button
+                onClick={() => setSelectedCategory('Featured')}
+                className={`px-4 sm:px-6 py-2 sm:py-3 text-body-small sm:text-body-medium font-semibold transition-colors duration-200 ${
+                  selectedCategory === 'Featured'
+                    ? 'bg-clr-primary-dark txt-clr-white'
+                    : 'bg-transparent txt-clr-white border border-white/50 hover:bg-clr-white/10'
+                }`}
+              >
+                Featured
+              </button>
+            )}
+            
+            {/* Category buttons from database */}
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 sm:px-6 py-2 sm:py-3 text-body-small sm:text-body-medium font-semibold transition-colors duration-200 ${
+                  selectedCategory === category
+                    ? 'bg-clr-primary-dark txt-clr-white'
+                    : 'bg-transparent txt-clr-white border border-white/50 hover:bg-clr-white/10'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+            
+            {/* All button last */}
+            <button
+              onClick={() => setSelectedCategory('All')}
+              className={`px-4 sm:px-6 py-2 sm:py-3 text-body-small sm:text-body-medium font-semibold transition-colors duration-200 ${
+                selectedCategory === 'All'
+                  ? 'bg-clr-primary-dark txt-clr-white'
+                  : 'bg-transparent txt-clr-white border border-white/50 hover:bg-clr-white/10'
+              }`}
+            >
+              All
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Grid */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-clr-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 txt-clr-primary">
+              Latest Articles
+            </h2>
+            <p className="text-body-medium sm:text-body-large max-w-3xl mx-auto px-4 txt-clr-black">
+              Stay updated with the latest insights and trends in corporate event management.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+            {sortedBlogs.map((blog) => (
+              <article key={blog.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+                <div className="relative h-[200px] sm:h-[250px] md:h-[280px] overflow-hidden">
+                  <Image
+                    src={blog.image_url}
+                    alt={blog.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    quality={95}
+                  />
+                </div>
+                
+                <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-grow">
+                  <div className="flex items-center space-x-3 mb-3 sm:mb-4">
+                    <span className="px-2 py-1 text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                      {blog.category}
+                    </span>
+                    <span className="text-body-small txt-clr-primary">
+                      {blog.date}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-body-large sm:text-headline-small mb-3 sm:mb-4 leading-tight transition-colors duration-200 txt-clr-black">
+                    {blog.title}
+                  </h3>
+                  
+                  <p className="text-body-small sm:text-body-medium leading-relaxed mb-4 sm:mb-6 txt-clr-neutral flex-grow">
+                    {blog.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-body-small txt-clr-primary">
+                      {blog.read_time}
+                    </span>
+                    <Link href={`/blogs/${blog.id}`}>
+                      <CTAButton variant="golden-secondary" size="sm">
+                        Read More
+                      </CTAButton>
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 txt-clr-white bg-clr-secondary-medium">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 px-4 txt-clr-white">
+            Ready to Plan Your Next Event?
+          </h2>
+          <p className="text-body-medium sm:text-body-large txt-clr-white/90 mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
+            Let our team of experts help you create an unforgettable experience that exceeds expectations.
+          </p>
+          <Link href="/contact">
+            <CTAButton
+              variant="white-secondary"
+              size="lg"
+            >
+              Contact Us
+            </CTAButton>
+          </Link>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}
