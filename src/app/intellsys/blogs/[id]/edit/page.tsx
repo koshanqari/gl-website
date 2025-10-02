@@ -75,7 +75,7 @@ export default function EditBlogPage() {
 
       if (response.ok) {
         alert('Blog updated successfully!');
-        router.push('/admin/blogs');
+        router.push('/intellsys/blogs');
       } else {
         alert('Failed to update blog');
       }

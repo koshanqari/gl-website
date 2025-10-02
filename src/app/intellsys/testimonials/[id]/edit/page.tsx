@@ -37,12 +37,12 @@ export default function EditTestimonialPage({ params }: { params: Promise<{ id: 
           });
         } else {
           alert('Testimonial not found');
-          router.push('/admin/testimonials');
+          router.push('/intellsys/testimonials');
         }
       } catch (error) {
         console.error('Error fetching testimonial:', error);
         alert('Error fetching testimonial');
-        router.push('/admin/testimonials');
+        router.push('/intellsys/testimonials');
       } finally {
         setLoading(false);
       }
@@ -66,7 +66,7 @@ export default function EditTestimonialPage({ params }: { params: Promise<{ id: 
       });
 
       if (response.ok) {
-        router.push('/admin/testimonials');
+        router.push('/intellsys/testimonials');
       } else {
         const error = await response.json();
         alert(error.error || 'Failed to update testimonial');

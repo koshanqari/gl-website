@@ -77,7 +77,7 @@ export default function EditOurWorkPage() {
 
       if (response.ok) {
         alert('Project updated successfully!');
-        router.push('/admin/our-work');
+        router.push('/intellsys/our-work');
       } else {
         alert('Failed to update project');
       }

@@ -44,7 +44,7 @@ export default function NewOurWorkPage() {
 
       if (response.ok) {
         alert('Project created successfully!');
-        router.push('/admin/our-work');
+        router.push('/intellsys/our-work');
       } else {
         alert('Failed to create project');
       }

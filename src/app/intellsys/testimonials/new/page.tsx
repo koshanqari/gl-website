@@ -30,7 +30,7 @@ export default function NewTestimonialPage() {
       });
 
       if (response.ok) {
-        router.push('/admin/testimonials');
+        router.push('/intellsys/testimonials');
       } else {
         const error = await response.json();
         alert(error.error || 'Failed to create testimonial');

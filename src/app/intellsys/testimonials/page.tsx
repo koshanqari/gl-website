@@ -80,7 +80,7 @@ export default function TestimonialsPage() {
             </p>
           </div>
           <button
-            onClick={() => router.push('/admin/testimonials/new')}
+            onClick={() => router.push('/intellsys/testimonials/new')}
             className="px-4 py-2 bg-primary txt-clr-white rounded-lg hover:bg-primary-dark transition-colors"
           >
             Add New Testimonial
@@ -166,7 +166,7 @@ export default function TestimonialsPage() {
                     <td className="px-4 py-3">
                       <div className="flex space-x-2">
                         <button
-                          onClick={() => router.push(`/admin/testimonials/${testimonial.id}/edit`)}
+                          onClick={() => router.push(`/intellsys/testimonials/${testimonial.id}/edit`)}
                           className="px-3 py-1 bg-blue-500 txt-clr-white rounded text-sm hover:bg-blue-600 transition-colors"
                         >
                           Edit

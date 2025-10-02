@@ -41,7 +41,7 @@ export default function NewBlogPage() {
 
       if (response.ok) {
         alert('Blog created successfully!');
-        router.push('/admin/blogs');
+        router.push('/intellsys/blogs');
       } else {
         alert('Failed to create blog');
       }

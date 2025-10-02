@@ -150,7 +150,7 @@ export default function AdminOurWorkPage() {
             </p>
           </div>
           <Link
-            href="/admin/our-work/new"
+            href="/intellsys/our-work/new"
             className="bg-primary txt-clr-white px-6 py-3 rounded font-semibold hover:bg-primary-dark transition-colors inline-flex items-center"
           >
             Add New Project
@@ -222,7 +222,7 @@ export default function AdminOurWorkPage() {
           <div className="bg-white rounded-lg shadow p-12 text-center">
             <p className="text-body-large txt-clr-neutral mb-4">No projects found</p>
             <Link
-              href="/admin/our-work/new"
+              href="/intellsys/our-work/new"
               className="text-primary hover:underline"
             >
               Add your first project
@@ -277,7 +277,7 @@ export default function AdminOurWorkPage() {
                     </button>
                     <div className="flex items-center space-x-2">
                       <Link
-                        href={`/admin/our-work/${work.id}/edit`}
+                        href={`/intellsys/our-work/${work.id}/edit`}
                         className="flex-1 px-3 py-2 text-center text-body-small bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
                       >
                         Edit

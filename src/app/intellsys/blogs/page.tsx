@@ -192,7 +192,7 @@ export default function AdminBlogsPage() {
             </p>
           </div>
           <Link
-            href="/admin/blogs/new"
+            href="/intellsys/blogs/new"
             className="bg-primary txt-clr-white px-6 py-3 rounded font-semibold hover:bg-primary-dark transition-colors inline-flex items-center"
           >
             Add New Blog
@@ -265,7 +265,7 @@ export default function AdminBlogsPage() {
           <div className="bg-white rounded-lg shadow p-12 text-center">
             <p className="text-body-large txt-clr-neutral mb-4">No blogs found</p>
             <Link
-              href="/admin/blogs/new"
+              href="/intellsys/blogs/new"
               className="text-primary hover:underline"
             >
               Create your first blog post
@@ -360,7 +360,7 @@ export default function AdminBlogsPage() {
                       <td className="px-6 py-4">
                         <div className="flex items-center space-x-2">
                           <Link
-                            href={`/admin/blogs/${blog.id}/edit`}
+                            href={`/intellsys/blogs/${blog.id}/edit`}
                             className="px-3 py-1 text-body-small bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
                           >
                             Edit
