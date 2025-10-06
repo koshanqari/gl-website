@@ -99,10 +99,10 @@ export default function CapabilitiesPage() {
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-display-large txt-clr-white mb-6">
+            <h1 className="section-heading section-heading-onColor mb-3 sm:mb-4 sm:mb-6">
               Our Capabilities
             </h1>
-            <p className="text-body-large txt-clr-white mb-8 drop-shadow-md">
+            <p className="text-body-small sm:text-body-medium sm:text-body-large mb-8 drop-shadow-md txt-clr-white">
               Comprehensive event solutions designed to deliver exceptional experiences and measurable results.
             </p>
           </div>
@@ -110,18 +110,18 @@ export default function CapabilitiesPage() {
       </section>
 
       {/* Capabilities Section */}
-      <section className="py-16 bg-clr-white">
+      <section className="py-12 sm:py-16 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-body-large txt-clr-neutral max-w-3xl mx-auto">
+          <div className="text-center mb-6 sm:mb-10 md:mb-12">
+            <p className="text-body-small sm:text-body-medium sm:text-body-large max-w-3xl mx-auto">
               Comprehensive event management services designed to deliver exceptional experiences and measurable results.
             </p>
           </div>
 
           {/* Event Strategy & Conceptualization Service */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <div className="lg:col-span-1">
-              <div className="relative h-[550px] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 sm:mb-10 md:mb-12">
+            <div className="lg:col-span-1 order-1">
+              <div className="relative h-[220px] sm:h-[360px] md:h-[460px] lg:h-[550px] overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Event Strategy & Conceptualization"
@@ -131,37 +131,37 @@ export default function CapabilitiesPage() {
                   quality={95}
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-end">
-                  <div className="p-6 txt-clr-white">
-                    <h3 className="text-display-small mb-2">Defining event objectives, theme, and target outcomes</h3>
+                  <div className="p-3 sm:p-6">
+                    <h3 className="text-headline-small sm:text-display-small mb-1 sm:mb-2 txt-clr-white">Defining event objectives, theme, and target outcomes</h3>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-1">
-              <div className="bg-clr-white shadow-lg p-8 h-[550px] flex flex-col">
-                <div className="mb-4">
-                  <span className="bg-primary txt-clr-white px-3 py-1 text-body-medium font-semibold">
+            <div className="lg:col-span-1 order-2">
+              <div className="bg-clr-white shadow-lg p-3 sm:p-6 md:p-8 h-auto lg:h-[550px] flex flex-col text-left">
+                <div className="mb-2 sm:mb-4">
+                  <span className="tag">
                     Event Strategy
                   </span>
                 </div>
-                <h3 className="text-display-small txt-clr-black mb-4">
+                <h3 className="text-headline-small sm:text-display-small topic-heading mb-2 sm:mb-4">
                   Event Strategy & Conceptualization
                 </h3>
-                <p className="text-body-large txt-clr-neutral mb-6">
+                <p className="text-body-small sm:text-body-medium sm:text-body-large mb-3 sm:mb-6">
                   Our strategic approach ensures every event is built on a solid foundation of clear objectives, compelling themes, and measurable outcomes that align with your business goals.
                 </p>
-                <div className="space-y-3 mb-6 flex-grow">
-                  <div className="flex items-start">
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-6 flex-grow">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Strategic event planning and objective setting</span>
+                    <span className="text-body-small sm:text-body-medium">Strategic event planning and objective setting</span>
                   </div>
-                  <div className="flex items-start">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Theme development and creative conceptualization</span>
+                    <span className="text-body-small sm:text-body-medium">Theme development and creative conceptualization</span>
                   </div>
-                  <div className="flex items-start">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Target audience analysis and engagement strategy</span>
+                    <span className="text-body-small sm:text-body-medium">Target audience analysis and engagement strategy</span>
                   </div>
                 </div>
               </div>
@@ -169,38 +169,9 @@ export default function CapabilitiesPage() {
           </div>
 
           {/* Venue & Logistics Management Service */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <div className="lg:col-span-1">
-              <div className="bg-clr-white shadow-lg p-8 h-[550px] flex flex-col">
-                <div className="mb-4">
-                  <span className="bg-primary txt-clr-white px-3 py-1 text-body-medium font-semibold">
-                    Venue & Logistics
-                  </span>
-                </div>
-                <h3 className="text-display-small txt-clr-black mb-4">
-                  Venue & Logistics Management
-                </h3>
-                <p className="text-body-large txt-clr-neutral mb-6">
-                  We handle all aspects of venue selection and logistics coordination to ensure your event runs smoothly from planning to execution, with meticulous attention to every detail.
-                </p>
-                <div className="space-y-3 mb-6 flex-grow">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Venue scouting, negotiation, and booking</span>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Logistics planning and coordination</span>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Space optimization and layout design</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-1">
-              <div className="relative h-[550px] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 sm:mb-10 md:mb-12">
+            <div className="lg:col-span-1 order-1 lg:order-1">
+              <div className="relative h-[220px] sm:h-[360px] md:h-[460px] lg:h-[550px] overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1688269910939-4c36b34402b0?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
                   alt="Venue & Logistics Management"
@@ -210,8 +181,37 @@ export default function CapabilitiesPage() {
                   quality={95}
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-end">
-                  <div className="p-6 txt-clr-white">
-                    <h3 className="text-display-small mb-2">Comprehensive venue selection and logistics coordination</h3>
+                  <div className="p-3 sm:p-6">
+                    <h3 className="text-headline-small sm:text-display-small mb-1 sm:mb-2 txt-clr-white">Comprehensive venue selection and logistics coordination</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-span-1 order-2 lg:order-2">
+              <div className="bg-clr-white shadow-lg p-3 sm:p-6 md:p-8 h-auto lg:h-[550px] flex flex-col text-left">
+                <div className="mb-2 sm:mb-4">
+                  <span className="tag">
+                    Venue & Logistics
+                  </span>
+                </div>
+                <h3 className="text-headline-small sm:text-display-small topic-heading mb-2 sm:mb-4">
+                  Venue & Logistics Management
+                </h3>
+                <p className="text-body-small sm:text-body-medium sm:text-body-large mb-3 sm:mb-6">
+                  We handle all aspects of venue selection and logistics coordination to ensure your event runs smoothly from planning to execution, with meticulous attention to every detail.
+                </p>
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-6 flex-grow">
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Venue scouting, negotiation, and booking</span>
+                  </div>
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Logistics planning and coordination</span>
+                  </div>
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Space optimization and layout design</span>
                   </div>
                 </div>
               </div>
@@ -219,9 +219,9 @@ export default function CapabilitiesPage() {
           </div>
 
           {/* Audio-Visual & Technical Production Service */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <div className="lg:col-span-1">
-              <div className="relative h-[550px] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 sm:mb-10 md:mb-12">
+            <div className="lg:col-span-1 order-1">
+              <div className="relative h-[220px] sm:h-[360px] md:h-[460px] lg:h-[550px] overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1595020738512-66672a9d72a9?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
                   alt="Audio-Visual & Technical Production"
@@ -231,37 +231,37 @@ export default function CapabilitiesPage() {
                   quality={95}
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-end">
-                  <div className="p-6 txt-clr-white">
-                    <h3 className="text-display-small mb-2">Professional audio-visual setup and technical support</h3>
+                  <div className="p-3 sm:p-6">
+                    <h3 className="text-headline-small sm:text-display-small mb-1 sm:mb-2 txt-clr-white">Professional audio-visual setup and technical support</h3>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-1">
-              <div className="bg-clr-white shadow-lg p-8 h-[550px] flex flex-col">
-                <div className="mb-4">
-                  <span className="bg-primary txt-clr-white px-3 py-1 text-body-medium font-semibold">
+            <div className="lg:col-span-1 order-2">
+              <div className="bg-clr-white shadow-lg p-3 sm:p-6 md:p-8 h-auto lg:h-[550px] flex flex-col text-left">
+                <div className="mb-2 sm:mb-4">
+                  <span className="tag">
                     AV & Technical
                   </span>
                 </div>
-                <h3 className="text-display-small txt-clr-black mb-4">
+                <h3 className="text-headline-small sm:text-display-small topic-heading mb-2 sm:mb-4">
                   Audio-Visual & Technical Production
                 </h3>
-                <p className="text-body-large txt-clr-neutral mb-6">
+                <p className="text-body-small sm:text-body-medium sm:text-body-large mb-3 sm:mb-6">
                   Our technical expertise ensures flawless audio-visual experiences with cutting-edge equipment, professional setup, and seamless execution for all your event needs.
                 </p>
-                <div className="space-y-3 mb-6 flex-grow">
-                  <div className="flex items-start">
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-6 flex-grow">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Audio-visual equipment setup and management</span>
+                    <span className="text-body-small sm:text-body-medium">Audio-visual equipment setup and management</span>
                   </div>
-                  <div className="flex items-start">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Technical production and live streaming</span>
+                    <span className="text-body-small sm:text-body-medium">Technical production and live streaming</span>
                   </div>
-                  <div className="flex items-start">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Sound, lighting, and multimedia coordination</span>
+                    <span className="text-body-small sm:text-body-medium">Sound, lighting, and multimedia coordination</span>
                   </div>
                 </div>
               </div>
@@ -269,38 +269,9 @@ export default function CapabilitiesPage() {
           </div>
 
           {/* Vendor & Supplier Coordination Service */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <div className="lg:col-span-1">
-              <div className="bg-clr-white shadow-lg p-8 h-[550px] flex flex-col">
-                <div className="mb-4">
-                  <span className="bg-primary txt-clr-white px-3 py-1 text-body-medium font-semibold">
-                    Vendor Management
-                  </span>
-                </div>
-                <h3 className="text-display-small txt-clr-black mb-4">
-                  Vendor & Supplier Coordination
-                </h3>
-                <p className="text-body-large txt-clr-neutral mb-6">
-                  We manage your entire vendor ecosystem with strategic sourcing, quality assurance, and seamless coordination to ensure every element of your event meets the highest standards.
-                </p>
-                <div className="space-y-3 mb-6 flex-grow">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Vendor sourcing and selection</span>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Contract management and quality assurance</span>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Supplier coordination and performance monitoring</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-1">
-              <div className="relative h-[550px] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 sm:mb-10 md:mb-12">
+            <div className="lg:col-span-1 order-1 lg:order-2">
+              <div className="relative h-[220px] sm:h-[360px] md:h-[460px] lg:h-[550px] overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
                   alt="Vendor & Supplier Coordination"
@@ -310,8 +281,37 @@ export default function CapabilitiesPage() {
                   quality={95}
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-end">
-                  <div className="p-6 txt-clr-white">
-                    <h3 className="text-display-small mb-2">End-to-end vendor sourcing and coordination</h3>
+                  <div className="p-3 sm:p-6">
+                    <h3 className="text-headline-small sm:text-display-small mb-1 sm:mb-2 txt-clr-white">End-to-end vendor sourcing and coordination</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-span-1 order-2 lg:order-1">
+              <div className="bg-clr-white shadow-lg p-3 sm:p-6 md:p-8 h-auto lg:h-[550px] flex flex-col text-left">
+                <div className="mb-2 sm:mb-4">
+                  <span className="tag">
+                    Vendor Management
+                  </span>
+                </div>
+                <h3 className="text-headline-small sm:text-display-small topic-heading mb-2 sm:mb-4">
+                  Vendor & Supplier Coordination
+                </h3>
+                <p className="text-body-small sm:text-body-medium sm:text-body-large mb-3 sm:mb-6">
+                  We manage your entire vendor ecosystem with strategic sourcing, quality assurance, and seamless coordination to ensure every element of your event meets the highest standards.
+                </p>
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-6 flex-grow">
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Vendor sourcing and selection</span>
+                  </div>
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Contract management and quality assurance</span>
+                  </div>
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Supplier coordination and performance monitoring</span>
                   </div>
                 </div>
               </div>
@@ -319,9 +319,9 @@ export default function CapabilitiesPage() {
           </div>
 
           {/* Registration, Guest Management & Hospitality Service */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <div className="lg:col-span-1">
-              <div className="relative h-[550px] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 sm:mb-10 md:mb-12">
+            <div className="lg:col-span-1 order-1">
+              <div className="relative h-[220px] sm:h-[360px] md:h-[460px] lg:h-[550px] overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
                   alt="Registration, Guest Management & Hospitality"
@@ -331,37 +331,37 @@ export default function CapabilitiesPage() {
                   quality={95}
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-end">
-                  <div className="p-6 txt-clr-white">
-                    <h3 className="text-display-small mb-2">Complete guest experience from registration to hospitality</h3>
+                  <div className="p-3 sm:p-6">
+                    <h3 className="text-headline-small sm:text-display-small mb-1 sm:mb-2 txt-clr-white">Complete guest experience from registration to hospitality</h3>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-1">
-              <div className="bg-clr-white shadow-lg p-8 h-[550px] flex flex-col">
-                <div className="mb-4">
-                  <span className="bg-primary txt-clr-white px-3 py-1 text-body-medium font-semibold">
+            <div className="lg:col-span-1 order-2">
+              <div className="bg-clr-white shadow-lg p-3 sm:p-6 md:p-8 h-auto lg:h-[550px] flex flex-col text-left">
+                <div className="mb-2 sm:mb-4">
+                  <span className="tag">
                     Guest Management
                   </span>
                 </div>
-                <h3 className="text-display-small txt-clr-black mb-4">
+                <h3 className="text-headline-small sm:text-display-small topic-heading mb-2 sm:mb-4">
                   Registration, Guest Management & Hospitality
                 </h3>
-                <p className="text-body-large txt-clr-neutral mb-6">
+                <p className="text-body-small sm:text-body-medium sm:text-body-large mb-3 sm:mb-6">
                   We create exceptional guest experiences from the moment they register through the entire event journey, ensuring every interaction reflects your brand&apos;s commitment to excellence.
                 </p>
-                <div className="space-y-3 mb-6 flex-grow">
-                  <div className="flex items-start">
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-6 flex-grow">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Registration system setup and management</span>
+                    <span className="text-body-small sm:text-body-medium">Registration system setup and management</span>
                   </div>
-                  <div className="flex items-start">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Guest experience and hospitality services</span>
+                    <span className="text-body-small sm:text-body-medium">Guest experience and hospitality services</span>
                   </div>
-                  <div className="flex items-start">
+                  <div className="flex items-start justify-start">
                     <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">RSVP management and attendee coordination</span>
+                    <span className="text-body-small sm:text-body-medium">RSVP management and attendee coordination</span>
                   </div>
                 </div>
               </div>
@@ -369,38 +369,9 @@ export default function CapabilitiesPage() {
           </div>
 
           {/* Marketing, Communication & Engagement Service */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <div className="lg:col-span-1">
-              <div className="bg-clr-white shadow-lg p-8 h-[550px] flex flex-col">
-                <div className="mb-4">
-                  <span className="bg-primary txt-clr-white px-3 py-1 text-body-medium font-semibold">
-                    Marketing & Engagement
-                  </span>
-                </div>
-                <h3 className="text-display-small txt-clr-black mb-4">
-                  Marketing, Communication & Engagement
-                </h3>
-                <p className="text-body-large txt-clr-neutral mb-6">
-                  We develop comprehensive marketing strategies and engagement programs that build anticipation, drive attendance, and create lasting connections with your target audience.
-                </p>
-                <div className="space-y-3 mb-6 flex-grow">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Event marketing and promotional campaigns</span>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Communication strategy and content creation</span>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-medium txt-clr-neutral">Audience engagement and interaction programs</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-1">
-              <div className="relative h-[550px] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 sm:mb-10 md:mb-12">
+            <div className="lg:col-span-1 order-1 lg:order-2">
+              <div className="relative h-[220px] sm:h-[360px] md:h-[460px] lg:h-[550px] overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
                   alt="Marketing, Communication & Engagement"
@@ -410,8 +381,37 @@ export default function CapabilitiesPage() {
                   quality={95}
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-end">
-                  <div className="p-6 txt-clr-white">
-                    <h3 className="text-display-small mb-2">Strategic marketing and audience engagement</h3>
+                  <div className="p-3 sm:p-6">
+                    <h3 className="text-headline-small sm:text-display-small mb-1 sm:mb-2 txt-clr-white">Strategic marketing and audience engagement</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-span-1 order-2 lg:order-1">
+              <div className="bg-clr-white shadow-lg p-3 sm:p-6 md:p-8 h-auto lg:h-[550px] flex flex-col text-left">
+                <div className="mb-2 sm:mb-4">
+                  <span className="tag">
+                    Marketing & Engagement
+                  </span>
+                </div>
+                <h3 className="text-headline-small sm:text-display-small topic-heading mb-2 sm:mb-4">
+                  Marketing, Communication & Engagement
+                </h3>
+                <p className="text-body-small sm:text-body-medium sm:text-body-large mb-3 sm:mb-6">
+                  We develop comprehensive marketing strategies and engagement programs that build anticipation, drive attendance, and create lasting connections with your target audience.
+                </p>
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-6 flex-grow">
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Event marketing and promotional campaigns</span>
+                  </div>
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Communication strategy and content creation</span>
+                  </div>
+                  <div className="flex items-start justify-start">
+                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
+                    <span className="text-body-small sm:text-body-medium">Audience engagement and interaction programs</span>
                   </div>
                 </div>
               </div>
@@ -421,20 +421,20 @@ export default function CapabilitiesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 txt-clr-white bg-clr-secondary-medium">
+      <section className="py-16 footer-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-display-medium txt-clr-white mb-6">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium section-heading-onColor mb-3 sm:mb-4 sm:mb-6">
             Ready to Plan Your Next Event?
           </h2>
-          <p className="text-body-large txt-clr-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-body-small sm:text-body-medium mb-8 max-w-2xl mx-auto">
             Let&apos;s discuss how we can bring your vision to life with our comprehensive event management capabilities.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton variant="white-primary" size="lg">
-              Get Started Today
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-center">
+            <CTAButton variant="white-primary" size="lg" className="w-full sm:w-auto">
+              Get Started
             </CTAButton>
-            <CTAButton variant="white-secondary" size="lg">
-              View Our Portfolio
+            <CTAButton variant="white-secondary" size="lg" className="w-full sm:w-auto">
+              Portfolio
             </CTAButton>
           </div>
         </div>

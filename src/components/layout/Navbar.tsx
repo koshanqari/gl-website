@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="text-2xl font-bold text-primary">
+            <div className="text-2xl logo-text">
               Golden Lotus
             </div>
           </Link>
@@ -31,7 +31,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-body-medium text-text-primary hover:text-primary transition-colors duration-200"
+                className="text-body-medium nav-link"
               >
                 {item.name}
               </Link>
@@ -41,7 +41,7 @@ const Navbar = () => {
           {/* CTA Button - Desktop */}
           <div className="hidden md:block">
             <Link href="/contact">
-              <CTAButton variant="golden-primary" size="lg">
+              <CTAButton variant="accent-primary" size="lg">
                 Plan My Event
               </CTAButton>
             </Link>
@@ -50,13 +50,13 @@ const Navbar = () => {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2 sm:space-x-4">
             <Link href="/contact">
-              <CTAButton variant="golden-primary" size="md">
+              <CTAButton variant="accent-primary" size="md">
                 Plan My Event
               </CTAButton>
             </Link>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-text-primary hover:text-primary focus:outline-none focus:text-primary"
+              className="nav-menu-button focus:outline-none"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMobileMenuOpen ? (
@@ -77,7 +77,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-3 text-body-medium text-text-primary hover:text-primary transition-colors duration-200"
+                  className="block px-3 py-3 text-body-medium nav-link"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}

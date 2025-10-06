@@ -20,49 +20,52 @@
 
 @layer base {
   :root {
-    /* 🎨 COMPLETE DESIGN SYSTEM - ONE FILE TO RULE THEM ALL */
-    /* Change any value here to update the entire website */
     
     /* ======================================== */
-    /* 🎨 COLOR PALETTE - PRIMARY FOUNDATION */
+    /* 🎨 COLOR PALETTE - FOUNDATION */
     /* ======================================== */
     
-    /* Primary Colors (Golden) */
-    --color-primary-light: #E0C28F;     /* Light Golden */
-    --color-primary-medium: #D4AF37;    /* Medium Golden (Main) */
-    --color-primary-dark: #B8860B;      /* Dark Golden */
+    /* Primary Colors  */
+    --color-primary-light: #4A90E2;     /* Light Blue */
+    --color-primary-medium: #0A1128;    /* Medium Blue */
+    --color-primary-dark: #01133B;      /* Dark Blue - Hero Section, Footer */
     
-    /* Secondary Colors (Blue) */
+    /* Secondary Colors  */
     --color-secondary-light: #4A90E2;   /* Light Blue */
-    --color-secondary-medium: #0A1128;  /* Medium Blue (Main) */
-    --color-secondary-dark: #051A3A;    /* Dark Blue */
+    --color-secondary-medium: #0A1128;  /* Medium Blue */
+    --color-secondary-dark: #1c3f77;    /* Dark Blue - Featured Projects Heading */
     
-    /* Neutral Colors (Grey) */
+    /* Accent Colors - Golden (#d29f22) */
+    --color-accent-light: #E0C28F;      /* Light Golden */
+    --color-accent-medium: #D4AF37;     /* Medium Golden */
+    --color-accent-dark: #d29f22;       /* Dark Golden - buttons, CTA, H1s on white */
+    
+    /* Neutral Colors */
     --color-neutral-light: #F8F9FA;     /* Light Grey */
     --color-neutral-medium: #6B7280;    /* Medium Grey */
-    --color-neutral-dark: #374151;       /* Dark Grey */
-    
-    /* Pure Colors */
-    --color-white: #FFFFFF;              /* Pure White */
-    --color-black: #000000;              /* Pure Black */
-    
+    --color-neutral-dark: #374151;      /* Dark Grey */
+    --color-white: #FFFFFF;             /* White - text on colored bg */
+    --color-black: #000000;             /* Black - text on white bg (except h1) */
+
+    /* Semantic Colors*/
+    --warning-color: #d29f22;
+    --success-color: #008000;
+    --error-color: #ff0000;
+    --info-color: #0000ff;
+
     /* ======================================== */
     /* 🎯 SEMANTIC COLOR MAPPING */
     /* ======================================== */
     
-    /* Button Colors */
-    --cta-golden-color: var(--color-primary-dark);
-    --cta-white-color: var(--color-white);
     
     /* Component Colors */
-    --category-tag-bg: var(--color-primary-medium);
-    --overlay-brand: rgba(113, 93, 28, 0.884);  /* Brand overlay with 90% opacity */
-    --overlay-blue-dark: rgba(5, 26, 58, 0.8);   /* Blue dark overlay with 80% opacity */
-    --overlay-grey: rgba(128, 128, 128, 0.85);   /* Grey overlay with 85% opacity */
+    --overlay-primary: rgba(1, 19, 59, 0.8);     /* Primary overlay */
+    --overlay-secondary: rgba(0, 3, 59, 0.8);    /* Secondary overlay */
+    --overlay-accent: rgba(210, 159, 34, 0.1);   /* Accent overlay */
     
     /* Typography */
     --font-primary: 'Montserrat', system-ui, sans-serif;     /* Headings */
-    --font-secondary: 'Source Sans 3', system-ui, sans-serif; /* Body text */
+    --font-secondary: 'Montserrat', system-ui, sans-serif; /* Body text */
     
     /* Spacing */
     --spacing-xs: 4px;
@@ -121,6 +124,173 @@
     @apply w-full px-4 py-3 border border-gray-400 rounded-4 text-body-large placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary;
   }
 
+
+      /*-------Text Classes---------*/
+      .logo-text {
+        color: var(--color-accent-dark);
+        font-weight: bold;
+      }
+      
+      .nav-link {
+        color: var(--color-primary-dark);
+        transition: color 0.2s ease-in-out;
+      }
+      
+      .nav-link:hover {
+        color: var(--color-accent-dark);
+      }
+      
+      .nav-menu-button {
+        color: var(--color-primary-dark);
+        transition: color 0.2s ease-in-out;
+      }
+      
+      .nav-menu-button:hover,
+      .nav-menu-button:focus {
+        color: var(--color-accent-dark);
+      }
+      .section-heading-onwhite {
+        color: var(--color-accent-dark);  /* 🎨 Section headings on WHITE backgrounds - Change accent-dark color to update! */
+      }
+      .section-heading-onColor {
+        color: var(--color-white);  /* 🎨 Section headings on COLORED backgrounds - Always white for contrast */
+      }
+      
+      /* Responsive Section Heading Size */
+      .section-heading {
+        font-size: clamp(1.75rem, 6vw, 3.25rem); /* ~28px on mobile up to ~52px on large */
+        line-height: 1.15;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      
+      .topic-heading {
+        color: var(--color-accent-dark);  /* 🎨 Topic headings (project titles, article titles, etc.) - Change primary-dark color to update! */
+      }
+      
+      
+      .footer-heading {
+        color: var(--color-accent-dark);  /* 🎨 Footer headings (Golden Lotus, Services, Company, Get In Touch) - Change accent-dark color to update! */
+      }
+      
+      /* Basic Text Color Classes - Used throughout homepage */
+      .txt-clr-white {
+        color: var(--color-white);  /* 🎨 White text on colored backgrounds - Change white color to update! */
+      }
+      
+      .txt-clr-black {
+        color: var(--color-black);  /* 🎨 Black text on white backgrounds - Change black color to update! */
+      }
+      
+      .txt-clr-neutral {
+        color: var(--color-neutral-medium);  /* 🎨 Neutral grey text (subtitles, descriptions) - Change neutral-dark color to update! */
+      }
+
+      /*-------------------------------------------*/
+
+      /* ------------------------------ Component Classes --------------------------------- */
+
+
+
+      /* Hero Section Classes */
+      .hero-section {
+        background-color: var(--color-primary-dark);
+        color: var(--color-white);
+      }
+
+      /* Footer Classes */
+      .footer-section {
+        background-color: var(--color-primary-dark);
+        color: var(--color-white);
+      }
+
+      /* Section Background Classes */
+      .primary-section-bg {
+        background-color: var(--color-primary-dark);
+        color: var(--color-white);
+      }
+
+      .secondary-section-bg {
+        background-color: var(--color-secondary-dark);
+        color: var(--color-white);
+      }
+
+      /* Tag Classes */
+      .tag {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 0.25rem;
+        background-color: var(--color-primary-dark);
+        color: var(--color-white);
+      }
+
+      /* Button Classes */
+      .cta-btn-accent-primary {
+        border: 2px solid transparent;
+        box-sizing: border-box;
+        transition: all 0.3s ease-in-out;
+        background-color: var(--color-accent-dark);
+        color: var(--color-white);
+      }
+      .cta-btn-accent-primary:hover,
+      .cta-btn-accent-primary:active,
+      .cta-btn-accent-primary:focus {
+        background-color: transparent;
+        color: var(--color-accent-dark);
+        border-color: var(--color-accent-dark);
+      }
+      .cta-btn-accent-secondary {
+        border: 2px solid transparent;
+        box-sizing: border-box;
+        transition: all 0.3s ease-in-out;
+        background-color: transparent;
+        color: var(--color-accent-dark);
+        border-color: var(--color-accent-dark);
+      }
+      .cta-btn-accent-secondary:hover,
+      .cta-btn-accent-secondary:active,
+      .cta-btn-accent-secondary:focus {
+        background-color: var(--color-accent-dark);
+        color: var(--color-white);
+      }
+      .cta-btn-white-primary {
+        border: 2px solid transparent;
+        box-sizing: border-box;
+        transition: all 0.3s ease-in-out;
+        background-color: var(--color-white);
+        color: var(--color-accent-dark);
+      }
+      .cta-btn-white-primary:hover,
+      .cta-btn-white-primary:active,
+      .cta-btn-white-primary:focus {
+        background-color: transparent;
+        color: var(--color-white);
+        border-color: var(--color-white);
+      }
+      .cta-btn-white-secondary {
+        border: 2px solid transparent;
+        box-sizing: border-box;
+        transition: all 0.3s ease-in-out;
+        background-color: transparent;
+        color: var(--color-white);
+        border-color: var(--color-white);
+      }
+      .cta-btn-white-secondary:hover,
+      .cta-btn-white-secondary:active,
+      .cta-btn-white-secondary:focus {
+        background-color: var(--color-white);
+        color: var(--color-accent-dark);
+      }
+
+      /*-----------------------------------------*/
+
+
+
+
+
+
       /* Color Palette Background Classes */
       .bg-clr-primary-light {
         background-color: var(--color-primary-light);
@@ -140,6 +310,15 @@
       .bg-clr-secondary-dark {
         background-color: var(--color-secondary-dark);
       }
+      .bg-clr-accent-light {
+        background-color: var(--color-accent-light);
+      }
+      .bg-clr-accent-medium {
+        background-color: var(--color-accent-medium);
+      }
+      .bg-clr-accent-dark {
+        background-color: var(--color-accent-dark);
+      }
       .bg-clr-neutral-light {
         background-color: var(--color-neutral-light);
       }
@@ -155,95 +334,16 @@
       .bg-clr-black {
         background-color: var(--color-black);
       }
-      
-      /* Text Color Classes */
-      .txt-clr-white {
-        color: var(--color-white);
-      }
-      .txt-clr-black {
-        color: var(--color-black);
-      }
-      .txt-clr-primary {
-        color: var(--color-primary-dark);
-      }
-      .txt-clr-secondary {
-        color: var(--color-secondary-dark);
-      }
-      .txt-clr-neutral {
-        color: var(--color-neutral-dark);
-      }
+
+
+
 
   /* Component Styles */
   .category-tag {
     background-color: var(--category-tag-bg);
   }
 
-  .text-heading-color {
-    color: var(--color-primary-dark);
-  }
 
 
-  /* Golden Primary Button */
-  .cta-btn-golden-primary {
-    border: 2px solid transparent;
-    box-sizing: border-box;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--cta-golden-color);
-    color: var(--cta-white-color);
-  }
-  .cta-btn-golden-primary:hover,
-  .cta-btn-golden-primary:active,
-  .cta-btn-golden-primary:focus {
-    background-color: transparent;
-    color: var(--cta-golden-color);
-    border-color: var(--cta-golden-color);
-  }
 
-  /* Golden Secondary Button */
-  .cta-btn-golden-secondary {
-    border: 2px solid transparent;
-    box-sizing: border-box;
-    transition: all 0.3s ease-in-out;
-    background-color: transparent;
-    color: var(--cta-golden-color);
-    border-color: var(--cta-golden-color);
-  }
-  .cta-btn-golden-secondary:hover,
-  .cta-btn-golden-secondary:active,
-  .cta-btn-golden-secondary:focus {
-    background-color: var(--cta-golden-color);
-    color: var(--cta-white-color);
-  }
-
-  /* White Primary Button */
-  .cta-btn-white-primary {
-    border: 2px solid transparent;
-    box-sizing: border-box;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--cta-white-color);
-    color: var(--cta-golden-color);
-  }
-  .cta-btn-white-primary:hover,
-  .cta-btn-white-primary:active,
-  .cta-btn-white-primary:focus {
-    background-color: transparent;
-    color: var(--cta-white-color);
-    border-color: var(--cta-white-color);
-  }
-
-  /* White Secondary Button */
-  .cta-btn-white-secondary {
-    border: 2px solid transparent;
-    box-sizing: border-box;
-    transition: all 0.3s ease-in-out;
-    background-color: transparent;
-    color: var(--cta-white-color);
-    border-color: var(--cta-white-color);
-  }
-  .cta-btn-white-secondary:hover,
-  .cta-btn-white-secondary:active,
-  .cta-btn-white-secondary:focus {
-    background-color: var(--cta-white-color);
-    color: var(--cta-golden-color);
-  }
 }

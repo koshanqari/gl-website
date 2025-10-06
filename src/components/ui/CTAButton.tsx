@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface CTAButtonProps {
-  variant: 'golden-primary' | 'golden-secondary' | 'white-primary' | 'white-secondary';
+  variant: 'accent-primary' | 'accent-secondary' | 'white-primary' | 'white-secondary';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   className?: string;
@@ -28,8 +28,8 @@ const CTAButton: React.FC<CTAButtonProps> = ({
 
   // Variant classes
   const variantClasses = {
-    'golden-primary': 'cta-btn-golden-primary',
-    'golden-secondary': 'cta-btn-golden-secondary',
+    'accent-primary': 'cta-btn-accent-primary',
+    'accent-secondary': 'cta-btn-accent-secondary',
     'white-primary': 'cta-btn-white-primary',
     'white-secondary': 'cta-btn-white-secondary',
   };

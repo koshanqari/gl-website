@@ -72,7 +72,7 @@ export default function MarkdownEditor({ value, onChange, placeholder }: Markdow
     { label: 'H3', action: () => insertMarkdown('### ', '', 'Heading 3'), title: 'Heading 3' },
     { label: 'Bold', action: () => insertMarkdown('**', '**', 'bold text'), title: 'Bold' },
     { label: 'Italic', action: () => insertMarkdown('*', '*', 'italic text'), title: 'Italic' },
-    { label: 'Golden Highlight', action: () => insertMarkdown('<span class="txt-clr-primary font-semibold">', '</span>', 'highlighted text'), title: 'Golden Highlight', highlight: true },
+    { label: 'Golden Highlight', action: () => insertMarkdown('<span class="txt-clr-black font-semibold">', '</span>', 'highlighted text'), title: 'Golden Highlight', highlight: true },
     { label: 'List', action: () => insertMarkdown('- ', '', 'list item'), title: 'Bullet List' },
     { label: 'Numbered', action: () => insertMarkdown('1. ', '', 'numbered item'), title: 'Numbered List' },
     { label: 'Quote', action: () => insertMarkdown('> ', '', 'quote text'), title: 'Quote' },
@@ -89,7 +89,7 @@ export default function MarkdownEditor({ value, onChange, placeholder }: Markdow
       .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold mt-8 mb-4">$1</h1>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/<span class="txt-clr-primary font-semibold">(.*?)<\/span>/g, '<span class="txt-clr-primary font-semibold">$1</span>') // Keep HTML spans
+      .replace(/<span class="txt-clr-black font-semibold">(.*?)<\/span>/g, '<span class="txt-clr-black font-semibold">$1</span>') // Keep HTML spans
       .replace(/^- (.*$)/gim, '<li class="ml-4">$1</li>')
       .replace(/^\d+\. (.*$)/gim, '<li class="ml-4">$1</li>')
       .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-gray-300 pl-4 italic my-2">$1</blockquote>')

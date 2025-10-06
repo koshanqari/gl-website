@@ -58,7 +58,7 @@ export default function NewTestimonialPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold txt-clr-primary">Add New Testimonial</h1>
+            <h1 className="text-2xl font-bold txt-clr-black">Add New Testimonial</h1>
             <p className="text-sm txt-clr-black mt-1">
               Create a new client testimonial
             </p>

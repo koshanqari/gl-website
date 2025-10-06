@@ -323,7 +323,7 @@ export default function AdminBlogsPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="px-2 py-1 text-body-small bg-primary/10 txt-clr-primary rounded">
+                        <span className="px-2 py-1 text-body-small bg-primary/10 txt-clr-black rounded">
                           {blog.category}
                         </span>
                       </td>

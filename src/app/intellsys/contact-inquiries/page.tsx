@@ -217,13 +217,13 @@ export default function ContactInquiriesPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h3 className="text-2xl font-bold txt-clr-primary mb-2">
+            <h3 className="text-2xl font-bold txt-clr-black mb-2">
               {inquiries.length}
             </h3>
             <p className="text-body-medium txt-clr-neutral">Total Inquiries</p>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            <h3 className="text-2xl font-bold txt-clr-primary mb-2">
+            <h3 className="text-2xl font-bold txt-clr-black mb-2">
               {inquiries.filter(i => i.priority === 'high' || i.priority === 'urgent').length}
             </h3>
             <p className="text-body-medium txt-clr-neutral">High Priority</p>

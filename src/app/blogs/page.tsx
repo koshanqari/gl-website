@@ -99,15 +99,15 @@ export default function BlogsPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-clr-secondary-medium">
+      <section className="relative primary-section-bg">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left Content */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
             <div className="max-w-xl">
-              <h1 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-4 sm:mb-6 md:mb-8 leading-tight txt-clr-white">
+              <h1 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-4 sm:mb-6 md:mb-8 leading-tight section-heading section-heading-onColor">
                 Insights, trends, and best practices in corporate event management
               </h1>
-              <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-white">
+              <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-white text-center sm:text-left">
                 Curated by the Golden Lotus team to help you stay ahead in the world of corporate events and experiential marketing.
               </p>
             </div>
@@ -133,7 +133,7 @@ export default function BlogsPage() {
       <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 txt-clr-primary">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onwhite">
               Featured Article
             </h2>
           </div>
@@ -154,25 +154,25 @@ export default function BlogsPage() {
             {/* Featured Content */}
             <div className="flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8">
               <div className="flex items-center space-x-4">
-                <span className="px-3 py-1 text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                <span className="px-3 py-1 text-body-small font-semibold tag">
                   {topFeaturedBlog.category}
                 </span>
-                <span className="text-body-small txt-clr-primary">
+                <span className="text-body-small content-date">
                   {topFeaturedBlog.date}
                 </span>
               </div>
               
-              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight txt-clr-black">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight">
                 {topFeaturedBlog.title}
               </h3>
               
-              <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-neutral">
+              <p className="text-body-medium sm:text-body-large leading-relaxed text-center sm:text-left">
                 {topFeaturedBlog.excerpt}
               </p>
 
               <div className="flex items-center space-x-4">
                 <div>
-                  <p className="text-body-small font-semibold txt-clr-neutral">
+                  <p className="text-body-small font-semibold">
                     By {topFeaturedBlog.author} • {topFeaturedBlog.read_time}
                   </p>
                 </div>
@@ -180,7 +180,7 @@ export default function BlogsPage() {
 
               <div className="pt-2">
                 <Link href={`/blogs/${topFeaturedBlog.id}`}>
-                  <CTAButton variant="golden-secondary" size="lg">
+                  <CTAButton variant="accent-secondary" size="lg" className="w-full sm:w-auto">
                     Read Full Article
                   </CTAButton>
                 </Link>
@@ -192,10 +192,10 @@ export default function BlogsPage() {
       )}
 
       {/* Categories Filter */}
-      <section className="py-8 sm:py-10 md:py-12 lg:py-16 bg-clr-neutral-dark">
+      <section className="py-8 sm:py-10 md:py-12 lg:py-16 secondary-section-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 txt-clr-white">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onColor">
               Browse by Category
             </h2>
           </div>
@@ -207,8 +207,8 @@ export default function BlogsPage() {
                 onClick={() => setSelectedCategory('Featured')}
                 className={`px-4 sm:px-6 py-2 sm:py-3 text-body-small sm:text-body-medium font-semibold transition-colors duration-200 ${
                   selectedCategory === 'Featured'
-                    ? 'bg-clr-primary-dark txt-clr-white'
-                    : 'bg-transparent txt-clr-white border border-white/50 hover:bg-clr-white/10'
+                    ? 'tag'
+                    : 'bg-transparent border border-white/50 hover:bg-clr-white/10'
                 }`}
               >
                 Featured
@@ -222,8 +222,8 @@ export default function BlogsPage() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 sm:px-6 py-2 sm:py-3 text-body-small sm:text-body-medium font-semibold transition-colors duration-200 ${
                   selectedCategory === category
-                    ? 'bg-clr-primary-dark txt-clr-white'
-                    : 'bg-transparent txt-clr-white border border-white/50 hover:bg-clr-white/10'
+                    ? 'tag'
+                    : 'bg-transparent border border-white/50 hover:bg-clr-white/10'
                 }`}
               >
                 {category}
@@ -235,8 +235,8 @@ export default function BlogsPage() {
               onClick={() => setSelectedCategory('All')}
               className={`px-4 sm:px-6 py-2 sm:py-3 text-body-small sm:text-body-medium font-semibold transition-colors duration-200 ${
                 selectedCategory === 'All'
-                  ? 'bg-clr-primary-dark txt-clr-white'
-                  : 'bg-transparent txt-clr-white border border-white/50 hover:bg-clr-white/10'
+                  ? 'tag'
+                  : 'bg-transparent border border-white/50 hover:bg-clr-white/10'
               }`}
             >
               All
@@ -249,10 +249,7 @@ export default function BlogsPage() {
       <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 txt-clr-primary">
-              Latest Articles
-            </h2>
-            <p className="text-body-medium sm:text-body-large max-w-3xl mx-auto px-4 txt-clr-black">
+            <p className="text-body-medium sm:text-body-large max-w-3xl mx-auto px-4">
               Stay updated with the latest insights and trends in corporate event management.
             </p>
           </div>
@@ -273,28 +270,28 @@ export default function BlogsPage() {
                 
                 <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-grow">
                   <div className="flex items-center space-x-3 mb-3 sm:mb-4">
-                    <span className="px-2 py-1 text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                    <span className="px-2 py-1 text-body-small font-semibold tag">
                       {blog.category}
                     </span>
-                    <span className="text-body-small txt-clr-primary">
+                    <span className="text-body-small content-date">
                       {blog.date}
                     </span>
                   </div>
                   
-                  <h3 className="text-body-large sm:text-headline-small mb-3 sm:mb-4 leading-tight transition-colors duration-200 txt-clr-black">
+                  <h3 className="text-body-large sm:text-headline-small mb-3 sm:mb-4 leading-tight transition-colors duration-200 topic-heading">
                     {blog.title}
                   </h3>
                   
-                  <p className="text-body-small sm:text-body-medium leading-relaxed mb-4 sm:mb-6 txt-clr-neutral flex-grow">
+                  <p className="text-body-small sm:text-body-medium leading-relaxed mb-4 sm:mb-6 flex-grow">
                     {blog.excerpt}
                   </p>
                   
                   <div className="flex items-center justify-between mt-auto">
-                    <span className="text-body-small txt-clr-primary">
+                    <span className="text-body-small content-date">
                       {blog.read_time}
                     </span>
                     <Link href={`/blogs/${blog.id}`}>
-                      <CTAButton variant="golden-secondary" size="sm">
+                      <CTAButton variant="accent-secondary" size="sm">
                         Read More
                       </CTAButton>
                     </Link>
@@ -307,12 +304,12 @@ export default function BlogsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 txt-clr-white bg-clr-secondary-medium">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 footer-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 px-4 txt-clr-white">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 px-4 section-heading section-heading-onColor">
             Ready to Plan Your Next Event?
           </h2>
-          <p className="text-body-medium sm:text-body-large txt-clr-white/90 mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
+          <p className="text-body-medium sm:text-body-large mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
             Let our team of experts help you create an unforgettable experience that exceeds expectations.
           </p>
           <Link href="/contact">

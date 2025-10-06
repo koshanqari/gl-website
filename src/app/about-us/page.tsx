@@ -49,12 +49,12 @@ export default function AboutUsPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-clr-secondary-medium">
+      <section className="relative primary-section-bg">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left Content */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
             <div className="max-w-xl">
-              <h1 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 leading-tight txt-clr-white">
+              <h1 className="section-heading section-heading-onColor mb-3 sm:mb-4 md:mb-6 leading-tight">
                 We are human-first event experts helping brands create lasting impact
               </h1>
               <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-white">
@@ -81,18 +81,18 @@ export default function AboutUsPage() {
       {/* About Section */}
       <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-clr-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-headline-large sm:text-display-small md:text-display-medium mb-4 sm:mb-6 md:mb-8 txt-clr-primary text-center">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium mb-4 sm:mb-6 md:mb-8 section-heading section-heading-onwhite text-center">
             About Golden Lotus
           </h2>
           
-          <p className="text-body-medium sm:text-body-large txt-clr-neutral mb-6 sm:mb-8 md:mb-10 lg:mb-12 leading-relaxed">
+          <p className="text-body-medium sm:text-body-large mb-6 sm:mb-8 md:mb-10 lg:mb-12 leading-relaxed text-center sm:text-left">
             In our fifteen plus years, we&apos;ve sought new ways to define what it means to connect. This mindset has seen us grow from a boutique event management company into India&apos;s leading MICE and experiential marketing agency, specializing in corporate events, strategic communications, and brand activations.
           </p>
 
           {/* Section with Text and Image */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-6 sm:mb-8 md:mb-10 lg:mb-12">
             <div className="flex flex-col justify-center">
-              <p className="text-body-medium sm:text-body-large txt-clr-neutral leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 Today, the way the world connects is evolving rapidly. Innovation in technology and data has given rise to new opportunities in event management. This new era means we will see a massive transformation in the way people work, collaborate and consume, and how organizations create, innovate and sell.
               </p>
             </div>
@@ -121,20 +121,20 @@ export default function AboutUsPage() {
               />
             </div>
             <div className="flex flex-col justify-center gap-4 sm:gap-6 md:gap-8 order-1 md:order-2">
-              <p className="text-body-medium sm:text-body-large txt-clr-neutral leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 Organizations have adapted their event strategies, marketing approaches, and engagement models. In response, Golden Lotus combines its strengths and capabilities to help clients navigate change and achieve positive outcomes.
               </p>
-              <p className="text-body-medium sm:text-body-large txt-clr-neutral leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 Together as strategists, storytellers, creatives, and consultants, we help brands and organizations to remain influential and future-fit in an increasingly unpredictable world.
               </p>
             </div>
           </div>
 
           <div className="space-y-4 sm:space-y-6 md:space-y-8">
-            <p className="text-body-medium sm:text-body-large txt-clr-neutral leading-relaxed">
+            <p className="text-body-medium sm:text-body-large leading-relaxed">
               We enable our clients to shape tomorrow by integrating strategy, creativity, and technology to deliver solutions that connect people, shift perceptions, and drive transformation.
             </p>
-            <p className="text-body-medium sm:text-body-large txt-clr-neutral leading-relaxed">
+            <p className="text-body-medium sm:text-body-large leading-relaxed">
               Our approach is human-centric and consistent – leveraging imagination and innovation to help clients grow and remain relevant.
             </p>
           </div>
@@ -165,10 +165,10 @@ export default function AboutUsPage() {
             quality={95}
           />
         </div>
-        <div className="absolute inset-0" style={{ backgroundColor: 'var(--overlay-blue-dark)' }}></div>
+        <div className="absolute inset-0" style={{ backgroundColor: 'var(--overlay-primary)' }}></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-white text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-white text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 section-heading">
             Our Impact
           </h2>
           
@@ -212,7 +212,7 @@ export default function AboutUsPage() {
             <div className="flex-1 flex flex-col justify-center">
               <div className="relative">
                 {/* Quotation marks */}
-                <div className="text-6xl sm:text-7xl md:text-8xl txt-clr-primary font-serif leading-none mb-2">
+                <div className="text-6xl sm:text-7xl md:text-8xl txt-clr-black font-serif leading-none mb-2">
                   &ldquo;
                 </div>
                 
@@ -226,13 +226,13 @@ export default function AboutUsPage() {
               </div>
               
               <div className="mt-6 sm:mt-8 space-y-0.5">
-                <p className="text-body-medium sm:text-body-large font-semibold txt-clr-black">
+                <p className="text-body-medium sm:text-body-large font-semibold topic-heading">
                   Rajesh Sharma
                 </p>
-                <p className="text-body-small sm:text-body-medium txt-clr-neutral">
+                <p className="text-body-small sm:text-body-medium">
                   Founder & CEO
                 </p>
-                <p className="text-body-small sm:text-body-medium font-semibold text-neutral-dark">
+                <p className="text-body-small sm:text-body-medium font-semibold txt-clr-black">
                   Golden Lotus Events
                 </p>
               </div>
@@ -244,10 +244,10 @@ export default function AboutUsPage() {
       <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 txt-clr-primary">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onwhite">
               Meet Our Team
             </h2>
-            <p className="text-body-medium sm:text-body-large txt-clr-neutral max-w-3xl mx-auto px-4">
+            <p className="text-body-medium sm:text-body-large max-w-3xl mx-auto px-4">
               The passionate professionals behind every successful event.
             </p>
           </div>
@@ -265,13 +265,13 @@ export default function AboutUsPage() {
                     quality={95}
                   />
                 </div>
-                <h3 className="text-body-large sm:text-headline-small txt-clr-primary mb-1 sm:mb-2">
+                <h3 className="text-body-large sm:text-headline-small topic-heading mb-1 sm:mb-2">
                   {member.name}
                 </h3>
-                <p className="text-body-small sm:text-body-medium txt-clr-black font-semibold mb-2 sm:mb-3 md:mb-4">
+                <p className="text-body-small sm:text-body-medium author-byline font-semibold mb-2 sm:mb-3 md:mb-4">
                   {member.position}
                 </p>
-                <p className="text-body-small sm:text-body-medium txt-clr-neutral leading-relaxed px-2">
+                <p className="text-body-small sm:text-body-medium leading-relaxed px-2">
                   {member.bio}
                 </p>
               </div>
@@ -281,18 +281,18 @@ export default function AboutUsPage() {
       </section>
 
       {/* Mission & Values Hero */}
-      <section className="relative bg-clr-secondary-medium">
+      <section className="relative primary-section-bg">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left Content */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
             <div className="max-w-xl space-y-6 sm:space-y-8">
-              <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-white leading-tight">
+              <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight section-heading section-heading-onColor">
                 Mission & Vision
               </h2>
-              <p className="text-body-medium sm:text-body-large txt-clr-white leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-white">
                 We combine the talent, technology and creative power of our agency to connect brands, institutions and associations with their audiences in the digital age.
               </p>
-              <p className="text-body-medium sm:text-body-large txt-clr-white leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-white">
                 We act as a bridge for transformation and growth, designing creative and strategic solutions executed with operational excellence.
               </p>
             </div>
@@ -313,9 +313,9 @@ export default function AboutUsPage() {
       </section>
 
       {/* Our Core Values Heading */}
-      <section className="py-8 sm:py-10 md:py-12 lg:py-16 bg-clr-neutral-dark">
+      <section className="py-8 sm:py-10 md:py-12 lg:py-16 secondary-section-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-white text-center">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large section-heading section-heading-onColor text-center">
             Our Core Values
           </h2>
         </div>
@@ -339,13 +339,13 @@ export default function AboutUsPage() {
           {/* Content Right */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-14 order-1 lg:order-2">
             <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-primary leading-tight">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
                 People First
               </h3>
-              <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 Be yourself – diverse perspectives help us thrive.
               </p>
-              <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 We nurture our people, supporting one another with care, respect, and warmth.
               </p>
             </div>
@@ -359,13 +359,13 @@ export default function AboutUsPage() {
           {/* Content Left */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-14">
             <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-primary leading-tight">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
                 Winning Together
               </h3>
-              <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 When we unite around a shared goal, we are unstoppable.
               </p>
-              <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 We act as a bridge for our talents, customers, and partners – empowering each to thrive.
               </p>
             </div>
@@ -403,13 +403,13 @@ export default function AboutUsPage() {
           {/* Content Right */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-14 order-1 lg:order-2">
             <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-primary leading-tight">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
                 Growth Mindset
               </h3>
-              <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 Curiosity and ambition fuel our growth and drive our success.
               </p>
-              <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 We stay ahead of the curve by embracing new ideas and championing innovative ways of working.
               </p>
             </div>
@@ -423,13 +423,13 @@ export default function AboutUsPage() {
           {/* Content Left */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-14">
             <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-primary leading-tight">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
                 Delivering Results
               </h3>
-              <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 Our relentless pursuit of progress leads to positive change.
               </p>
-              <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 We actively share the insight, knowledge, and experience we have acquired over the last 15+ years.
               </p>
             </div>
@@ -450,12 +450,12 @@ export default function AboutUsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 txt-clr-white bg-clr-secondary-medium">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 footer-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 px-4 txt-clr-white">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 px-4 section-heading section-heading-onColor">
             Let&apos;s Create Something Extraordinary Together
           </h2>
-          <p className="text-body-medium sm:text-body-large txt-clr-white mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
+          <p className="text-body-medium sm:text-body-large mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
             Partner with us to transform your event vision into an unforgettable reality.
           </p>
           <CTAButton

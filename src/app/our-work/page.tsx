@@ -47,12 +47,12 @@ export default function OurWorkPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-bg-primary">
+      <div className="min-h-screen bg-clr-white">
         <Navbar />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-neutral">Loading portfolio...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+            <p className="txt-clr-neutral">Loading portfolio...</p>
           </div>
         </div>
         <Footer />
@@ -61,19 +61,19 @@ export default function OurWorkPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary">
+    <div className="min-h-screen bg-clr-white">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-clr-secondary-medium">
+      <section className="relative primary-section-bg">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left Content */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
             <div className="max-w-xl">
-              <h1 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-4 sm:mb-6 md:mb-8 leading-tight txt-clr-white">
+              <h1 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-4 sm:mb-6 md:mb-8 leading-tight">
                 Our Portfolio of Exceptional Events
               </h1>
-              <p className="text-body-medium sm:text-body-large leading-relaxed txt-clr-white">
+              <p className="text-body-medium sm:text-body-large leading-relaxed">
                 Explore our showcase of successful corporate events, product launches, conferences, and experiential marketing campaigns that have delivered measurable impact for leading brands.
               </p>
             </div>
@@ -96,9 +96,9 @@ export default function OurWorkPage() {
 
       {/* Featured Projects Section Heading */}
       {featuredWorks.length > 0 && (
-      <section className="py-8 sm:py-10 md:py-12 lg:py-16 bg-clr-neutral-dark">
+      <section className="py-8 sm:py-10 md:py-12 lg:py-16 secondary-section-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-white text-center">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large text-center section-heading-onColor">
             Featured Projects
           </h2>
         </div>
@@ -132,39 +132,39 @@ export default function OurWorkPage() {
               }`}>
                 <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
                   <div>
-                    <span className="px-3 py-1 text-body-small font-semibold bg-primary txt-clr-white rounded">
+                    <span className="px-3 py-1 text-body-small font-semibold tag rounded">
                       {work.category}
                     </span>
                   </div>
-                  <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large txt-clr-primary leading-tight">
+                  <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
                     {work.title}
                   </h3>
-                  <p className="text-body-medium sm:text-body-large txt-clr-black leading-relaxed">
+                  <p className="text-body-medium sm:text-body-large leading-relaxed">
                     {work.description}
                   </p>
                   <div className="grid grid-cols-2 gap-3 pt-2">
                     {work.client && (
                       <div>
-                        <p className="text-body-small txt-clr-neutral font-semibold">Client</p>
-                        <p className="text-body-medium txt-clr-black">{work.client}</p>
+                        <p className="text-body-small font-semibold">Client</p>
+                        <p className="text-body-medium">{work.client}</p>
                       </div>
                     )}
                     {work.attendees && (
                       <div>
-                        <p className="text-body-small txt-clr-neutral font-semibold">Scale</p>
-                        <p className="text-body-medium txt-clr-black">{work.attendees}</p>
+                        <p className="text-body-small font-semibold">Scale</p>
+                        <p className="text-body-medium">{work.attendees}</p>
                       </div>
                     )}
                     {work.location && (
                       <div>
-                        <p className="text-body-small txt-clr-neutral font-semibold">Location</p>
-                        <p className="text-body-medium txt-clr-black">{work.location}</p>
+                        <p className="text-body-small font-semibold">Location</p>
+                        <p className="text-body-medium">{work.location}</p>
                       </div>
                     )}
                     {work.date && (
                       <div>
-                        <p className="text-body-small txt-clr-neutral font-semibold">Date</p>
-                        <p className="text-body-medium txt-clr-black">{work.date}</p>
+                        <p className="text-body-small font-semibold">Date</p>
+                        <p className="text-body-medium">{work.date}</p>
                       </div>
                     )}
                   </div>
@@ -179,10 +179,10 @@ export default function OurWorkPage() {
       <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 txt-clr-primary">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading-onwhite">
               {featuredWorks.length > 0 ? 'More Projects' : 'Our Projects'}
             </h2>
-            <p className="text-body-medium sm:text-body-large max-w-3xl mx-auto px-4 txt-clr-black">
+            <p className="text-body-medium sm:text-body-large max-w-3xl mx-auto px-4">
               Delivering excellence across conferences, product launches, corporate events, and more.
             </p>
           </div>
@@ -203,23 +203,23 @@ export default function OurWorkPage() {
                 
                 <div className="p-5 sm:p-6 md:p-8">
                   <div className="flex items-center space-x-3 mb-3 sm:mb-4">
-                    <span className="px-2 py-1 text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                    <span className="px-2 py-1 text-body-small font-semibold tag">
                       {work.category}
                     </span>
-                    <span className="text-body-small txt-clr-primary">
+                    <span className="text-body-small">
                       {work.date}
                     </span>
                   </div>
                   
-                  <h3 className="text-body-large sm:text-headline-small mb-3 sm:mb-4 leading-tight txt-clr-black">
+                  <h3 className="text-body-large sm:text-headline-small mb-3 sm:mb-4 leading-tight topic-heading">
                     {work.title}
                   </h3>
                   
-                  <p className="text-body-small sm:text-body-medium leading-relaxed mb-4 sm:mb-6 txt-clr-neutral line-clamp-3">
+                  <p className="text-body-small sm:text-body-medium leading-relaxed mb-4 sm:mb-6 line-clamp-3">
                     {work.description}
                   </p>
                   
-                  <div className="space-y-2 text-body-small txt-clr-neutral">
+                  <div className="space-y-2 text-body-small">
                     {work.client && <div><span className="font-semibold">Client:</span> {work.client}</div>}
                     {work.attendees && <div><span className="font-semibold">Scale:</span> {work.attendees}</div>}
                     {work.location && <div><span className="font-semibold">Location:</span> {work.location}</div>}
@@ -232,12 +232,12 @@ export default function OurWorkPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 txt-clr-white bg-clr-secondary-medium">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 footer-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 px-4 txt-clr-white">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 px-4 section-heading-onColor">
             Ready to Create Your Next Event?
           </h2>
-          <p className="text-body-medium sm:text-body-large txt-clr-white mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
+          <p className="text-body-medium sm:text-body-large mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
             Let our team of experts help you create an unforgettable experience that exceeds expectations.
           </p>
           <a href="/contact">

@@ -70,10 +70,10 @@ export default function BlogPostPage() {
         <Navbar />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <h1 className="text-display-medium mb-4 txt-clr-black">Article Not Found</h1>
-            <p className="text-body-large mb-8 txt-clr-neutral">The article you&apos;re looking for doesn&apos;t exist.</p>
+            <h1 className="text-display-medium mb-4">Article Not Found</h1>
+            <p className="text-body-large mb-8">The article you&apos;re looking for doesn&apos;t exist.</p>
             <Link href="/blogs">
-              <CTAButton variant="golden-primary" size="lg">
+              <CTAButton variant="accent-primary" size="lg">
                 Back to Blogs
               </CTAButton>
             </Link>
@@ -89,33 +89,33 @@ export default function BlogPostPage() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative bg-clr-secondary-medium py-12 sm:py-16 md:py-20">
+      <section className="relative secondary-section-bg py-12 sm:py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="mb-4 sm:mb-6">
-              <span className="px-3 py-1 text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+              <span className="px-3 py-1 text-body-small font-semibold tag">
                 {blog.category}
               </span>
             </div>
             
-            <h1 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-4 sm:mb-6 txt-clr-white leading-tight">
+            <h1 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-4 sm:mb-6 section-heading-onColor leading-tight">
               {blog.title}
             </h1>
             
-            <p className="text-body-medium sm:text-body-large mb-6 sm:mb-8 txt-clr-primary max-w-3xl mx-auto">
+            <p className="text-body-medium sm:text-body-large mb-6 sm:mb-8 max-w-3xl mx-auto">
               {blog.excerpt}
             </p>
             
             <div className="flex items-center justify-center space-x-6">
-              <p className="text-body-small font-semibold txt-clr-white">
+              <p className="text-body-small font-semibold author-byline">
                 By {blog.author}
               </p>
               <span className="txt-clr-white">•</span>
-              <p className="text-body-small txt-clr-primary">
+              <p className="text-body-small content-date">
                 {blog.read_time}
               </p>
               <span className="txt-clr-white">•</span>
-              <p className="text-body-small txt-clr-primary">
+              <p className="text-body-small content-date">
                 {blog.date}
               </p>
             </div>
@@ -149,17 +149,17 @@ export default function BlogPostPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-clr-secondary-medium">
+      <section className="py-12 sm:py-16 md:py-20 footer-section">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-headline-large sm:text-display-small md:text-display-medium mb-4 sm:mb-6 txt-clr-white">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium mb-4 sm:mb-6 section-heading-onColor">
             Ready to Plan Your Next Event?
           </h2>
-          <p className="text-body-large mb-8 sm:mb-10 txt-clr-primary max-w-2xl mx-auto">
+          <p className="text-body-large mb-8 sm:mb-10 max-w-2xl mx-auto">
             Let our team of experts help you create memorable experiences that drive results.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             <Link href="/contact">
-              <CTAButton variant="golden-primary" size="lg">
+              <CTAButton variant="accent-primary" size="lg">
                 Get Started Today
               </CTAButton>
             </Link>

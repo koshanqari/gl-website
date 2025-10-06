@@ -114,7 +114,7 @@ export default function EditTestimonialPage({ params }: { params: Promise<{ id: 
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold txt-clr-primary">Edit Testimonial</h1>
+            <h1 className="text-2xl font-bold txt-clr-black">Edit Testimonial</h1>
             <p className="text-sm txt-clr-black mt-1">
               Update testimonial details
             </p>

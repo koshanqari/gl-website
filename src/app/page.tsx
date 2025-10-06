@@ -254,7 +254,7 @@ export default function HomePage() {
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-2xl">
-            <h1 className="text-headline-large sm:text-display-medium lg:text-display-large txt-clr-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">
+            <h1 className="text-headline-large sm:text-display-large lg:text-display-large txt-clr-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">
               Plan Your Next Event with Golden Lotus
             </h1>
             <p className="text-body-medium sm:text-body-large txt-clr-white mb-6 sm:mb-8 drop-shadow-md">
@@ -263,7 +263,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link href="/contact">
                 <CTAButton variant="white-primary" size="md" className="sm:size-lg">
-                Plan Your Event
+                Plan My Event
               </CTAButton>
               </Link>
               <Link href="/about-us">
@@ -289,7 +289,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">TC</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">TC</span>
                     </div>
                     <p className="text-xs sm:text-body-small font-semibold txt-clr-black">TechCorp</p>
                     <p className="text-xs sm:text-body-small txt-clr-neutral">International</p>
@@ -300,10 +300,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">LA</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">LA</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Luxury Auto</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">Group</p>
+                    <p className="text-xs sm:text-body-small font-semibold">Luxury Auto</p>
+                    <p className="text-xs sm:text-body-small">Group</p>
                   </div>
                 </div>
 
@@ -311,10 +311,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">GF</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">GF</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Global</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">Finance</p>
+                    <p className="text-xs sm:text-body-small font-semibold">Global</p>
+                    <p className="text-xs sm:text-body-small">Finance</p>
                   </div>
                 </div>
 
@@ -322,10 +322,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">HT</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">HT</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">HealthTech</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">India</p>
+                    <p className="text-xs sm:text-body-small font-semibold">HealthTech</p>
+                    <p className="text-xs sm:text-body-small">India</p>
                   </div>
                 </div>
 
@@ -333,10 +333,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">RG</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">RG</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Retail</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">Giants</p>
+                    <p className="text-xs sm:text-body-small font-semibold">Retail</p>
+                    <p className="text-xs sm:text-body-small">Giants</p>
                   </div>
                 </div>
 
@@ -344,10 +344,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">MT</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">MT</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Mobile</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">Tech Co</p>
+                    <p className="text-xs sm:text-body-small font-semibold">Mobile</p>
+                    <p className="text-xs sm:text-body-small">Tech Co</p>
                   </div>
                 </div>
               </div>
@@ -358,7 +358,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">TC</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">TC</span>
                     </div>
                     <p className="text-xs sm:text-body-small font-semibold txt-clr-black">TechCorp</p>
                     <p className="text-xs sm:text-body-small txt-clr-neutral">International</p>
@@ -369,10 +369,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">LA</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">LA</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Luxury Auto</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">Group</p>
+                    <p className="text-xs sm:text-body-small font-semibold">Luxury Auto</p>
+                    <p className="text-xs sm:text-body-small">Group</p>
                   </div>
                 </div>
 
@@ -380,10 +380,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">GF</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">GF</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Global</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">Finance</p>
+                    <p className="text-xs sm:text-body-small font-semibold">Global</p>
+                    <p className="text-xs sm:text-body-small">Finance</p>
                   </div>
                 </div>
 
@@ -391,10 +391,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">HT</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">HT</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">HealthTech</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">India</p>
+                    <p className="text-xs sm:text-body-small font-semibold">HealthTech</p>
+                    <p className="text-xs sm:text-body-small">India</p>
                   </div>
                 </div>
 
@@ -402,10 +402,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">RG</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">RG</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Retail</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">Giants</p>
+                    <p className="text-xs sm:text-body-small font-semibold">Retail</p>
+                    <p className="text-xs sm:text-body-small">Giants</p>
                   </div>
                 </div>
 
@@ -413,10 +413,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
                   <div className="text-center">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="text-white font-bold text-xs sm:text-sm">MT</span>
+                      <span className="txt-clr-white font-bold text-xs sm:text-sm">MT</span>
                     </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">Mobile</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">Tech Co</p>
+                    <p className="text-xs sm:text-body-small font-semibold">Mobile</p>
+                    <p className="text-xs sm:text-body-small">Tech Co</p>
                   </div>
                 </div>
               </div>
@@ -429,10 +429,10 @@ export default function HomePage() {
       <section className="py-6 sm:py-8 md:py-12 lg:py-16 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 sm:mb-8 md:mb-12">
-            <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium mb-3 sm:mb-4 md:mb-6 txt-clr-primary">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onwhite">
               Client Stories
           </h2>
-            <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-black mb-4 sm:mb-6 md:mb-8 max-w-3xl mx-auto px-4">
+            <p className="text-body-small sm:text-body-medium md:text-body-large mb-4 sm:mb-6 md:mb-8 max-w-3xl mx-auto px-4">
               Discover how we&apos;ve transformed corporate events for leading organizations across industries.
             </p>
           </div>
@@ -468,23 +468,23 @@ export default function HomePage() {
                   
                   <div className="p-4 sm:p-5 md:p-6 lg:p-8">
                     <div className="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-3 md:mb-4">
-                      <span className="px-2 py-1 text-xs sm:text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                      <span className="px-2 py-1 text-xs sm:text-body-small font-semibold tag">
                         {work.category}
                       </span>
-                      <span className="text-xs sm:text-body-small txt-clr-primary">
+                      <span className="text-xs sm:text-body-small content-date">
                         {work.date}
                       </span>
                     </div>
                     
-                    <h3 className="text-body-medium sm:text-body-large md:text-headline-small mb-2 sm:mb-3 md:mb-4 leading-tight txt-clr-black">
+                    <h3 className="text-body-medium sm:text-body-large md:text-headline-small mb-2 sm:mb-3 md:mb-4 leading-tight topic-heading">
                       {work.title}
                     </h3>
                     
-                    <p className="text-body-small sm:text-body-medium leading-relaxed mb-3 sm:mb-4 md:mb-6 txt-clr-neutral line-clamp-3">
+                    <p className="text-body-small sm:text-body-medium leading-relaxed mb-3 sm:mb-4 md:mb-6 line-clamp-3">
                       {work.description}
                     </p>
                     
-                    <div className="space-y-1 sm:space-y-2 text-xs sm:text-body-small txt-clr-neutral">
+                    <div className="space-y-1 sm:space-y-2 text-xs sm:text-body-small">
                       {work.client && <div><span className="font-semibold">Client:</span> {work.client}</div>}
                       {work.attendees && <div><span className="font-semibold">Scale:</span> {work.attendees}</div>}
                       {work.location && <div><span className="font-semibold">Location:</span> {work.location}</div>}
@@ -495,20 +495,20 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-body-medium txt-clr-neutral">No featured work available at the moment.</p>
+              <p className="text-body-medium">No featured work available at the moment.</p>
             </div>
           )}
 
           {/* CTAs after cards */}
           <div className="text-center mt-6 sm:mt-8 md:mt-10 lg:mt-12">
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start">
               <Link href="/our-work">
-                <CTAButton variant="golden-primary" size="md" className="sm:size-lg">
+                <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
                   View More
                 </CTAButton>
               </Link>
               <Link href="/capabilities">
-                <CTAButton variant="golden-secondary" size="md" className="sm:size-lg">
+                <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
                   Our Services
                 </CTAButton>
               </Link>
@@ -529,10 +529,10 @@ export default function HomePage() {
             quality={95}
           />
         </div>
-        <div className="absolute inset-0" style={{ backgroundColor: 'var(--overlay-blue-dark)' }}></div>
+        <div className="absolute inset-0" style={{ backgroundColor: 'var(--overlay-primary)' }}></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-white text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12 section-heading section-heading-onColor">
             Our Impact
           </h2>
 
@@ -613,20 +613,19 @@ export default function HomePage() {
           {/* Content Right */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14 order-1 lg:order-2">
             <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-              <h3 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-primary leading-tight">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
                 {services[0].title}
               </h3>
-              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
                 {services[0].description}
               </p>
-              <div className="space-y-2 sm:space-y-3 pt-2">
+              <ul className="space-y-2 sm:space-y-3 pt-2 list-disc pl-5 marker:text-primary">
                 {services[0].features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-small sm:text-body-medium txt-clr-black">{feature}</span>
-                  </div>
+                  <li key={featureIndex} className="text-body-small sm:text-body-medium">
+                    {feature}
+                  </li>
                 ))}
-              </div>
+              </ul>
                         </div>
                       </div>
                     </div>
@@ -638,20 +637,19 @@ export default function HomePage() {
           {/* Content Left */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14">
             <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-              <h3 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-primary leading-tight">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
                 {services[1].title}
               </h3>
-              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-black leading-relaxed">
+              <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
                 {services[1].description}
               </p>
-              <div className="space-y-2 sm:space-y-3 pt-2">
+              <ul className="space-y-2 sm:space-y-3 pt-2 list-disc pl-5 marker:text-primary">
                 {services[1].features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-start">
-                    <div className="flex-shrink-0 w-2 h-2 bg-primary mt-2 mr-3"></div>
-                    <span className="text-body-small sm:text-body-medium txt-clr-black">{feature}</span>
-                  </div>
+                  <li key={featureIndex} className="text-body-small sm:text-body-medium">
+                    {feature}
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
 
@@ -673,14 +671,14 @@ export default function HomePage() {
       <section className="py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16 bg-clr-neutral-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start">
               <Link href="/capabilities">
-                <CTAButton variant="golden-primary" size="md" className="sm:size-lg">
+                <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
                   Our Capabilities
                 </CTAButton>
               </Link>
               <Link href="/our-work">
-                <CTAButton variant="golden-secondary" size="md" className="sm:size-lg">
+                <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
                   Client Stories
                 </CTAButton>
               </Link>
@@ -690,22 +688,22 @@ export default function HomePage() {
       </section>
 
       {/* Mission & Values Hero */}
-      <section className="relative bg-clr-secondary-medium">
+      <section className="relative primary-section-bg">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left Content */}
           <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
-            <div className="max-w-xl space-y-4 sm:space-y-6 md:space-y-8">
-              <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-white leading-tight">
+            <div className="max-w-xl space-y-4 sm:space-y-6 md:space-y-8 text-center sm:text-left mx-auto sm:mx-0">
+              <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight section-heading section-heading-onColor">
                 Mission & Vision
               </h2>
-              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white leading-relaxed">
+              <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
                 We combine the talent, technology and creative power of our agency to connect brands, institutions and associations with their audiences in the digital age.
               </p>
-              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white leading-relaxed">
+              <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
                 We act as a bridge for transformation and growth, designing creative and strategic solutions executed with operational excellence.
-                  </p>
-                </div>
-              </div>
+              </p>
+            </div>
+          </div>
 
           {/* Right Image */}
           <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[560px]">
@@ -722,10 +720,10 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 bg-clr-neutral-dark">
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 secondary-section-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
-            <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium mb-3 sm:mb-4 md:mb-6 txt-clr-white">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onColor">
             Client Testimonials
           </h2>
             <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4 txt-clr-white">
@@ -738,7 +736,7 @@ export default function HomePage() {
         <div className="relative">
           {testimonialsLoading ? (
             <div className="flex items-center justify-center py-12">
-              <div className="text-lg txt-clr-white">Loading testimonials...</div>
+              <div className="text-lg">Loading testimonials...</div>
             </div>
           ) : (
             <>
@@ -746,7 +744,7 @@ export default function HomePage() {
             <button
                 onClick={() => setCurrentTestimonialIndex(Math.max(0, currentTestimonialIndex - 1))}
                 disabled={currentTestimonialIndex === 0}
-                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-clr-white hover:bg-gray-100 text-clr-black p-2 sm:p-3 rounded-full shadow-xl border-2 border-gray-200 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-clr-white hover:bg-gray-100 text-accent-dark p-2 sm:p-3 rounded-full shadow-xl border-2 border-gray-200 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
             >
                 <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
@@ -756,7 +754,7 @@ export default function HomePage() {
             <button
                 onClick={() => setCurrentTestimonialIndex(Math.min(testimonials.length - (isMobile ? 2 : 3), currentTestimonialIndex + 1))}
                 disabled={currentTestimonialIndex >= testimonials.length - (isMobile ? 2 : 3)}
-                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-clr-white hover:bg-gray-100 text-clr-black p-2 sm:p-3 rounded-full shadow-xl border-2 border-gray-200 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-clr-white hover:bg-gray-100 text-accent-dark p-2 sm:p-3 rounded-full shadow-xl border-2 border-gray-200 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
             >
                 <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
@@ -784,7 +782,7 @@ export default function HomePage() {
                         <h4 className="text-sm sm:text-base font-semibold txt-clr-black mb-1">
                           {testimonial.name}
                         </h4>
-                        <p className="text-xs sm:text-sm txt-clr-primary mb-1">
+                        <p className="text-xs sm:text-sm author-byline mb-1">
                           {testimonial.position}
                         </p>
                         <p className="text-xs sm:text-sm txt-clr-neutral mb-2 sm:mb-3">
@@ -832,10 +830,10 @@ export default function HomePage() {
       <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
-            <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium mb-3 sm:mb-4 md:mb-6 txt-clr-black">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onwhite">
               Latest Insights
             </h2>
-            <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4 txt-clr-black">
+            <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4">
               Stay informed with our latest thoughts on corporate event trends and best practices.
             </p>
           </div>
@@ -874,36 +872,36 @@ export default function HomePage() {
             <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8">
               <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
                 <div className="flex items-center space-x-2 sm:space-x-3">
-                  <span className="px-2 py-1 text-xs sm:text-body-small font-semibold bg-clr-primary-dark txt-clr-white">
+                  <span className="px-2 py-1 text-xs sm:text-body-small font-semibold tag">
                     {featuredBlog.category}
                   </span>
-                  <span className="text-xs sm:text-body-small txt-clr-primary">
+                  <span className="text-xs sm:text-body-small reading-time">
                     {featuredBlog.read_time}
                   </span>
                 </div>
                 
-                <h3 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium txt-clr-primary leading-tight">
+                <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight">
                   {featuredBlog.title}
                 </h3>
                 
-                <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-black leading-relaxed">
+                <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
                   {featuredBlog.excerpt}
                 </p>
                 
-                <div className="flex items-center space-x-2 text-xs sm:text-body-small txt-clr-neutral">
-                  <span>By {featuredBlog.author}</span>
+                <div className="flex items-center space-x-2 text-xs sm:text-body-small">
+                  <span className="author-byline">By {featuredBlog.author}</span>
                   <span>•</span>
-                  <span>{featuredBlog.date}</span>
+                  <span className="content-date">{featuredBlog.date}</span>
                 </div>
                 
-                <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <div className="pt-3 sm:pt-4 grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start sm:items-center sm:flex sm:flex-row sm:justify-start">
                   <Link href={`/blogs/${featuredBlog.id}`}>
-                    <CTAButton variant="golden-secondary" size="md" className="sm:size-lg">
+                    <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
                       Read Article
                     </CTAButton>
                   </Link>
                   <Link href="/blogs">
-                    <CTAButton variant="golden-primary" size="md" className="sm:size-lg">
+                    <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
                       Our Blogs
                     </CTAButton>
                   </Link>
@@ -913,29 +911,29 @@ export default function HomePage() {
           </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-body-medium txt-clr-neutral">No featured blog available at the moment.</p>
+              <p className="text-body-medium">No featured blog available at the moment.</p>
             </div>
           )}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 txt-clr-white bg-clr-secondary-medium">
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 footer-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-headline-medium sm:text-headline-large md:text-display-small lg:text-display-medium mb-3 sm:mb-4 md:mb-6 px-4 txt-clr-white">
+          <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 px-4 section-heading section-heading-onColor">
             Ready to Elevate Your Next Event?
           </h2>
-          <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
+          <p className="text-body-small sm:text-body-medium md:text-body-large mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4">
             Let our team of experts help you create an unforgettable experience that exceeds expectations and delivers measurable results.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-center">
             <Link href="/contact">
-              <CTAButton variant="white-secondary" size="md" className="sm:size-lg">
-                Get Started Today
+              <CTAButton variant="white-secondary" size="md" className="w-full sm:w-auto">
+                Get Started
             </CTAButton>
             </Link>
             <Link href="/about-us">
-              <CTAButton variant="golden-secondary" size="md" className="sm:size-lg">
+              <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
                 About Us
             </CTAButton>
             </Link>

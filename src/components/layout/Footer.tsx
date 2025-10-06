@@ -20,37 +20,37 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="txt-clr-white bg-clr-secondary-medium">
+    <footer className="txt-clr-white primary-section-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Main Footer Content - 4 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Golden Lotus Column */}
           <div>
-            <h3 className="text-body-large font-semibold mb-4 txt-clr-primary">Golden Lotus</h3>
-            <p className="text-body-medium txt-clr-white/90 mb-4">
+            <h3 className="text-body-large font-semibold mb-4 footer-heading">Golden Lotus</h3>
+            <p className="text-body-medium/90 mb-4">
               India&apos;s leading MICE and Experience Marketing Agency, delivering events with measurable impact.
             </p>
           </div>
 
           {/* Services Column */}
           <div>
-            <h3 className="text-body-large font-semibold mb-4 txt-clr-primary">Services</h3>
+            <h3 className="text-body-large font-semibold mb-4 footer-heading">Services</h3>
             <ul className="space-y-2">
-              <li><span className="text-body-medium txt-clr-white/90">MICE Events</span></li>
-              <li><span className="text-body-medium txt-clr-white/90">Experiential Marketing</span></li>
-              <li><span className="text-body-medium txt-clr-white/90">Corporate Events</span></li>
-              <li><span className="text-body-medium txt-clr-white/90">Event Management</span></li>
+              <li><span className="text-body-medium/90">MICE Events</span></li>
+              <li><span className="text-body-medium/90">Experiential Marketing</span></li>
+              <li><span className="text-body-medium/90">Corporate Events</span></li>
+              <li><span className="text-body-medium/90">Event Management</span></li>
             </ul>
           </div>
 
           {/* Company Column */}
           <div>
-            <h3 className="text-body-large font-semibold mb-4 txt-clr-primary">Company</h3>
+            <h3 className="text-body-large font-semibold mb-4 footer-heading">Company</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/about-us"
-                  className="text-body-medium txt-clr-white/90 hover:txt-clr-white transition-colors duration-200"
+                  className="text-body-medium/90 hover:txt-clr-white transition-colors duration-200"
                 >
                   About Us
                 </Link>
@@ -58,7 +58,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/our-work"
-                  className="text-body-medium txt-clr-white/90 hover:txt-clr-white transition-colors duration-200"
+                  className="text-body-medium/90 hover:txt-clr-white transition-colors duration-200"
                 >
                   Work
                 </Link>
@@ -66,19 +66,19 @@ const Footer = () => {
               <li>
                 <Link
                   href="/contact-us"
-                  className="text-body-medium txt-clr-white/90 hover:txt-clr-white transition-colors duration-200"
+                  className="text-body-medium/90 hover:txt-clr-white transition-colors duration-200"
                 >
                   Contact
                 </Link>
               </li>
-              <li><span className="text-body-medium txt-clr-white/90">Careers</span></li>
+              <li><span className="text-body-medium/90">Careers</span></li>
             </ul>
           </div>
 
           {/* Get In Touch Column */}
           <div>
-            <h3 className="text-body-large font-semibold mb-4 txt-clr-primary">Get In Touch</h3>
-            <div className="space-y-2 text-body-medium txt-clr-white/90">
+            <h3 className="text-body-large font-semibold mb-4 footer-heading">Get In Touch</h3>
+            <div className="space-y-2 text-body-medium/90">
               <p>Email: info@goldenlotus.com</p>
               <p>Phone: +91 98765 43210</p>
               <p>Address: Mumbai, India</p>
@@ -115,13 +115,13 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Logo */}
             <div className="flex items-center">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-clr-primary txt-clr-white">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-clr-primary">
                 <span className="txt-clr-white font-bold text-sm">GL</span>
               </div>
             </div>
 
             {/* Copyright */}
-            <div className="text-body-medium txt-clr-white/90">
+            <div className="text-body-medium/90">
               © {currentYear} Golden Lotus. All rights reserved.
             </div>
 

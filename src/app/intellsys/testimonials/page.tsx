@@ -74,7 +74,7 @@ export default function TestimonialsPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold txt-clr-primary">Testimonials</h1>
+            <h1 className="text-2xl font-bold txt-clr-black">Testimonials</h1>
             <p className="text-sm txt-clr-black mt-1">
               Manage client testimonials and reviews
             </p>
@@ -90,11 +90,11 @@ export default function TestimonialsPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-clr-white p-4 rounded-lg border">
-            <div className="text-2xl font-bold txt-clr-primary">{testimonials.length}</div>
+            <div className="text-2xl font-bold txt-clr-black">{testimonials.length}</div>
             <div className="text-sm txt-clr-black">Total Testimonials</div>
           </div>
           <div className="bg-clr-white p-4 rounded-lg border">
-            <div className="text-2xl font-bold txt-clr-primary">{testimonials.filter(t => t.rating === 5).length}</div>
+            <div className="text-2xl font-bold txt-clr-black">{testimonials.filter(t => t.rating === 5).length}</div>
             <div className="text-sm txt-clr-black">5-Star Reviews</div>
           </div>
         </div>

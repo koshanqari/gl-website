@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-block">
-            <div className="text-4xl font-bold txt-clr-primary mb-2">Golden Lotus</div>
+            <div className="text-4xl font-bold txt-clr-black mb-2">Golden Lotus</div>
             <div className="text-body-large txt-clr-white">Admin Panel</div>
           </div>
         </div>

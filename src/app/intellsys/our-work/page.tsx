@@ -243,7 +243,7 @@ export default function AdminOurWorkPage() {
                 </div>
                 <div className="p-6">
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="px-2 py-1 text-body-small bg-primary/10 txt-clr-primary rounded">
+                    <span className="px-2 py-1 text-body-small bg-primary/10 txt-clr-black rounded">
                       {work.category}
                     </span>
                     {work.featured && (

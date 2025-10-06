@@ -67,9 +67,9 @@ function parseInlineFormatting(text: string): (string | JSX.Element)[] {
   let key = 0;
 
   // Handle golden highlight HTML spans
-  currentText = currentText.replace(/<span class="txt-clr-primary font-semibold">(.*?)<\/span>/g, (match, content) => {
+  currentText = currentText.replace(/<span class="txt-clr-black font-semibold">(.*?)<\/span>/g, (match, content) => {
     const id = `golden-${key++}`;
-    parts.push(<span key={id} className="txt-clr-primary font-semibold">{content}</span>);
+    parts.push(<span key={id} className="txt-clr-black font-semibold">{content}</span>);
     return `__GOLDEN_PLACEHOLDER_${parts.length - 1}__`;
   });
 
@@ -83,7 +83,7 @@ function parseInlineFormatting(text: string): (string | JSX.Element)[] {
   // Handle *italic* text
   currentText = currentText.replace(/\*(.*?)\*/g, (match, content) => {
     const id = `italic-${key++}`;
-    parts.push(<em key={id} className="italic txt-clr-primary">{content}</em>);
+    parts.push(<em key={id} className="italic txt-clr-black">{content}</em>);
     return `__ITALIC_PLACEHOLDER_${parts.length - 1}__`;
   });
 
