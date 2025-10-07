@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
+// Cache this route for 5 minutes
+export const revalidate = 300;
+
 // GET - Fetch public testimonials
 export async function GET(request: NextRequest) {
   try {
@@ -24,7 +27,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600'
+      }
+    });
   } catch (error) {
     console.error('Error in testimonials GET:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

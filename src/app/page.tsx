@@ -1,12 +1,11 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CTAButton from '@/components/ui/CTAButton';
-import { Testimonial } from '@/lib/supabase';
+import { supabase, Testimonial } from '@/lib/supabase';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 interface Work {
   id: number;
@@ -34,46 +33,178 @@ interface Blog {
   featured: boolean;
 }
 
-export default function HomePage() {
-  const [featuredWorks, setFeaturedWorks] = useState<Work[]>([]);
-  const [featuredBlog, setFeaturedBlog] = useState<Blog | null>(null);
-  const [worksLoading, setWorksLoading] = useState(true);
-  const [blogLoading, setBlogLoading] = useState(true);
+// Set revalidation time
+export const revalidate = 300; // Revalidate every 5 minutes
 
-  useEffect(() => {
-    // Fetch featured works in background
-    async function fetchWorks() {
-      try {
-        const worksResponse = await fetch('/api/our-work/featured');
-        const worksData = await worksResponse.json();
-        setFeaturedWorks(worksData);
-      } catch (error) {
-        console.error('Error fetching featured works:', error);
-      } finally {
-        setWorksLoading(false);
-      }
+async function getFeaturedWorks() {
+  try {
+    const { data, error } = await supabase
+      .from('work')
+      .select('*')
+      .eq('featured', true)
+      .order('created_at', { ascending: false })
+      .limit(3);
+
+    if (error) {
+      console.error('Error fetching featured works:', error);
+      return [];
     }
 
-    fetchWorks();
-  }, []);
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching featured works:', error);
+    return [];
+  }
+}
 
-  useEffect(() => {
-    // Fetch top featured blog in background
-    async function fetchBlog() {
-      try {
-        const blogsResponse = await fetch('/api/blogs/top-featured');
-        const blogData = await blogsResponse.json();
-        setFeaturedBlog(blogData);
-      } catch (error) {
-        console.error('Error fetching top featured blog:', error);
-        setFeaturedBlog(null);
-      } finally {
-        setBlogLoading(false);
-      }
+async function getTopFeaturedBlog() {
+  try {
+    const { data, error } = await supabase
+      .from('blogs')
+      .select('*')
+      .eq('top_featured', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single();
+
+    if (error) {
+      console.error('Error fetching top featured blog:', error);
+      return null;
     }
 
-    fetchBlog();
-  }, []);
+    return data;
+  } catch (error) {
+    console.error('Error fetching top featured blog:', error);
+    return null;
+  }
+}
+
+async function getTestimonials() {
+  try {
+    const { data, error } = await supabase
+      .from('testimonials')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching testimonials:', error);
+      return getStaticTestimonials();
+    }
+
+    return data && data.length > 0 ? data : getStaticTestimonials();
+  } catch (error) {
+    console.error('Error fetching testimonials:', error);
+    return getStaticTestimonials();
+  }
+}
+
+function getStaticTestimonials(): Testimonial[] {
+  return [
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      position: "VP Marketing",
+      company: "TechCorp International",
+      content: "Golden Lotus transformed our annual conference into an unforgettable experience. Their attention to detail and innovative approach exceeded all our expectations.",
+      avatar_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      rating: 5,
+      featured: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    {
+      id: 2,
+      name: "Michael Chen",
+      position: "CEO",
+      company: "Luxury Auto Group",
+      content: "The product launch event they orchestrated was flawless. Every element was perfectly executed, from the venue setup to the guest experience.",
+      avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      rating: 5,
+      featured: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    {
+      id: 3,
+      name: "Priya Sharma",
+      position: "Head of Events",
+      company: "Global Finance Ltd",
+      content: "Professional, creative, and reliable. Golden Lotus delivered our leadership retreat with exceptional quality and seamless execution.",
+      avatar_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      rating: 5,
+      featured: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    {
+      id: 4,
+      name: "David Thompson",
+      position: "VP Operations",
+      company: "StartupHub",
+      content: "Golden Lotus made our corporate retreat seamless and engaging. Their team handled every detail perfectly, allowing us to focus on our business.",
+      avatar_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      rating: 5,
+      featured: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    {
+      id: 5,
+      name: "Lisa Wang",
+      position: "Head of Marketing",
+      company: "GrowthTech",
+      content: "The creativity and professionalism of Golden Lotus is unmatched. They turned our brand activation into a memorable experience for all attendees.",
+      avatar_url: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      rating: 5,
+      featured: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    {
+      id: 6,
+      name: "James Wilson",
+      position: "Founder",
+      company: "NextGen Ventures",
+      content: "Golden Lotus delivered beyond our expectations. Their strategic approach and flawless execution made our investor event a huge success.",
+      avatar_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      rating: 5,
+      featured: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    {
+      id: 7,
+      name: "Emma Rodriguez",
+      position: "Event Manager",
+      company: "Global Enterprises",
+      content: "Working with Golden Lotus was a game-changer. They understood our vision and brought it to life with exceptional execution and creativity.",
+      avatar_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      rating: 5,
+      featured: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    {
+      id: 8,
+      name: "Alex Kumar",
+      position: "Marketing Director",
+      company: "TechStart Inc",
+      content: "The team's professionalism and attention to detail made our product launch a huge success. Highly recommended!",
+      avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      rating: 5,
+      featured: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    }
+  ];
+}
+
+export default async function HomePage() {
+  const [featuredWorks, featuredBlog, testimonials] = await Promise.all([
+    getFeaturedWorks(),
+    getTopFeaturedBlog(),
+    getTestimonials()
+  ]);
 
   const services = [
     {
@@ -95,140 +226,6 @@ export default function HomePage() {
       features: ["Product launches", "Brand activations", "Media events"]
     }
   ];
-
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [testimonialsLoading, setTestimonialsLoading] = useState(true);
-  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await fetch('/api/testimonials');
-        if (response.ok) {
-          const data = await response.json();
-          setTestimonials(data); // Show all testimonials
-        }
-      } catch (error) {
-        console.error('Error fetching testimonials:', error);
-        // Fallback to static testimonials if API fails
-        setTestimonials([
-          {
-            id: 1,
-            name: "Sarah Johnson",
-            position: "VP Marketing",
-            company: "TechCorp International",
-            content: "Golden Lotus transformed our annual conference into an unforgettable experience. Their attention to detail and innovative approach exceeded all our expectations.",
-            avatar_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
-            rating: 5,
-            featured: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-    },
-    {
-      id: 2,
-            name: "Michael Chen",
-            position: "CEO",
-            company: "Luxury Auto Group",
-            content: "The product launch event they orchestrated was flawless. Every element was perfectly executed, from the venue setup to the guest experience.",
-            avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
-            rating: 5,
-            featured: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-    },
-    {
-      id: 3,
-            name: "Priya Sharma",
-            position: "Head of Events",
-            company: "Global Finance Ltd",
-            content: "Professional, creative, and reliable. Golden Lotus delivered our leadership retreat with exceptional quality and seamless execution.",
-            avatar_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
-            rating: 5,
-            featured: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-    },
-    {
-      id: 4,
-            name: "David Thompson",
-            position: "VP Operations",
-            company: "StartupHub",
-            content: "Golden Lotus made our corporate retreat seamless and engaging. Their team handled every detail perfectly, allowing us to focus on our business.",
-            avatar_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
-            rating: 5,
-            featured: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-    },
-    {
-      id: 5,
-            name: "Lisa Wang",
-            position: "Head of Marketing",
-            company: "GrowthTech",
-            content: "The creativity and professionalism of Golden Lotus is unmatched. They turned our brand activation into a memorable experience for all attendees.",
-            avatar_url: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
-            rating: 5,
-            featured: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          },
-          {
-            id: 6,
-            name: "James Wilson",
-            position: "Founder",
-            company: "NextGen Ventures",
-            content: "Golden Lotus delivered beyond our expectations. Their strategic approach and flawless execution made our investor event a huge success.",
-            avatar_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
-            rating: 5,
-            featured: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          },
-          {
-            id: 7,
-            name: "Emma Rodriguez",
-            position: "Event Manager",
-            company: "Global Enterprises",
-            content: "Working with Golden Lotus was a game-changer. They understood our vision and brought it to life with exceptional execution and creativity.",
-            avatar_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
-            rating: 5,
-            featured: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          },
-          {
-            id: 8,
-            name: "Alex Kumar",
-            position: "Marketing Director",
-            company: "TechStart Inc",
-            content: "The team's professionalism and attention to detail made our product launch a huge success. Highly recommended!",
-            avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
-            rating: 5,
-            featured: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          }
-        ]);
-      } finally {
-        setTestimonialsLoading(false);
-      }
-    };
-
-    fetchTestimonials();
-  }, []);
-
-  // Detect mobile screen size
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const metrics = [
     { number: "500+", label: "Events Delivered", description: "Successful corporate events and conferences" },
@@ -438,20 +435,7 @@ export default function HomePage() {
           </div>
 
           {/* Featured Work Cards */}
-          {worksLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-clr-white border border-gray-200 shadow-lg animate-pulse">
-                  <div className="h-[180px] sm:h-[200px] md:h-[250px] lg:h-[280px] bg-gray-200"></div>
-                  <div className="p-4 sm:p-6">
-                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                    <div className="h-3 bg-gray-200 rounded mb-4"></div>
-                    <div className="h-3 bg-gray-200 rounded w-2/3"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : featuredWorks.length > 0 ? (
+          {featuredWorks.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
               {featuredWorks.map((work) => (
                 <article key={work.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300">
@@ -501,7 +485,7 @@ export default function HomePage() {
 
           {/* CTAs after cards */}
           <div className="text-center mt-6 sm:mt-8 md:mt-10 lg:mt-12">
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-center">
               <Link href="/our-work">
                 <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
                   View More
@@ -671,7 +655,7 @@ export default function HomePage() {
       <section className="py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16 bg-clr-neutral-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-center">
               <Link href="/capabilities">
                 <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
                   Our Capabilities
@@ -733,97 +717,7 @@ export default function HomePage() {
                 </div>
 
         {/* Testimonials Carousel */}
-        <div className="relative">
-          {testimonialsLoading ? (
-            <div className="flex items-center justify-center py-12">
-              <div className="text-lg">Loading testimonials...</div>
-            </div>
-          ) : (
-            <>
-            {/* Navigation Arrows */}
-            <button
-                onClick={() => setCurrentTestimonialIndex(Math.max(0, currentTestimonialIndex - 1))}
-                disabled={currentTestimonialIndex === 0}
-                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-clr-white hover:bg-gray-100 text-accent-dark p-2 sm:p-3 rounded-full shadow-xl border-2 border-gray-200 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-              
-            <button
-                onClick={() => setCurrentTestimonialIndex(Math.min(testimonials.length - (isMobile ? 2 : 3), currentTestimonialIndex + 1))}
-                disabled={currentTestimonialIndex >= testimonials.length - (isMobile ? 2 : 3)}
-                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-clr-white hover:bg-gray-100 text-accent-dark p-2 sm:p-3 rounded-full shadow-xl border-2 border-gray-200 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-
-              {/* Testimonials Grid */}
-              <div className="flex justify-center">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl">
-                  {testimonials.slice(currentTestimonialIndex, currentTestimonialIndex + (isMobile ? 2 : 3)).map((testimonial) => (
-                    <div key={testimonial.id} className="bg-clr-white p-4 sm:p-5 md:p-6 shadow-lg">
-                      <div className="text-center">
-                        {testimonial.avatar_url && (
-                          <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mx-auto mb-2 sm:mb-3">
-                            <Image
-                              src={testimonial.avatar_url}
-                              alt={testimonial.name}
-                              fill
-                              className="object-cover"
-                              sizes="48px"
-                              quality={95}
-                            />
-                          </div>
-                        )}
-                        <h4 className="text-sm sm:text-base font-semibold txt-clr-black mb-1">
-                          {testimonial.name}
-                        </h4>
-                        <p className="text-xs sm:text-sm author-byline mb-1">
-                          {testimonial.position}
-                        </p>
-                        <p className="text-xs sm:text-sm txt-clr-neutral mb-2 sm:mb-3">
-                          {testimonial.company}
-                        </p>
-                        <div className="flex items-center justify-center mb-2 sm:mb-3">
-                          {[...Array(5)].map((_, i) => (
-                            <span
-                              key={i}
-                              className={`text-sm sm:text-lg ${
-                                i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'
-                              }`}
-                            >
-                              ★
-                            </span>
-                          ))}
-                        </div>
-                        <blockquote className="text-xs sm:text-sm txt-clr-black leading-relaxed italic text-center">
-                          &ldquo;{testimonial.content}&rdquo;
-                        </blockquote>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-          </div>
-
-          {/* Dots Indicator */}
-              <div className="flex justify-center mt-6 space-x-2">
-                {Array.from({ length: Math.max(1, testimonials.length - (isMobile ? 1 : 2)) }).map((_, index) => (
-              <button
-                key={index}
-                    onClick={() => setCurrentTestimonialIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                      index === currentTestimonialIndex ? 'bg-clr-white' : 'bg-clr-white/50'
-                }`}
-              />
-            ))}
-          </div>
-            </>
-          )}
-        </div>
+        <TestimonialsCarousel testimonials={testimonials} />
       </section>
 
       {/* Featured Blog Section */}
@@ -838,23 +732,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          {blogLoading ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
-              <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[400px] xl:min-h-[500px] bg-gray-200 animate-pulse rounded"></div>
-              <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8">
-                <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5 w-full">
-                  <div className="h-6 bg-gray-200 rounded animate-pulse"></div>
-                  <div className="h-8 bg-gray-200 rounded animate-pulse"></div>
-                  <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
-                  <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-                  <div className="flex gap-4 mt-6">
-                    <div className="h-10 bg-gray-200 rounded w-32 animate-pulse"></div>
-                    <div className="h-10 bg-gray-200 rounded w-32 animate-pulse"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : featuredBlog ? (
+          {featuredBlog ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
             {/* Image */}
             <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[400px] xl:min-h-[500px]">

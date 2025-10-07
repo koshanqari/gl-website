@@ -1,9 +1,8 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { supabase } from '@/lib/supabase';
 
 interface Work {
   id: number;
@@ -18,47 +17,34 @@ interface Work {
   featured: boolean;
 }
 
-export default function OurWorkPage() {
-  const [featuredWorks, setFeaturedWorks] = useState<Work[]>([]);
-  const [regularWorks, setRegularWorks] = useState<Work[]>([]);
-  const [loading, setLoading] = useState(true);
+// Set revalidation time
+export const revalidate = 300; // Revalidate every 5 minutes
 
-  useEffect(() => {
-    async function fetchWorks() {
-      try {
-        const response = await fetch('/api/our-work');
-        const data = await response.json();
-        
-        // Separate featured (max 3) and regular works
-        const featured = data.filter((work: Work) => work.featured).slice(0, 3);
-        const regular = data.filter((work: Work) => !work.featured);
-        
-        setFeaturedWorks(featured);
-        setRegularWorks(regular);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching work:', error);
-        setLoading(false);
-      }
+async function getWorks() {
+  try {
+    const { data, error } = await supabase
+      .from('work')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching work:', error);
+      return [];
     }
 
-    fetchWorks();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-clr-white">
-        <Navbar />
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
-            <p className="txt-clr-neutral">Loading portfolio...</p>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching work:', error);
+    return [];
   }
+}
+
+export default async function OurWorkPage() {
+  const allWorks = await getWorks();
+  
+  // Separate featured (max 3) and regular works
+  const featuredWorks = allWorks.filter((work: Work) => work.featured).slice(0, 3);
+  const regularWorks = allWorks.filter((work: Work) => !work.featured);
 
   return (
     <div className="min-h-screen bg-clr-white">
@@ -106,7 +92,7 @@ export default function OurWorkPage() {
       )}
 
       {/* Featured Projects - Alternating Layout (like Our Core Values) */}
-      {featuredWorks.map((work, index) => {
+      {featuredWorks.map((work: Work, index: number) => {
         const isOdd = index % 2 === 1;
         
         return (
@@ -188,7 +174,7 @@ export default function OurWorkPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
-            {regularWorks.map((work) => (
+            {regularWorks.map((work: Work) => (
               <article key={work.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300">
                 <div className="relative h-[200px] sm:h-[250px] md:h-[280px] overflow-hidden">
                   <Image
