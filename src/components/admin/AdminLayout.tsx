@@ -21,11 +21,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   };
 
   const navItems = [
-    { name: 'Dashboard', href: '/intellsys' },
+    { name: 'CRM', href: '/intellsys/contact-inquiries' },
     { name: 'Blogs', href: '/intellsys/blogs' },
     { name: 'Work', href: '/intellsys/our-work' },
     { name: 'Testimonials', href: '/intellsys/testimonials' },
-    { name: 'Inquiries', href: '/intellsys/contact-inquiries' },
   ];
 
   return (
@@ -48,7 +47,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   src="https://cdn-sleepyhug-prod.b-cdn.net/media/intellsys-logo.webp" 
                 />
               </a>
-              <Link href="/intellsys" className="text-xs sm:text-body-medium txt-clr-white px-2 sm:px-3 py-1 bg-primary rounded">
+              <Link href="/intellsys/contact-inquiries" className="text-xs sm:text-body-medium txt-clr-white px-2 sm:px-3 py-1 bg-primary rounded">
                 Admin
               </Link>
             </div>
@@ -56,9 +55,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             {/* Navigation Links */}
             <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
               {navItems.map((item) => {
-                const isActive = item.href === '/intellsys' 
-                  ? pathname === '/intellsys'
-                  : pathname?.startsWith(item.href);
+                const isActive = pathname?.startsWith(item.href);
                 
                 return (
                   <Link
@@ -66,7 +63,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     href={item.href}
                     className={`px-2 sm:px-3 md:px-4 py-1 sm:py-2 rounded-md text-xs sm:text-sm md:text-body-medium transition-colors ${
                       isActive
-                        ? 'bg-primary txt-clr-white'
+                        ? 'bg-accent txt-clr-white'
                         : 'txt-clr-white hover:bg-gray-700'
                     }`}
                   >

@@ -1,43 +1,45 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 
+// Admin API - Get single lead by ID
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     
-    const { data: inquiry, error } = await supabaseAdmin
-      .from('contact_inquiries')
+    const { data: lead, error } = await supabaseAdmin
+      .from('leads')
       .select('*')
       .eq('id', id)
       .single();
 
     if (error) {
-      console.error('Error fetching contact inquiry:', error);
-      return NextResponse.json({ error: 'Failed to fetch inquiry' }, { status: 500 });
+      console.error('Error fetching lead:', error);
+      return NextResponse.json({ error: 'Failed to fetch lead' }, { status: 500 });
     }
 
-    return NextResponse.json(inquiry);
+    return NextResponse.json(lead);
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
+// Admin API - Update lead
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const body = await request.json();
     
     const { data, error } = await supabaseAdmin
-      .from('contact_inquiries')
+      .from('leads')
       .update(body)
       .eq('id', id)
       .select()
       .single();
 
     if (error) {
-      console.error('Error updating contact inquiry:', error);
-      return NextResponse.json({ error: 'Failed to update inquiry' }, { status: 500 });
+      console.error('Error updating lead:', error);
+      return NextResponse.json({ error: 'Failed to update lead' }, { status: 500 });
     }
 
     return NextResponse.json(data);
@@ -47,18 +49,19 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
+// Admin API - Delete lead
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     
     const { error } = await supabaseAdmin
-      .from('contact_inquiries')
+      .from('leads')
       .delete()
       .eq('id', id);
 
     if (error) {
-      console.error('Error deleting contact inquiry:', error);
-      return NextResponse.json({ error: 'Failed to delete inquiry' }, { status: 500 });
+      console.error('Error deleting lead:', error);
+      return NextResponse.json({ error: 'Failed to delete lead' }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
