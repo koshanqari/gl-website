@@ -7,8 +7,7 @@ export const revalidate = 300;
 // GET - Fetch public testimonials
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const featured = searchParams.get('featured');
+    const featured = request.nextUrl.searchParams.get('featured');
 
     let sql = 'SELECT * FROM testimonials ORDER BY sort_order ASC, created_at DESC';
     let params: any[] = [];
