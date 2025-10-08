@@ -28,8 +28,21 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     const { id } = await params;
     const body = await request.json();
     
-    const keys = Object.keys(body);
-    const values = Object.values(body);
+    // Remove system fields that shouldn't be updated manually
+    const { id: _, created_at, updated_at, step1_completed_at, step2_completed_at, step3_completed_at, ...updateData } = body;
+    
+    // Convert arrays to JSON strings for PostgreSQL JSONB columns
+    const processedData: Record<string, any> = {};
+    for (const [key, value] of Object.entries(updateData)) {
+      if (Array.isArray(value)) {
+        processedData[key] = JSON.stringify(value);
+      } else {
+        processedData[key] = value;
+      }
+    }
+    
+    const keys = Object.keys(processedData);
+    const values = Object.values(processedData);
     const setClause = keys.map((key, i) => `${key} = $${i + 1}`).join(', ');
     
     const result = await query(

@@ -22,9 +22,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   const navItems = [
     { name: 'CRM', href: '/intellsys/crm' },
-    { name: 'Blogs', href: '/intellsys/blogs' },
     { name: 'Work', href: '/intellsys/our-work' },
     { name: 'Testimonials', href: '/intellsys/testimonials' },
+    { name: 'Blogs', href: '/intellsys/blogs' },
     { name: 'Capabilities', href: '/intellsys/capabilities' },
   ];
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import CTAButton from '@/components/ui/CTAButton';
+import { INDIAN_STATES, INDIAN_CITIES, COUNTRIES } from '@/lib/locationData';
 
 interface FormData {
   // Step 1
@@ -32,6 +33,11 @@ export default function MultiStepContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingPincode, setIsLoadingPincode] = useState(false);
   const [capabilityTags, setCapabilityTags] = useState<string[]>([]);
+  
+  // Dynamic location options
+  const [countryOptions, setCountryOptions] = useState<string[]>(COUNTRIES);
+  const [stateOptions, setStateOptions] = useState<string[]>(INDIAN_STATES);
+  const [cityOptions, setCityOptions] = useState<string[]>(INDIAN_CITIES);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -101,6 +107,17 @@ export default function MultiStepContactForm() {
           setTimeout(async () => {
             setIsLoadingPincode(true);
             const { region, city } = await autofillFromPincode(value);
+            
+            // Add region to dropdown if not already present
+            if (region && !stateOptions.includes(region)) {
+              setStateOptions(prev => [...prev, region].sort());
+            }
+            
+            // Add city to dropdown if not already present
+            if (city && !cityOptions.includes(city)) {
+              setCityOptions(prev => [...prev, city].sort());
+            }
+            
             setFormData(current => ({
               ...current,
               projectRegion: region,
@@ -384,7 +401,9 @@ export default function MultiStepContactForm() {
               name="preferredConnectDate"
               value={formData.preferredConnectDate}
               onChange={handleInputChange}
+              placeholder="Select date"
               className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+              style={{ minHeight: '46px' }}
               min={new Date().toISOString().split('T')[0]}
             />
           </div>
@@ -413,10 +432,10 @@ export default function MultiStepContactForm() {
             </label>
             <div className="space-y-3">
               {[
+                { value: 'phone', label: 'Phone' },
+                { value: 'whatsapp', label: 'WhatsApp' },
                 { value: 'video_call', label: 'Video Call' },
-                { value: 'phone_call', label: 'Phone Call' },
-                { value: 'in_person', label: 'In-Person Meeting' },
-                { value: 'email', label: 'Email' }
+                { value: 'in_person', label: 'In-Person Meeting' }
               ].map((option) => (
                 <label key={option.value} className="flex items-center space-x-3 cursor-pointer">
                   <input
@@ -501,11 +520,10 @@ export default function MultiStepContactForm() {
                 onChange={handleInputChange}
                 className="w-full appearance-none bg-white px-3 sm:px-4 pr-10 py-2 sm:py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-base"
               >
-                <option value="India">India</option>
-                <option value="United States">United States</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="UAE">UAE</option>
-                <option value="Other">Other</option>
+                <option value="">Select Country</option>
+                {countryOptions.map(country => (
+                  <option key={country} value={country}>{country}</option>
+                ))}
               </select>
             </div>
             <div>
@@ -537,29 +555,35 @@ export default function MultiStepContactForm() {
               <label htmlFor="projectRegion" className="block text-body-medium font-semibold topic-heading mb-2">
                 State/Region
               </label>
-              <input
-                type="text"
+              <select
                 id="projectRegion"
                 name="projectRegion"
                 value={formData.projectRegion}
                 onChange={handleInputChange}
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
-                placeholder="State/Region"
-              />
+                className="w-full appearance-none bg-white px-3 sm:px-4 pr-10 py-2 sm:py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+              >
+                <option value="">Select State</option>
+                {stateOptions.map(state => (
+                  <option key={state} value={state}>{state}</option>
+                ))}
+              </select>
             </div>
             <div>
               <label htmlFor="projectCity" className="block text-body-medium font-semibold topic-heading mb-2">
                 City
               </label>
-              <input
-                type="text"
+              <select
                 id="projectCity"
                 name="projectCity"
                 value={formData.projectCity}
                 onChange={handleInputChange}
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
-                placeholder="City"
-              />
+                className="w-full appearance-none bg-white px-3 sm:px-4 pr-10 py-2 sm:py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+              >
+                <option value="">Select City</option>
+                {cityOptions.map(city => (
+                  <option key={city} value={city}>{city}</option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -574,7 +598,9 @@ export default function MultiStepContactForm() {
                 name="projectDate"
                 value={formData.projectDate}
                 onChange={handleInputChange}
+                placeholder="Select date"
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+                style={{ minHeight: '46px' }}
                 min={new Date().toISOString().split('T')[0]}
               />
             </div>

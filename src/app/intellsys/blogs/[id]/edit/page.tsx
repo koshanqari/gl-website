@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import MarkdownEditor from '@/components/admin/MarkdownEditor';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function EditBlogPage() {
   const router = useRouter();
@@ -165,21 +166,43 @@ export default function EditBlogPage() {
             />
           </div>
 
-          {/* Image URL */}
+          {/* Image Upload */}
           <div>
-            <label htmlFor="image_url" className="block text-body-medium font-semibold txt-clr-black mb-2">
-              Featured Image URL *
+            <label className="block text-body-medium font-semibold txt-clr-black mb-2">
+              Featured Image *
             </label>
-            <input
-              type="url"
-              id="image_url"
-              name="image_url"
-              value={formData.image_url}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="https://images.unsplash.com/..."
+            
+            {/* Upload Component */}
+            <ImageUpload
+              currentUrl={formData.image_url}
+              onUploadSuccess={(url) => setFormData({ ...formData, image_url: url })}
+              folder="blogs"
+              label="Upload Featured Image"
             />
+            
+            {/* OR separator */}
+            <div className="flex items-center gap-3 my-3">
+              <div className="flex-1 border-t border-gray-300"></div>
+              <span className="text-sm text-gray-500">OR</span>
+              <div className="flex-1 border-t border-gray-300"></div>
+            </div>
+            
+            {/* URL Input */}
+            <div>
+              <label htmlFor="image_url" className="block text-body-small font-medium txt-clr-neutral mb-2">
+                Or paste image URL
+              </label>
+              <input
+                type="url"
+                id="image_url"
+                name="image_url"
+                value={formData.image_url}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
+                placeholder="https://images.unsplash.com/..."
+              />
+            </div>
           </div>
 
           {/* Category and Date */}
