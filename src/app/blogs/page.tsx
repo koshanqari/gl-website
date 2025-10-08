@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CTAButton from '@/components/ui/CTAButton';
-import { supabase } from '@/lib/supabase';
+import { query } from '@/lib/db';
 import BlogsClient from './BlogsClient';
 
 interface Blog {
@@ -27,34 +27,41 @@ export const revalidate = 300; // Revalidate every 5 minutes
 
 async function getBlogs() {
   try {
-    const { data, error } = await supabase
-      .from('blogs')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const result = await query(
+      'SELECT * FROM blogs ORDER BY created_at DESC'
+    );
 
-    if (error) {
-      console.error('Error fetching blogs:', error);
-      return [];
-    }
-
-    return data || [];
+    return result.rows || [];
   } catch (error) {
     console.error('Error fetching blogs:', error);
     return [];
   }
 }
 
+async function getCapabilityTags() {
+  try {
+    const result = await query(
+      'SELECT tag FROM capabilities ORDER BY sort_order ASC'
+    );
+
+    return result.rows.map(row => row.tag) || [];
+  } catch (error) {
+    console.error('Error fetching capability tags:', error);
+    return [];
+  }
+}
+
 export default async function BlogsPage() {
-  const allBlogs = await getBlogs();
+  const [allBlogs, categories] = await Promise.all([
+    getBlogs(),
+    getCapabilityTags()
+  ]);
   
   // Find top featured blog (only 1)
   const topFeaturedBlog = allBlogs.find((blog: Blog) => blog.top_featured) || null;
   
   // Find featured blogs (up to 6, excluding top featured)
   const featuredBlogs = allBlogs.filter((blog: Blog) => blog.featured && !blog.top_featured).slice(0, 6);
-  
-  // Extract unique categories from all blogs
-  const categories = Array.from(new Set(allBlogs.map((blog: Blog) => blog.category))) as string[];
 
   return (
     <div className="min-h-screen bg-bg-primary">

@@ -73,6 +73,8 @@ export default function MarkdownEditor({ value, onChange, placeholder }: Markdow
     { label: 'Bold', action: () => insertMarkdown('**', '**', 'bold text'), title: 'Bold' },
     { label: 'Italic', action: () => insertMarkdown('*', '*', 'italic text'), title: 'Italic' },
     { label: 'Golden Highlight', action: () => insertMarkdown('<span class="txt-clr-black font-semibold">', '</span>', 'highlighted text'), title: 'Golden Highlight', highlight: true },
+    { label: 'Image', action: () => insertMarkdown('![', '](https://images.unsplash.com/...)', 'Image description'), title: 'Insert Image' },
+    { label: 'Video', action: () => insertMarkdown('@[', '](https://youtube.com/watch?v=...)', 'Video title'), title: 'Insert Video (YouTube/Vimeo)' },
     { label: 'List', action: () => insertMarkdown('- ', '', 'list item'), title: 'Bullet List' },
     { label: 'Numbered', action: () => insertMarkdown('1. ', '', 'numbered item'), title: 'Numbered List' },
     { label: 'Quote', action: () => insertMarkdown('> ', '', 'quote text'), title: 'Quote' },
@@ -84,6 +86,22 @@ export default function MarkdownEditor({ value, onChange, placeholder }: Markdow
   // Simple markdown to HTML preview (basic conversion)
   const renderPreview = (markdown: string) => {
     return markdown
+      .replace(/@\[(.*?)\]\((.*?)\)/g, (match, title, url) => {
+        let embedUrl = url;
+        // Convert YouTube URLs
+        if (url.includes('youtube.com/watch?v=')) {
+          const videoId = url.split('v=')[1]?.split('&')[0];
+          embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        } else if (url.includes('youtu.be/')) {
+          const videoId = url.split('youtu.be/')[1]?.split('?')[0];
+          embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        } else if (url.includes('vimeo.com/')) {
+          const videoId = url.split('vimeo.com/')[1]?.split('?')[0];
+          embedUrl = `https://player.vimeo.com/video/${videoId}`;
+        }
+        return `<div class="my-8"><div class="relative w-full" style="padding-bottom: 56.25%;"><iframe src="${embedUrl}" title="${title}" class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="text-sm text-center text-gray-600 mt-3 italic">${title}</p></div>`;
+      }) // Videos
+      .replace(/!\[(.*?)\]\((.*?)\)/g, '<div class="my-8"><img src="$2" alt="$1" class="w-full h-auto rounded-lg shadow-lg" /><p class="text-sm text-center text-gray-600 mt-3 italic">$1</p></div>') // Images
       .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold mt-4 mb-2">$1</h3>')
       .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-semibold mt-6 mb-3">$1</h2>')
       .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold mt-8 mb-4">$1</h1>')
@@ -181,8 +199,10 @@ export default function MarkdownEditor({ value, onChange, placeholder }: Markdow
 
       {/* Help Text - Only in edit mode */}
       {!showPreview && (
-        <div className="mt-2 text-body-small txt-clr-neutral">
-          <p>💡 Tip: Select text first, then click a format button to wrap it. Or click to insert at cursor position.</p>
+        <div className="mt-2 text-body-small txt-clr-neutral space-y-1">
+          <p>💡 <strong>Tip:</strong> Select text first, then click a format button to wrap it. Or click to insert at cursor position.</p>
+          <p>🖼️ <strong>Images:</strong> Click &quot;Image&quot; button or use: <code className="bg-gray-100 px-2 py-0.5 rounded">![Description](image_url)</code></p>
+          <p>🎬 <strong>Videos:</strong> Click &quot;Video&quot; button or use: <code className="bg-gray-100 px-2 py-0.5 rounded">@[Title](youtube_url)</code> - Supports YouTube &amp; Vimeo</p>
         </div>
       )}
     </div>

@@ -16,13 +16,13 @@ interface FormData {
   preferredConnectMode: string[]; // Array for multiple selections
   
   // Step 3
-  eventType: string;
-  eventDate: string;
-  eventCountry: string;
-  eventPincode: string;
-  eventRegion: string;
-  eventCity: string;
-  guestCount: string;
+  serviceType: string[]; // Array for multiple capability tags
+  projectDate: string;
+  projectCountry: string;
+  projectPincode: string;
+  projectRegion: string;
+  projectCity: string;
+  targetCount: string;
   additionalDetails: string;
 }
 
@@ -31,6 +31,7 @@ export default function MultiStepContactForm() {
   const [leadId, setLeadId] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingPincode, setIsLoadingPincode] = useState(false);
+  const [capabilityTags, setCapabilityTags] = useState<string[]>([]);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -40,18 +41,35 @@ export default function MultiStepContactForm() {
     preferredConnectDate: '',
     preferredConnectTime: '',
     preferredConnectMode: [],
-    eventType: '',
-    eventDate: '',
-    eventCountry: 'India',
-    eventPincode: '',
-    eventRegion: '',
-    eventCity: '',
-    guestCount: '',
+    serviceType: [],
+    projectDate: '',
+    projectCountry: 'India',
+    projectPincode: '',
+    projectRegion: '',
+    projectCity: '',
+    targetCount: '',
     additionalDetails: ''
   });
 
   // Extract UTM parameters from URL
   const [utmParams, setUtmParams] = useState<any>(null);
+
+  // Fetch capability tags on component mount
+  useEffect(() => {
+    const fetchCapabilityTags = async () => {
+      try {
+        const response = await fetch('/api/capabilities/tags');
+        if (response.ok) {
+          const tags = await response.json();
+          setCapabilityTags(tags);
+        }
+      } catch (error) {
+        console.error('Error fetching capability tags:', error);
+      }
+    };
+
+    fetchCapabilityTags();
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -78,21 +96,21 @@ export default function MultiStepContactForm() {
       const newData = { ...prev, [name]: value };
       
       // Auto-populate region and city when pincode is entered (Step 3)
-      if (name === 'eventPincode' && currentStep === 3) {
+      if (name === 'projectPincode' && currentStep === 3) {
         if (value.length === 6) {
           setTimeout(async () => {
             setIsLoadingPincode(true);
             const { region, city } = await autofillFromPincode(value);
             setFormData(current => ({
               ...current,
-              eventRegion: region,
-              eventCity: city
+              projectRegion: region,
+              projectCity: city
             }));
             setIsLoadingPincode(false);
           }, 300);
         } else if (value.length === 0) {
-          newData.eventRegion = '';
-          newData.eventCity = '';
+          newData.projectRegion = '';
+          newData.projectCity = '';
         }
       }
       
@@ -100,14 +118,14 @@ export default function MultiStepContactForm() {
     });
   };
 
-  const handleCheckboxChange = (mode: string) => {
+  const handleCheckboxChange = (field: 'preferredConnectMode' | 'serviceType', value: string) => {
     setFormData(prev => {
-      const currentModes = prev.preferredConnectMode;
-      const newModes = currentModes.includes(mode)
-        ? currentModes.filter(m => m !== mode) // Remove if already selected
-        : [...currentModes, mode]; // Add if not selected
+      const currentValues = prev[field];
+      const newValues = currentValues.includes(value)
+        ? currentValues.filter(v => v !== value) // Remove if already selected
+        : [...currentValues, value]; // Add if not selected
       
-      return { ...prev, preferredConnectMode: newModes };
+      return { ...prev, [field]: newValues };
     });
   };
 
@@ -165,17 +183,17 @@ export default function MultiStepContactForm() {
         payload = { ...payload,
           preferredConnectDate: formData.preferredConnectDate,
           preferredConnectTime: formData.preferredConnectTime,
-          preferredConnectMode: formData.preferredConnectMode.join(', ') // Convert array to comma-separated string
+          preferredConnectMode: formData.preferredConnectMode // Send as JSON array
         };
       } else if (step === 3) {
         payload = { ...payload,
-          eventType: formData.eventType,
-          eventDate: formData.eventDate,
-          eventCountry: formData.eventCountry,
-          eventPincode: formData.eventPincode,
-          eventRegion: formData.eventRegion,
-          eventCity: formData.eventCity,
-          guestCount: formData.guestCount,
+          serviceType: formData.serviceType,
+          projectDate: formData.projectDate,
+          projectCountry: formData.projectCountry,
+          projectPincode: formData.projectPincode,
+          projectRegion: formData.projectRegion,
+          projectCity: formData.projectCity,
+          targetCount: formData.targetCount,
           additionalDetails: formData.additionalDetails
         };
       }
@@ -210,13 +228,13 @@ export default function MultiStepContactForm() {
             preferredConnectDate: '',
             preferredConnectTime: '',
             preferredConnectMode: [],
-            eventType: '',
-            eventDate: '',
-            eventCountry: 'India',
-            eventPincode: '',
-            eventRegion: '',
-            eventCity: '',
-            guestCount: '',
+            serviceType: [],
+            projectDate: '',
+            projectCountry: 'India',
+            projectPincode: '',
+            projectRegion: '',
+            projectCity: '',
+            targetCount: '',
             additionalDetails: ''
           });
           setLeadId(null);
@@ -288,7 +306,7 @@ export default function MultiStepContactForm() {
 
           <div>
             <label htmlFor="email" className="block text-body-medium font-semibold topic-heading mb-2">
-              Email Address *
+              Email Address
             </label>
             <input
               type="email"
@@ -296,7 +314,6 @@ export default function MultiStepContactForm() {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              required
               className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
               placeholder="your@email.com"
             />
@@ -304,7 +321,7 @@ export default function MultiStepContactForm() {
 
           <div>
             <label htmlFor="phone" className="block text-body-medium font-semibold topic-heading mb-2">
-              Phone Number
+              Phone Number *
             </label>
             <input
               type="tel"
@@ -312,6 +329,7 @@ export default function MultiStepContactForm() {
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
+              required
               className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
               placeholder="(555) 123-4567"
             />
@@ -404,7 +422,7 @@ export default function MultiStepContactForm() {
                   <input
                     type="checkbox"
                     checked={formData.preferredConnectMode.includes(option.value)}
-                    onChange={() => handleCheckboxChange(option.value)}
+                    onChange={() => handleCheckboxChange('preferredConnectMode', option.value)}
                     className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-2 focus:ring-primary"
                   />
                   <span className="text-body-medium txt-clr-black">{option.label}</span>
@@ -449,52 +467,37 @@ export default function MultiStepContactForm() {
           </div>
 
           <div>
-            <label htmlFor="eventType" className="block text-body-medium font-semibold topic-heading mb-2">
-              Type of Event *
+            <label className="block text-body-medium font-semibold topic-heading mb-3">
+              Service Required *
             </label>
-            <select
-              id="eventType"
-              name="eventType"
-              value={formData.eventType}
-              onChange={handleInputChange}
-              required
-              className="w-full appearance-none bg-white px-3 sm:px-4 pr-10 py-2 sm:py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-base"
-            >
-              <option value="">Select event type</option>
-              <option value="corporate">Corporate Event</option>
-              <option value="conference">Conference</option>
-              <option value="wedding">Wedding</option>
-              <option value="product-launch">Product Launch</option>
-              <option value="gala">Gala Dinner</option>
-              <option value="virtual">Virtual Event</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="eventDate" className="block text-body-medium font-semibold topic-heading mb-2">
-              Event Date
-            </label>
-            <input
-              type="date"
-              id="eventDate"
-              name="eventDate"
-              value={formData.eventDate}
-              onChange={handleInputChange}
-              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
-              min={new Date().toISOString().split('T')[0]}
-            />
+            {capabilityTags.length === 0 ? (
+              <div className="text-body-small txt-clr-neutral">Loading services...</div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                {capabilityTags.map((tag) => (
+                  <label key={tag} className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.serviceType.includes(tag)}
+                      onChange={() => handleCheckboxChange('serviceType', tag)}
+                      className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-2 focus:ring-primary"
+                    />
+                    <span className="text-body-medium txt-clr-black">{tag}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="eventCountry" className="block text-body-medium font-semibold topic-heading mb-2">
+              <label htmlFor="projectCountry" className="block text-body-medium font-semibold topic-heading mb-2">
                 Country
               </label>
               <select
-                id="eventCountry"
-                name="eventCountry"
-                value={formData.eventCountry}
+                id="projectCountry"
+                name="projectCountry"
+                value={formData.projectCountry}
                 onChange={handleInputChange}
                 className="w-full appearance-none bg-white px-3 sm:px-4 pr-10 py-2 sm:py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-base"
               >
@@ -506,15 +509,15 @@ export default function MultiStepContactForm() {
               </select>
             </div>
             <div>
-              <label htmlFor="eventPincode" className="block text-body-medium font-semibold topic-heading mb-2">
+              <label htmlFor="projectPincode" className="block text-body-medium font-semibold topic-heading mb-2">
                 Pincode/ZIP
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  id="eventPincode"
-                  name="eventPincode"
-                  value={formData.eventPincode}
+                  id="projectPincode"
+                  name="projectPincode"
+                  value={formData.projectPincode}
                   onChange={handleInputChange}
                   maxLength={6}
                   className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
@@ -531,28 +534,28 @@ export default function MultiStepContactForm() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="eventRegion" className="block text-body-medium font-semibold topic-heading mb-2">
+              <label htmlFor="projectRegion" className="block text-body-medium font-semibold topic-heading mb-2">
                 State/Region
               </label>
               <input
                 type="text"
-                id="eventRegion"
-                name="eventRegion"
-                value={formData.eventRegion}
+                id="projectRegion"
+                name="projectRegion"
+                value={formData.projectRegion}
                 onChange={handleInputChange}
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
                 placeholder="State/Region"
               />
             </div>
             <div>
-              <label htmlFor="eventCity" className="block text-body-medium font-semibold topic-heading mb-2">
+              <label htmlFor="projectCity" className="block text-body-medium font-semibold topic-heading mb-2">
                 City
               </label>
               <input
                 type="text"
-                id="eventCity"
-                name="eventCity"
-                value={formData.eventCity}
+                id="projectCity"
+                name="projectCity"
+                value={formData.projectCity}
                 onChange={handleInputChange}
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
                 placeholder="City"
@@ -560,35 +563,50 @@ export default function MultiStepContactForm() {
             </div>
           </div>
 
-          <div>
-            <label htmlFor="guestCount" className="block text-body-medium font-semibold topic-heading mb-2">
-              Expected Number of Guests
-            </label>
-            <input
-              type="number"
-              id="guestCount"
-              name="guestCount"
-              value={formData.guestCount}
-              onChange={handleInputChange}
-              min="1"
-              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
-              placeholder="Number of guests"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="projectDate" className="block text-body-medium font-semibold topic-heading mb-2">
+                Preferred Date
+              </label>
+              <input
+                type="date"
+                id="projectDate"
+                name="projectDate"
+                value={formData.projectDate}
+                onChange={handleInputChange}
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+                min={new Date().toISOString().split('T')[0]}
+              />
+            </div>
+            <div>
+              <label htmlFor="targetCount" className="block text-body-medium font-semibold topic-heading mb-2">
+                Audience Size
+              </label>
+              <input
+                type="number"
+                id="targetCount"
+                name="targetCount"
+                value={formData.targetCount}
+                onChange={handleInputChange}
+                min="1"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+                placeholder="Number of people"
+              />
+            </div>
           </div>
 
           <div>
             <label htmlFor="additionalDetails" className="block text-body-medium font-semibold topic-heading mb-2">
-              Tell Us More About Your Event *
+              Tell Us More About Your Requirement
             </label>
             <textarea
               id="additionalDetails"
               name="additionalDetails"
               value={formData.additionalDetails}
               onChange={handleInputChange}
-              required
               rows={5}
               className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="Describe your event vision, special requirements, venue preferences, or any other details..."
+              placeholder="Describe your vision, special requirements, preferences, or any other details..."
             />
           </div>
 
@@ -609,7 +627,7 @@ export default function MultiStepContactForm() {
               className="flex-1"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
+              {isSubmitting ? 'Submitting...' : 'Submit'}
             </CTAButton>
           </div>
         </form>

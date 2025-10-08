@@ -14,6 +14,70 @@ export function parseContent(content: string): JSX.Element[] {
       continue;
     }
 
+    // Videos: @[Title](video_url) - Supports YouTube, Vimeo, direct video URLs
+    const videoMatch = line.match(/^@\[(.*?)\]\((.*?)\)$/);
+    if (videoMatch) {
+      const title = videoMatch[1];
+      const videoUrl = videoMatch[2];
+      let embedUrl = videoUrl;
+      
+      // Convert YouTube URLs to embed format
+      if (videoUrl.includes('youtube.com/watch?v=')) {
+        const videoId = videoUrl.split('v=')[1]?.split('&')[0];
+        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      } else if (videoUrl.includes('youtu.be/')) {
+        const videoId = videoUrl.split('youtu.be/')[1]?.split('?')[0];
+        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      }
+      // Convert Vimeo URLs to embed format
+      else if (videoUrl.includes('vimeo.com/')) {
+        const videoId = videoUrl.split('vimeo.com/')[1]?.split('?')[0];
+        embedUrl = `https://player.vimeo.com/video/${videoId}`;
+      }
+      
+      elements.push(
+        <div key={key++} className="my-8 sm:my-10 md:my-12">
+          <div className="relative w-full" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
+            <iframe
+              src={embedUrl}
+              title={title}
+              className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+          {title && (
+            <p className="text-body-small text-center txt-clr-neutral mt-3 italic">
+              {title}
+            </p>
+          )}
+        </div>
+      );
+      continue;
+    }
+
+    // Images: ![Alt text](image_url)
+    const imageMatch = line.match(/^!\[(.*?)\]\((.*?)\)$/);
+    if (imageMatch) {
+      const altText = imageMatch[1];
+      const imageUrl = imageMatch[2];
+      elements.push(
+        <div key={key++} className="my-8 sm:my-10 md:my-12">
+          <img
+            src={imageUrl}
+            alt={altText}
+            className="w-full h-auto rounded-lg shadow-lg"
+          />
+          {altText && (
+            <p className="text-body-small text-center txt-clr-neutral mt-3 italic">
+              {altText}
+            </p>
+          )}
+        </div>
+      );
+      continue;
+    }
+
     // Headers
     if (line.startsWith('### ')) {
       elements.push(

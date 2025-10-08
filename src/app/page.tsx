@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CTAButton from '@/components/ui/CTAButton';
 import { supabase, Testimonial } from '@/lib/supabase';
+import { query } from '@/lib/db';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 interface Work {
@@ -59,20 +60,11 @@ async function getFeaturedWorks() {
 
 async function getTopFeaturedBlog() {
   try {
-    const { data, error } = await supabase
-      .from('blogs')
-      .select('*')
-      .eq('top_featured', true)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single();
+    const result = await query(
+      'SELECT * FROM blogs WHERE top_featured = true ORDER BY created_at DESC LIMIT 1'
+    );
 
-    if (error) {
-      console.error('Error fetching top featured blog:', error);
-      return null;
-    }
-
-    return data;
+    return result.rows[0] || null;
   } catch (error) {
     console.error('Error fetching top featured blog:', error);
     return null;

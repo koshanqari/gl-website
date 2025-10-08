@@ -10,12 +10,13 @@ export default function EditBlogPage() {
   const params = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [capabilityTags, setCapabilityTags] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     title: '',
     excerpt: '',
     content: '',
     image_url: '',
-    category: 'Event Planning',
+    category: '',
     date: '',
     read_time: '5 min read',
     author: '',
@@ -23,12 +24,21 @@ export default function EditBlogPage() {
     featured: false,
   });
 
-  const categories = [
-    'Event Planning',
-    'Event Management',
-    'Marketing & Engagement',
-    'Event Trends',
-  ];
+  // Fetch capability tags on mount
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch('/api/capabilities/tags');
+        if (response.ok) {
+          const tags = await response.json();
+          setCapabilityTags(tags);
+        }
+      } catch (error) {
+        console.error('Error fetching capability tags:', error);
+      }
+    };
+    fetchTags();
+  }, []);
 
   useEffect(() => {
     fetchBlog();
@@ -155,18 +165,6 @@ export default function EditBlogPage() {
             />
           </div>
 
-          {/* Content */}
-          <div>
-            <label htmlFor="content" className="block text-body-medium font-semibold txt-clr-black mb-2">
-              Content *
-            </label>
-            <MarkdownEditor
-              value={formData.content}
-              onChange={(newContent) => setFormData({ ...formData, content: newContent })}
-              placeholder="Write your blog content here. Use the toolbar buttons above for formatting."
-            />
-          </div>
-
           {/* Image URL */}
           <div>
             <label htmlFor="image_url" className="block text-body-medium font-semibold txt-clr-black mb-2">
@@ -198,11 +196,15 @@ export default function EditBlogPage() {
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
               >
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
+                {capabilityTags.length === 0 ? (
+                  <option value="">Loading categories...</option>
+                ) : (
+                  capabilityTags.map((tag) => (
+                    <option key={tag} value={tag}>
+                      {tag}
+                    </option>
+                  ))
+                )}
               </select>
             </div>
 
@@ -254,6 +256,49 @@ export default function EditBlogPage() {
                 className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="5 min read"
               />
+            </div>
+          </div>
+
+          {/* Content */}
+          <div>
+            <label htmlFor="content" className="block text-body-medium font-semibold txt-clr-black mb-2">
+              Content *
+            </label>
+            <MarkdownEditor
+              value={formData.content}
+              onChange={(newContent) => setFormData({ ...formData, content: newContent })}
+              placeholder="Write your blog content here. Use the toolbar buttons above for formatting."
+            />
+          </div>
+
+          {/* Featured Options */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                id="featured"
+                name="featured"
+                checked={formData.featured}
+                onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-2 focus:ring-primary"
+              />
+              <label htmlFor="featured" className="text-body-medium txt-clr-black cursor-pointer">
+                Featured Blog
+              </label>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                id="top_featured"
+                name="top_featured"
+                checked={formData.top_featured}
+                onChange={(e) => setFormData({ ...formData, top_featured: e.target.checked })}
+                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-2 focus:ring-primary"
+              />
+              <label htmlFor="top_featured" className="text-body-medium txt-clr-black cursor-pointer">
+                Top Featured (Homepage)
+              </label>
             </div>
           </div>
 

@@ -1,19 +1,16 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { query } from '@/lib/db';
 
 // Cache this route for 5 minutes
 export const revalidate = 300;
 
 export async function GET() {
   try {
-    const { data, error } = await supabase
-      .from('blogs')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const result = await query(
+      'SELECT * FROM blogs ORDER BY created_at DESC'
+    );
 
-    if (error) throw error;
-
-    return NextResponse.json(data, {
+    return NextResponse.json(result.rows, {
       headers: {
         'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600'
       }

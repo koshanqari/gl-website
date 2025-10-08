@@ -21,10 +21,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   };
 
   const navItems = [
-    { name: 'CRM', href: '/intellsys/contact-inquiries' },
+    { name: 'CRM', href: '/intellsys/crm' },
     { name: 'Blogs', href: '/intellsys/blogs' },
     { name: 'Work', href: '/intellsys/our-work' },
     { name: 'Testimonials', href: '/intellsys/testimonials' },
+    { name: 'Capabilities', href: '/intellsys/capabilities' },
   ];
 
   return (
@@ -47,7 +48,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   src="https://cdn-sleepyhug-prod.b-cdn.net/media/intellsys-logo.webp" 
                 />
               </a>
-              <Link href="/intellsys/contact-inquiries" className="text-xs sm:text-body-medium txt-clr-white px-2 sm:px-3 py-1 bg-primary rounded">
+              <Link href="/intellsys/crm" className="text-xs sm:text-body-medium txt-clr-white px-2 sm:px-3 py-1 bg-primary rounded">
                 Admin
               </Link>
             </div>
@@ -71,15 +72,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   </Link>
                 );
               })}
-
-              {/* View Site */}
-              <Link
-                href="/"
-                target="_blank"
-                className="px-2 sm:px-3 md:px-4 py-1 sm:py-2 rounded-md text-xs sm:text-sm md:text-body-medium txt-clr-white hover:bg-gray-700 transition-colors"
-              >
-                View Site
-              </Link>
 
               {/* Logout */}
               <button

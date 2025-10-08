@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase';
+import { query } from '@/lib/db';
 
 // GET single blog
 export async function GET(
@@ -8,15 +8,19 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { data, error } = await supabaseAdmin
-      .from('blogs')
-      .select('*')
-      .eq('id', id)
-      .single();
+    const result = await query(
+      'SELECT * FROM blogs WHERE id = $1',
+      [id]
+    );
 
-    if (error) throw error;
+    if (result.rows.length === 0) {
+      return NextResponse.json(
+        { error: 'Blog not found' },
+        { status: 404 }
+      );
+    }
 
-    return NextResponse.json(data);
+    return NextResponse.json(result.rows[0]);
   } catch (error) {
     console.error('Error fetching blog:', error);
     return NextResponse.json(
@@ -35,16 +39,36 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
     
-    const { data, error } = await supabaseAdmin
-      .from('blogs')
-      .update(body)
-      .eq('id', id)
-      .select()
-      .single();
+    const result = await query(
+      `UPDATE blogs 
+       SET title = $1, excerpt = $2, content = $3, image_url = $4, 
+           category = $5, date = $6, read_time = $7, author = $8, 
+           featured = $9, top_featured = $10, updated_at = CURRENT_TIMESTAMP
+       WHERE id = $11
+       RETURNING *`,
+      [
+        body.title,
+        body.excerpt,
+        body.content,
+        body.image_url,
+        body.category,
+        body.date,
+        body.read_time,
+        body.author,
+        body.featured,
+        body.top_featured,
+        id
+      ]
+    );
 
-    if (error) throw error;
+    if (result.rows.length === 0) {
+      return NextResponse.json(
+        { error: 'Blog not found' },
+        { status: 404 }
+      );
+    }
 
-    return NextResponse.json(data);
+    return NextResponse.json(result.rows[0]);
   } catch (error) {
     console.error('Error updating blog:', error);
     return NextResponse.json(
@@ -61,12 +85,17 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const { error } = await supabaseAdmin
-      .from('blogs')
-      .delete()
-      .eq('id', id);
+    const result = await query(
+      'DELETE FROM blogs WHERE id = $1 RETURNING id',
+      [id]
+    );
 
-    if (error) throw error;
+    if (result.rows.length === 0) {
+      return NextResponse.json(
+        { error: 'Blog not found' },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "image_url": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop",
+    "image_text": "Defining event objectives, theme, and target outcomes",
+    "title": "Event Strategy & Conceptualization, hkj",
+    "tag": "Event Strategy",
+    "description": "Our strategic approach ensures every event is built on a solid foundation of clear objectives, compelling themes, and measurable outcomes that align with your business goals.\n\nHi there",
+    "features": [
+      "Strategic event planning and objective setting",
+      "Theme development and creative conceptualization",
+      "Target audience analysis and engagement strategy"
+    ],
+    "sort_order": 10,
+    "created_at": "2025-10-06T12:47:07.981397+00:00",
+    "updated_at": "2025-10-06T13:09:53.01226+00:00"
+  },
+  {
+    "id": 2,
+    "image_url": "https://images.unsplash.com/photo-1688269910939-4c36b34402b0?w=1920&h=1080&fit=crop&auto=format&q=80",
+    "image_text": "Comprehensive venue selection and logistics coordination",
+    "title": "Venue & Logistics Management",
+    "tag": "Venue & Logistics",
+    "description": "We handle all aspects of venue selection and logistics coordination to ensure your event runs smoothly from planning to execution, with meticulous attention to every detail.",
+    "features": [
+      "Venue scouting, negotiation, and booking",
+      "Logistics planning and coordination",
+      "Space optimization and layout design"
+    ],
+    "sort_order": 20,
+    "created_at": "2025-10-06T12:47:07.981397+00:00",
+    "updated_at": "2025-10-06T12:47:07.981397+00:00"
+  },
+  {
+    "id": 3,
+    "image_url": "https://images.unsplash.com/photo-1595020738512-66672a9d72a9?w=1920&h=1080&fit=crop&auto=format&q=80",
+    "image_text": "Professional audio-visual setup and technical support",
+    "title": "Audio-Visual & Technical Production",
+    "tag": "AV & Technical",
+    "description": "Our technical expertise ensures flawless audio-visual experiences with cutting-edge equipment, professional setup, and seamless execution for all your event needs.",
+    "features": [
+      "Audio-visual equipment setup and management",
+      "Technical production and live streaming",
+      "Sound, lighting, and multimedia coordination"
+    ],
+    "sort_order": 30,
+    "created_at": "2025-10-06T12:47:07.981397+00:00",
+    "updated_at": "2025-10-06T12:47:07.981397+00:00"
+  },
+  {
+    "id": 4,
+    "image_url": "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&h=1080&fit=crop&auto=format&q=80",
+    "image_text": "End-to-end vendor sourcing and coordination",
+    "title": "Vendor & Supplier Coordination",
+    "tag": "Vendor Management",
+    "description": "We manage your entire vendor ecosystem with strategic sourcing, quality assurance, and seamless coordination to ensure every element of your event meets the highest standards.",
+    "features": [
+      "Vendor sourcing and selection",
+      "Contract management and quality assurance",
+      "Supplier coordination and performance monitoring"
+    ],
+    "sort_order": 40,
+    "created_at": "2025-10-06T12:47:07.981397+00:00",
+    "updated_at": "2025-10-06T12:47:07.981397+00:00"
+  },
+  {
+    "id": 5,
+    "image_url": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1920&h=1080&fit=crop&auto=format&q=80",
+    "image_text": "Complete guest experience from registration to hospitality",
+    "title": "Registration, Guest Management & Hospitality",
+    "tag": "Guest Management",
+    "description": "We create exceptional guest experiences from the moment they register through the entire event journey, ensuring every interaction reflects your brand's commitment to excellence.",
+    "features": [
+      "Registration system setup and management",
+      "Guest experience and hospitality services",
+      "RSVP management and attendee coordination"
+    ],
+    "sort_order": 50,
+    "created_at": "2025-10-06T12:47:07.981397+00:00",
+    "updated_at": "2025-10-06T12:47:07.981397+00:00"
+  },
+  {
+    "id": 6,
+    "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&h=1080&fit=crop&auto=format&q=80",
+    "image_text": "Strategic marketing and audience engagement",
+    "title": "Marketing, Communication & Engagement",
+    "tag": "Marketing & Engagement",
+    "description": "We develop comprehensive marketing strategies and engagement programs that build anticipation, drive attendance, and create lasting connections with your target audience.",
+    "features": [
+      "Event marketing and promotional campaigns",
+      "Communication strategy and content creation",
+      "Audience engagement and interaction programs"
+    ],
+    "sort_order": 60,
+    "created_at": "2025-10-06T12:47:07.981397+00:00",
+    "updated_at": "2025-10-06T12:47:07.981397+00:00"
+  }
+]

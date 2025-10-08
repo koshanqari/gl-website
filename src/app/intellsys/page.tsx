@@ -8,7 +8,7 @@ export default function AdminDashboardPage() {
 
   useEffect(() => {
     // Redirect to CRM (default admin page)
-    router.replace('/intellsys/contact-inquiries');
+    router.replace('/intellsys/crm');
   }, [router]);
 
   return (

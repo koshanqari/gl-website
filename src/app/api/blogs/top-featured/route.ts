@@ -1,20 +1,16 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { query } from '@/lib/db';
 
 // Cache this route for 5 minutes
 export const revalidate = 300;
 
 export async function GET() {
   try {
-    const { data, error } = await supabase
-      .from('blogs')
-      .select('*')
-      .eq('top_featured', true)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single();
+    const result = await query(
+      'SELECT * FROM blogs WHERE top_featured = true ORDER BY created_at DESC LIMIT 1'
+    );
 
-    if (error) throw error;
+    const data = result.rows[0] || null;
 
     return NextResponse.json(data, {
       headers: {

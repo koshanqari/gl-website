@@ -11,14 +11,14 @@ interface Lead {
   company?: string;
   preferred_connect_date?: string;
   preferred_connect_time?: string;
-  preferred_connect_mode?: string;
-  event_type: string;
-  event_date?: string;
-  event_country?: string;
-  event_pincode?: string;
-  event_region?: string;
-  event_city?: string;
-  guest_count?: number;
+  preferred_connect_mode?: string | string[]; // Can be JSON array or legacy string
+  service_type?: string | string[]; // Can be JSON array or legacy string
+  project_date?: string;
+  project_country?: string;
+  project_pincode?: string;
+  project_region?: string;
+  project_city?: string;
+  target_count?: number;
   additional_details: string;
   status: string;
   priority: string;
@@ -42,7 +42,7 @@ export default function ContactInquiriesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterPriority, setFilterPriority] = useState('All');
   const [filterStatus, setFilterStatus] = useState('All');
-  const [sortBy, setSortBy] = useState<'created_at' | 'name' | 'event_type'>('created_at');
+  const [sortBy, setSortBy] = useState<'created_at' | 'name' | 'service_type'>('created_at');
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
@@ -137,7 +137,7 @@ export default function ContactInquiriesPage() {
       'Email',
       'Phone',
       'Company',
-      'Event Type',
+      'Service Type',
       'Event Date',
       'Event Country',
       'Event City',
@@ -167,12 +167,12 @@ export default function ContactInquiriesPage() {
         `"${inquiry.email || ''}"`,
         `"${inquiry.phone || ''}"`,
         `"${inquiry.company || ''}"`,
-        `"${inquiry.event_type || ''}"`,
-        `"${inquiry.event_date || ''}"`,
-        `"${inquiry.event_country || ''}"`,
-        `"${inquiry.event_city || ''}"`,
-        `"${inquiry.event_region || ''}"`,
-        inquiry.guest_count || '',
+        `"${inquiry.service_type ? (Array.isArray(inquiry.service_type) ? inquiry.service_type.join(', ') : inquiry.service_type) : ''}"`,
+        `"${inquiry.project_date || ''}"`,
+        `"${inquiry.project_country || ''}"`,
+        `"${inquiry.project_city || ''}"`,
+        `"${inquiry.project_region || ''}"`,
+        inquiry.target_count || '',
         `"${(inquiry.additional_details || '').replace(/"/g, '""')}"`,
         `"${inquiry.status}"`,
         `"${inquiry.priority}"`,
@@ -219,8 +219,10 @@ export default function ContactInquiriesPage() {
       switch (sortBy) {
         case 'name':
           return (a.name || '').localeCompare(b.name || '');
-        case 'event_type':
-          return (a.event_type || '').localeCompare(b.event_type || '');
+        case 'service_type':
+          const aType = Array.isArray(a.service_type) ? a.service_type.join(',') : (a.service_type || '');
+          const bType = Array.isArray(b.service_type) ? b.service_type.join(',') : (b.service_type || '');
+          return aType.localeCompare(bType);
         case 'created_at':
         default:
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
@@ -380,12 +382,12 @@ export default function ContactInquiriesPage() {
               </label>
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as 'created_at' | 'name' | 'event_type')}
+                onChange={(e) => setSortBy(e.target.value as 'created_at' | 'name' | 'service_type')}
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
               >
                 <option value="created_at">Date</option>
                 <option value="name">Name</option>
-                <option value="event_type">Event Type</option>
+                <option value="service_type">Service Type</option>
               </select>
             </div>
           </div>
@@ -439,21 +441,25 @@ export default function ContactInquiriesPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         <div className="text-sm font-medium text-gray-900 capitalize">
-                          {inquiry.event_type ? inquiry.event_type.replace('-', ' ') : 'Not specified'}
+                          {inquiry.service_type 
+                            ? (Array.isArray(inquiry.service_type) 
+                                ? inquiry.service_type.join(', ') 
+                                : inquiry.service_type.replace('-', ' ')) 
+                            : 'Not specified'}
                         </div>
-                        {inquiry.event_date && (
+                        {inquiry.project_date && (
                           <div className="text-sm text-gray-500">
-                            {new Date(inquiry.event_date).toLocaleDateString()}
+                            {new Date(inquiry.project_date).toLocaleDateString()}
                           </div>
                         )}
-                        {inquiry.guest_count && (
+                        {inquiry.target_count && (
                           <div className="text-sm text-gray-500">
-                            {inquiry.guest_count} guests
+                            {inquiry.target_count} people
                           </div>
                         )}
-                        {inquiry.event_city && inquiry.event_region && (
+                        {inquiry.project_city && inquiry.project_region && (
                           <div className="text-sm text-gray-500">
-                            {inquiry.event_city}, {inquiry.event_region}
+                            {inquiry.project_city}, {inquiry.project_region}
                           </div>
                         )}
                       </div>
@@ -605,7 +611,13 @@ export default function ContactInquiriesPage() {
                   </div>
                   <div>
                     <label className="text-sm font-medium txt-clr-neutral">Connection Mode</label>
-                    <p className="mt-1 text-sm txt-clr-black capitalize">{selectedLead.preferred_connect_mode?.replace('_', ' ') || 'N/A'}</p>
+                    <p className="mt-1 text-sm txt-clr-black capitalize">
+                      {selectedLead.preferred_connect_mode 
+                        ? (Array.isArray(selectedLead.preferred_connect_mode)
+                            ? selectedLead.preferred_connect_mode.map(m => m.replace('_', ' ')).join(', ')
+                            : selectedLead.preferred_connect_mode)
+                        : 'N/A'}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -621,34 +633,40 @@ export default function ContactInquiriesPage() {
                 </h3>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="text-sm font-medium txt-clr-neutral">Event Type</label>
-                    <p className="mt-1 text-sm txt-clr-black capitalize">{selectedLead.event_type?.replace('-', ' ') || 'N/A'}</p>
+                    <label className="text-sm font-medium txt-clr-neutral">Capability Tags</label>
+                    <p className="mt-1 text-sm txt-clr-black capitalize">
+                      {selectedLead.service_type 
+                        ? (Array.isArray(selectedLead.service_type) 
+                            ? selectedLead.service_type.join(', ') 
+                            : selectedLead.service_type.replace('-', ' ')) 
+                        : 'N/A'}
+                    </p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium txt-clr-neutral">Event Date</label>
+                    <label className="text-sm font-medium txt-clr-neutral">Preferred Date</label>
                     <p className="mt-1 text-sm txt-clr-black">
-                      {selectedLead.event_date ? new Date(selectedLead.event_date).toLocaleDateString() : 'N/A'}
+                      {selectedLead.project_date ? new Date(selectedLead.project_date).toLocaleDateString() : 'N/A'}
                     </p>
                   </div>
                   <div>
                     <label className="text-sm font-medium txt-clr-neutral">Country</label>
-                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.event_country || 'N/A'}</p>
+                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.project_country || 'N/A'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium txt-clr-neutral">Pincode/ZIP</label>
-                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.event_pincode || 'N/A'}</p>
+                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.project_pincode || 'N/A'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium txt-clr-neutral">State/Region</label>
-                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.event_region || 'N/A'}</p>
+                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.project_region || 'N/A'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium txt-clr-neutral">City</label>
-                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.event_city || 'N/A'}</p>
+                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.project_city || 'N/A'}</p>
                   </div>
                   <div className="col-span-2">
-                    <label className="text-sm font-medium txt-clr-neutral">Expected Guests</label>
-                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.guest_count || 'N/A'}</p>
+                    <label className="text-sm font-medium txt-clr-neutral">Audience/Group Size</label>
+                    <p className="mt-1 text-sm txt-clr-black">{selectedLead.target_count || 'N/A'}</p>
                   </div>
                 </div>
                 <div>
