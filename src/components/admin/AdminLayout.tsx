@@ -23,11 +23,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   const navItems = [
     { name: 'CRM', href: '/intellsys/crm', alwaysVisible: true },
+    { name: 'Media', href: '/intellsys/media', alwaysVisible: false },
     { name: 'Work', href: '/intellsys/our-work', alwaysVisible: false },
     { name: 'Testimonials', href: '/intellsys/testimonials', alwaysVisible: false },
     { name: 'Blogs', href: '/intellsys/blogs', alwaysVisible: false },
     { name: 'Capabilities', href: '/intellsys/capabilities', alwaysVisible: false },
-    { name: 'Media', href: '/intellsys/media', alwaysVisible: false },
   ];
 
   return (

@@ -88,10 +88,37 @@ export default function MediaManagerPage() {
       return;
     }
 
-    // Upload video directly without rename option
-    const sanitizedName = file.name.toLowerCase().replace(/[^a-z0-9.-]/g, '-');
-    uploadFileDirectly(file, sanitizedName);
-    event.target.value = '';
+    // Upload video directly
+    try {
+      setUploading(true);
+      const sanitizedName = file.name.toLowerCase().replace(/[^a-z0-9.-]/g, '-');
+      
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', currentFolder);
+      formData.append('fileName', sanitizedName);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('Video uploaded successfully!');
+        fetchFiles();
+        fetchRootFolders();
+      } else {
+        alert('Upload failed: ' + (result.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('Failed to upload video');
+    } finally {
+      setUploading(false);
+      event.target.value = '';
+    }
   };
 
   const handleDeleteFile = async (file: MediaFile) => {
