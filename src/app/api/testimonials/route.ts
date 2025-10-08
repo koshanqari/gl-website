@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { query } from '@/lib/db';
 
 // Cache this route for 5 minutes
 export const revalidate = 300;
@@ -10,24 +10,17 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const featured = searchParams.get('featured');
 
-    let query = supabase
-      .from('testimonials')
-      .select('*')
-      .order('created_at', { ascending: false });
+    let sql = 'SELECT * FROM testimonials ORDER BY sort_order ASC, created_at DESC';
+    let params: any[] = [];
 
     // Filter by featured if specified
     if (featured === 'true') {
-      query = query.eq('featured', true);
+      sql = 'SELECT * FROM testimonials WHERE featured = true ORDER BY sort_order ASC, created_at DESC';
     }
 
-    const { data, error } = await query;
+    const result = await query(sql, params);
 
-    if (error) {
-      console.error('Error fetching testimonials:', error);
-      return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });
-    }
-
-    return NextResponse.json(data, {
+    return NextResponse.json(result.rows, {
       headers: {
         'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600'
       }

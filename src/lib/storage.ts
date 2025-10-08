@@ -17,13 +17,14 @@ export interface UploadResult {
  * - Cheaper than S3
  * - No complex IAM or bucket policies
  * - URLs never expire
+ * - Automatic image optimization
  * 
  * @param file - File buffer
  * @param fileName - Original file name
  * @param folder - Folder in storage (e.g., 'blogs', 'work', 'capabilities')
  * @returns Upload result with CDN URL
  */
-export async function uploadToS3(
+export async function uploadToStorage(
   file: Buffer,
   fileName: string,
   folder: string = 'uploads'
@@ -37,7 +38,7 @@ export async function uploadToS3(
     // Bunny.net Storage API endpoint
     const storageZoneName = process.env.BUNNY_STORAGE_ZONE_NAME!;
     const storagePassword = process.env.BUNNY_STORAGE_PASSWORD!;
-    const storageRegion = process.env.BUNNY_STORAGE_REGION || 'de'; // Default to Germany
+    const storageRegion = process.env.BUNNY_STORAGE_REGION || 'sg'; // Default to Singapore
     
     // Construct upload URL
     const uploadUrl = `https://${storageRegion}.storage.bunnycdn.com/${storageZoneName}/${key}`;
@@ -53,12 +54,13 @@ export async function uploadToS3(
     });
 
     if (!response.ok) {
-      throw new Error(`Bunny upload failed: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      throw new Error(`Bunny upload failed: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     // Construct CDN URL (public, never expires)
-    const pullZoneUrl = process.env.BUNNY_CDN_URL!;
-    const url = `${pullZoneUrl}/${key}`;
+    const cdnUrl = process.env.BUNNY_CDN_URL!;
+    const url = `${cdnUrl}/${key}`;
 
     return {
       url,
@@ -81,11 +83,11 @@ export async function uploadToS3(
  * @param key - File key/path to delete
  * @returns Success status
  */
-export async function deleteFromBunny(key: string): Promise<boolean> {
+export async function deleteFromStorage(key: string): Promise<boolean> {
   try {
     const storageZoneName = process.env.BUNNY_STORAGE_ZONE_NAME!;
     const storagePassword = process.env.BUNNY_STORAGE_PASSWORD!;
-    const storageRegion = process.env.BUNNY_STORAGE_REGION || 'de';
+    const storageRegion = process.env.BUNNY_STORAGE_REGION || 'sg';
     
     const deleteUrl = `https://${storageRegion}.storage.bunnycdn.com/${storageZoneName}/${key}`;
     

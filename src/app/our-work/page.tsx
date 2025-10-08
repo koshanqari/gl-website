@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import { supabase } from '@/lib/supabase';
+// Removed supabase import - now using PostgreSQL
 
 interface Work {
   id: number;
@@ -22,17 +22,9 @@ export const revalidate = 300; // Revalidate every 5 minutes
 
 async function getWorks() {
   try {
-    const { data, error } = await supabase
-      .from('work')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching work:', error);
-      return [];
-    }
-
-    return data || [];
+    const { query } = await import('@/lib/db');
+    const result = await query('SELECT * FROM work ORDER BY created_at DESC');
+    return result.rows || [];
   } catch (error) {
     console.error('Error fetching work:', error);
     return [];

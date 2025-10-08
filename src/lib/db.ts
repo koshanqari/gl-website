@@ -19,6 +19,9 @@ export async function query(text: string, params?: any[]) {
   const client = await pool.connect();
   
   try {
+    // Set search_path to use web schema first, then public
+    await client.query('SET search_path TO web, public');
+    
     const res = await client.query(text, params);
     const duration = Date.now() - start;
     

@@ -12,11 +12,12 @@ export default function EditTestimonialPage({ params }: { params: Promise<{ id: 
   const [testimonial, setTestimonial] = useState<Testimonial | null>(null);
   const [formData, setFormData] = useState({
     name: '',
-    position: '',
+    designation: '',
     company: '',
     content: '',
-    avatar_url: '',
+    image_url: '',
     rating: 5,
+    sort_order: 0,
   });
 
   useEffect(() => {
@@ -29,11 +30,12 @@ export default function EditTestimonialPage({ params }: { params: Promise<{ id: 
           setTestimonial(data);
           setFormData({
             name: data.name,
-            position: data.position,
+            designation: data.designation,
             company: data.company,
             content: data.content,
-            avatar_url: data.avatar_url || '',
+            image_url: data.image_url || '',
             rating: data.rating,
+            sort_order: data.sort_order || 0,
           });
         } else {
           alert('Testimonial not found');
@@ -146,15 +148,15 @@ export default function EditTestimonialPage({ params }: { params: Promise<{ id: 
               />
             </div>
 
-            {/* Position */}
+            {/* Designation */}
             <div>
               <label className="block text-sm font-medium txt-clr-black mb-2">
-                Position *
+                Designation *
               </label>
               <input
                 type="text"
-                name="position"
-                value={formData.position}
+                name="designation"
+                value={formData.designation}
                 onChange={handleChange}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
@@ -197,15 +199,31 @@ export default function EditTestimonialPage({ params }: { params: Promise<{ id: 
               </select>
             </div>
 
-            {/* Avatar URL */}
+            {/* Sort Order */}
+            <div>
+              <label className="block text-sm font-medium txt-clr-black mb-2">
+                Sort Order
+              </label>
+              <input
+                type="number"
+                name="sort_order"
+                value={formData.sort_order}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder="0"
+              />
+              <p className="text-xs text-gray-500 mt-1">Lower numbers appear first (e.g., 10, 20, 30)</p>
+            </div>
+
+            {/* Image URL */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium txt-clr-black mb-2">
-                Avatar URL
+                Image URL
               </label>
               <input
                 type="url"
-                name="avatar_url"
-                value={formData.avatar_url}
+                name="image_url"
+                value={formData.image_url}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="https://example.com/avatar.jpg"

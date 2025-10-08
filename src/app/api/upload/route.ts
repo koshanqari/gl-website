@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { uploadToS3 } from '@/lib/s3';
+import { uploadToStorage } from '@/lib/storage';
 
 export async function POST(request: Request) {
   try {
@@ -36,8 +36,8 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to S3
-    const result = await uploadToS3(buffer, file.name, folder);
+    // Upload to Bunny.net Storage
+    const result = await uploadToStorage(buffer, file.name, folder);
 
     if (!result.success) {
       return NextResponse.json(

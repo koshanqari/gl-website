@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CTAButton from '@/components/ui/CTAButton';
-import { supabase, Testimonial } from '@/lib/supabase';
+import { Testimonial } from '@/lib/supabase';
 import { query } from '@/lib/db';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
@@ -39,19 +39,11 @@ export const revalidate = 300; // Revalidate every 5 minutes
 
 async function getFeaturedWorks() {
   try {
-    const { data, error } = await supabase
-      .from('work')
-      .select('*')
-      .eq('featured', true)
-      .order('created_at', { ascending: false })
-      .limit(3);
-
-    if (error) {
-      console.error('Error fetching featured works:', error);
-      return [];
-    }
-
-    return data || [];
+    const { query } = await import('@/lib/db');
+    const result = await query(
+      'SELECT * FROM work WHERE featured = true ORDER BY created_at DESC LIMIT 3'
+    );
+    return result.rows || [];
   } catch (error) {
     console.error('Error fetching featured works:', error);
     return [];
@@ -73,17 +65,9 @@ async function getTopFeaturedBlog() {
 
 async function getTestimonials() {
   try {
-    const { data, error } = await supabase
-      .from('testimonials')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching testimonials:', error);
-      return getStaticTestimonials();
-    }
-
-    return data && data.length > 0 ? data : getStaticTestimonials();
+    const { query } = await import('@/lib/db');
+    const result = await query('SELECT * FROM testimonials ORDER BY sort_order ASC, created_at DESC');
+    return result.rows && result.rows.length > 0 ? result.rows : getStaticTestimonials();
   } catch (error) {
     console.error('Error fetching testimonials:', error);
     return getStaticTestimonials();
@@ -95,96 +79,104 @@ function getStaticTestimonials(): Testimonial[] {
     {
       id: 1,
       name: "Sarah Johnson",
-      position: "VP Marketing",
+      designation: "VP Marketing",
       company: "TechCorp International",
       content: "Golden Lotus transformed our annual conference into an unforgettable experience. Their attention to detail and innovative approach exceeded all our expectations.",
-      avatar_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      image_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       featured: false,
+      sort_order: 10,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     },
     {
       id: 2,
       name: "Michael Chen",
-      position: "CEO",
+      designation: "CEO",
       company: "Luxury Auto Group",
       content: "The product launch event they orchestrated was flawless. Every element was perfectly executed, from the venue setup to the guest experience.",
-      avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       featured: false,
+      sort_order: 20,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     },
     {
       id: 3,
       name: "Priya Sharma",
-      position: "Head of Events",
+      designation: "Head of Events",
       company: "Global Finance Ltd",
       content: "Professional, creative, and reliable. Golden Lotus delivered our leadership retreat with exceptional quality and seamless execution.",
-      avatar_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      image_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       featured: false,
+      sort_order: 30,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     },
     {
       id: 4,
       name: "David Thompson",
-      position: "VP Operations",
+      designation: "VP Operations",
       company: "StartupHub",
       content: "Golden Lotus made our corporate retreat seamless and engaging. Their team handled every detail perfectly, allowing us to focus on our business.",
-      avatar_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       featured: false,
+      sort_order: 40,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     },
     {
       id: 5,
       name: "Lisa Wang",
-      position: "Head of Marketing",
+      designation: "Head of Marketing",
       company: "GrowthTech",
       content: "The creativity and professionalism of Golden Lotus is unmatched. They turned our brand activation into a memorable experience for all attendees.",
-      avatar_url: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      image_url: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       featured: false,
+      sort_order: 50,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     },
     {
       id: 6,
       name: "James Wilson",
-      position: "Founder",
+      designation: "Founder",
       company: "NextGen Ventures",
       content: "Golden Lotus delivered beyond our expectations. Their strategic approach and flawless execution made our investor event a huge success.",
-      avatar_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      image_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       featured: false,
+      sort_order: 60,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     },
     {
       id: 7,
       name: "Emma Rodriguez",
-      position: "Event Manager",
+      designation: "Event Manager",
       company: "Global Enterprises",
       content: "Working with Golden Lotus was a game-changer. They understood our vision and brought it to life with exceptional execution and creativity.",
-      avatar_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      image_url: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       featured: false,
+      sort_order: 70,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     },
     {
       id: 8,
       name: "Alex Kumar",
-      position: "Marketing Director",
+      designation: "Marketing Director",
       company: "TechStart Inc",
       content: "The team's professionalism and attention to detail made our product launch a huge success. Highly recommended!",
-      avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
+      image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       featured: false,
+      sort_order: 80,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     }
@@ -480,7 +472,7 @@ export default async function HomePage() {
             <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-center">
               <Link href="/our-work">
                 <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
-                  View More
+                  Our Works
                 </CTAButton>
               </Link>
               <Link href="/capabilities">

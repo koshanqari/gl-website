@@ -1,17 +1,11 @@
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase';
+import { query } from '@/lib/db';
 
 // GET all work
 export async function GET() {
   try {
-    const { data, error } = await supabaseAdmin
-      .from('work')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-
-    return NextResponse.json(data);
+    const result = await query('SELECT * FROM work ORDER BY created_at DESC');
+    return NextResponse.json(result.rows);
   } catch (error) {
     console.error('Error fetching work:', error);
     return NextResponse.json(
@@ -25,16 +19,34 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const { title, description, image_url, category, date, client, attendees, location, featured } = body;
     
-    const { data, error } = await supabaseAdmin
-      .from('work')
-      .insert([body])
-      .select()
-      .single();
+    // Validate required fields
+    if (!title || !description || !image_url || !category || !date) {
+      return NextResponse.json(
+        { error: 'Missing required fields: title, description, image_url, category, date' },
+        { status: 400 }
+      );
+    }
+    
+    const result = await query(
+      `INSERT INTO work (title, description, image_url, category, date, client, attendees, location, featured)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+       RETURNING *`,
+      [
+        title,
+        description,
+        image_url,
+        category,
+        date,
+        client || null,
+        attendees || null,
+        location || null,
+        featured || false
+      ]
+    );
 
-    if (error) throw error;
-
-    return NextResponse.json(data, { status: 201 });
+    return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {
     console.error('Error creating work:', error);
     return NextResponse.json(

@@ -52,12 +52,13 @@ export interface Work {
 export interface Testimonial {
   id: number;
   name: string;
-  position: string;
+  designation: string;
   company: string;
   content: string;
-  avatar_url?: string;
+  image_url?: string;
   rating: number;
   featured: boolean;
+  sort_order: number;
   created_at: string;
   updated_at: string;
 }

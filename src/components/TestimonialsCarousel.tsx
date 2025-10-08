@@ -57,10 +57,10 @@ export default function TestimonialsCarousel({ testimonials }: TestimonialsCarou
           {testimonials.slice(currentTestimonialIndex, currentTestimonialIndex + (isMobile ? 2 : 3)).map((testimonial) => (
             <div key={testimonial.id} className="bg-clr-white p-4 sm:p-5 md:p-6 shadow-lg">
               <div className="text-center">
-                {testimonial.avatar_url && (
+                {testimonial.image_url && (
                   <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mx-auto mb-2 sm:mb-3">
                     <Image
-                      src={testimonial.avatar_url}
+                      src={testimonial.image_url}
                       alt={testimonial.name}
                       fill
                       className="object-cover"
@@ -72,8 +72,8 @@ export default function TestimonialsCarousel({ testimonials }: TestimonialsCarou
                 <h4 className="text-sm sm:text-base font-semibold txt-clr-black mb-1">
                   {testimonial.name}
                 </h4>
-                <p className="text-xs sm:text-sm author-byline mb-1">
-                  {testimonial.position}
+                <p className="text-xs sm:text-sm text-gray-600 font-medium mb-1">
+                  {testimonial.designation}
                 </p>
                 <p className="text-xs sm:text-sm txt-clr-neutral mb-2 sm:mb-3">
                   {testimonial.company}

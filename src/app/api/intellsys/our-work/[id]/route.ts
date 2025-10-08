@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase';
+import { query } from '@/lib/db';
 
 // GET single work
 export async function GET(
@@ -8,15 +8,19 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { data, error } = await supabaseAdmin
-      .from('work')
-      .select('*')
-      .eq('id', id)
-      .single();
+    const workId = parseInt(id);
 
-    if (error) throw error;
+    if (isNaN(workId)) {
+      return NextResponse.json({ error: 'Invalid work ID' }, { status: 400 });
+    }
 
-    return NextResponse.json(data);
+    const result = await query('SELECT * FROM work WHERE id = $1', [workId]);
+
+    if (result.rows.length === 0) {
+      return NextResponse.json({ error: 'Work not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(result.rows[0]);
   } catch (error) {
     console.error('Error fetching work:', error);
     return NextResponse.json(
@@ -33,18 +37,48 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
+    const workId = parseInt(id);
+
+    if (isNaN(workId)) {
+      return NextResponse.json({ error: 'Invalid work ID' }, { status: 400 });
+    }
+
     const body = await request.json();
+    const { title, description, image_url, category, date, client, attendees, location, featured } = body;
     
-    const { data, error } = await supabaseAdmin
-      .from('work')
-      .update(body)
-      .eq('id', id)
-      .select()
-      .single();
+    // Validate required fields
+    if (!title || !description || !image_url || !category || !date) {
+      return NextResponse.json(
+        { error: 'Missing required fields: title, description, image_url, category, date' },
+        { status: 400 }
+      );
+    }
+    
+    const result = await query(
+      `UPDATE work 
+       SET title = $1, description = $2, image_url = $3, category = $4, date = $5,
+           client = $6, attendees = $7, location = $8, featured = $9, updated_at = NOW()
+       WHERE id = $10
+       RETURNING *`,
+      [
+        title,
+        description,
+        image_url,
+        category,
+        date,
+        client || null,
+        attendees || null,
+        location || null,
+        featured || false,
+        workId
+      ]
+    );
 
-    if (error) throw error;
+    if (result.rows.length === 0) {
+      return NextResponse.json({ error: 'Work not found' }, { status: 404 });
+    }
 
-    return NextResponse.json(data);
+    return NextResponse.json(result.rows[0]);
   } catch (error) {
     console.error('Error updating work:', error);
     return NextResponse.json(
@@ -61,12 +95,17 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const { error } = await supabaseAdmin
-      .from('work')
-      .delete()
-      .eq('id', id);
+    const workId = parseInt(id);
 
-    if (error) throw error;
+    if (isNaN(workId)) {
+      return NextResponse.json({ error: 'Invalid work ID' }, { status: 400 });
+    }
+
+    const result = await query('DELETE FROM work WHERE id = $1', [workId]);
+
+    if (result.rowCount === 0) {
+      return NextResponse.json({ error: 'Work not found' }, { status: 404 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

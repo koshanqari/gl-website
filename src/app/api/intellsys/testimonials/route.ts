@@ -1,20 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin, Testimonial } from '@/lib/supabase';
+import { query } from '@/lib/db';
 
 // GET - Fetch all testimonials
 export async function GET(request: NextRequest) {
   try {
-    const { data, error } = await supabaseAdmin
-      .from('testimonials')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const result = await query(
+      'SELECT * FROM testimonials ORDER BY sort_order ASC, created_at DESC'
+    );
 
-    if (error) {
-      console.error('Error fetching testimonials:', error);
-      return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });
-    }
-
-    return NextResponse.json(data);
+    return NextResponse.json(result.rows);
   } catch (error) {
     console.error('Error in testimonials GET:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -25,12 +19,12 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, position, company, content, avatar_url, rating, featured } = body;
+    const { name, designation, company, content, image_url, rating, featured, sort_order } = body;
 
     // Validate required fields
-    if (!name || !position || !company || !content) {
+    if (!name || !designation || !company || !content) {
       return NextResponse.json(
-        { error: 'Missing required fields: name, position, company, content' },
+        { error: 'Missing required fields: name, designation, company, content' },
         { status: 400 }
       );
     }
@@ -43,28 +37,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabaseAdmin
-      .from('testimonials')
-      .insert([
-        {
-          name,
-          position,
-          company,
-          content,
-          avatar_url: avatar_url || null,
-          rating: rating || 5,
-          featured: featured || false,
-        },
-      ])
-      .select()
-      .single();
+    const result = await query(
+      `INSERT INTO testimonials (name, designation, company, content, image_url, rating, featured, sort_order)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+       RETURNING *`,
+      [
+        name,
+        designation,
+        company,
+        content,
+        image_url || null,
+        rating || 5,
+        featured || false,
+        sort_order || 0,
+      ]
+    );
 
-    if (error) {
-      console.error('Error creating testimonial:', error);
-      return NextResponse.json({ error: 'Failed to create testimonial' }, { status: 500 });
-    }
-
-    return NextResponse.json(data, { status: 201 });
+    return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {
     console.error('Error in testimonials POST:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

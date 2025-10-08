@@ -124,6 +124,7 @@ export default function TestimonialsPage() {
                   <th className="px-4 py-3 text-left text-sm font-medium txt-clr-black">Company</th>
                   <th className="px-4 py-3 text-left text-sm font-medium txt-clr-black">Content</th>
                   <th className="px-4 py-3 text-left text-sm font-medium txt-clr-black">Rating</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium txt-clr-black">Sort</th>
                   <th className="px-4 py-3 text-left text-sm font-medium txt-clr-black">Actions</th>
                 </tr>
               </thead>
@@ -132,16 +133,16 @@ export default function TestimonialsPage() {
                   <tr key={testimonial.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3">
                       <div className="flex items-center space-x-3">
-                        {testimonial.avatar_url && (
+                        {testimonial.image_url && (
                           <img
-                            src={testimonial.avatar_url}
+                            src={testimonial.image_url}
                             alt={testimonial.name}
                             className="w-8 h-8 rounded-full object-cover"
                           />
                         )}
                         <div>
                           <div className="font-medium txt-clr-black">{testimonial.name}</div>
-                          <div className="text-sm txt-clr-black">{testimonial.position}</div>
+                          <div className="text-sm txt-clr-black">{testimonial.designation}</div>
                         </div>
                       </div>
                     </td>
@@ -163,6 +164,7 @@ export default function TestimonialsPage() {
                         ))}
                       </div>
                     </td>
+                    <td className="px-4 py-3 text-sm txt-clr-black">{testimonial.sort_order}</td>
                     <td className="px-4 py-3">
                       <div className="flex space-x-2">
                         <button
