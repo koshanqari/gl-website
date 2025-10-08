@@ -4,14 +4,19 @@ import { query } from '@/lib/db';
 // Admin API - Fetch all leads
 export async function GET() {
   try {
+    console.log('Fetching leads from database...');
     const result = await query(
       'SELECT * FROM leads ORDER BY created_at DESC'
     );
-
+    console.log(`Fetched ${result.rows.length} leads`);
     return NextResponse.json(result.rows);
   } catch (error) {
     console.error('Error fetching leads:', error);
-    return NextResponse.json({ error: 'Failed to fetch leads' }, { status: 500 });
+    console.error('Error details:', error instanceof Error ? error.message : error);
+    return NextResponse.json({ 
+      error: 'Failed to fetch leads',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }
 

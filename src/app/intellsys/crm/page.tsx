@@ -71,9 +71,22 @@ export default function CRMPage() {
     try {
       const response = await fetch('/api/intellsys/contact-inquiries');
       const data = await response.json();
-      setLeads(data);
+      
+      if (!response.ok) {
+        console.error('API Error:', data.error || 'Unknown error');
+        setLeads([]);
+        return;
+      }
+      
+      if (Array.isArray(data)) {
+        setLeads(data);
+      } else {
+        console.error('Invalid data format received:', data);
+        setLeads([]);
+      }
     } catch (error) {
       console.error('Error fetching leads:', error);
+      setLeads([]);
     } finally {
       setLoading(false);
     }
@@ -84,10 +97,19 @@ export default function CRMPage() {
       const response = await fetch('/api/capabilities/tags');
       if (response.ok) {
         const tags = await response.json();
-        setCapabilityTags(tags);
+        if (Array.isArray(tags)) {
+          setCapabilityTags(tags);
+        } else {
+          console.error('Invalid tags format received:', tags);
+          setCapabilityTags([]);
+        }
+      } else {
+        console.error('Failed to fetch capability tags:', response.status);
+        setCapabilityTags([]);
       }
     } catch (error) {
       console.error('Error fetching capability tags:', error);
+      setCapabilityTags([]);
     }
   };
 
@@ -273,10 +295,10 @@ export default function CRMPage() {
     });
 
   // Pagination calculations
-  const totalPages = Math.max(1, Math.ceil(filteredLeads.length / leadsPerPage));
+  const totalPages = Math.max(1, Math.ceil((filteredLeads || []).length / leadsPerPage));
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = filteredLeads.slice(indexOfFirstLead, indexOfLastLead);
+  const currentLeads = (filteredLeads || []).slice(indexOfFirstLead, indexOfLastLead);
 
   // Reset to page 1 when filters or per-page changes
   useEffect(() => {
@@ -761,7 +783,7 @@ export default function CRMPage() {
                 </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {currentLeads.map((lead) => (
+                    {(currentLeads || []).map((lead) => (
                       <tr key={lead.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => {
                         setSelectedLead(lead);
                         setShowDetailModal(true);
@@ -809,7 +831,7 @@ export default function CRMPage() {
 
               {/* Mobile Card View - Visible only on mobile */}
               <div className="lg:hidden divide-y divide-gray-200">
-                {currentLeads.map((lead) => (
+                {(currentLeads || []).map((lead) => (
                   <div
                     key={lead.id}
                     className="p-4 hover:bg-gray-50 cursor-pointer"
@@ -983,7 +1005,7 @@ export default function CRMPage() {
                           });
                           if (response.ok) {
                             setSelectedLead({ ...selectedLead, status: newStatus });
-                            setLeads(leads.map(l => l.id === selectedLead.id ? { ...l, status: newStatus } : l));
+                            setLeads((leads || []).map(l => l.id === selectedLead.id ? { ...l, status: newStatus } : l));
                           }
                         } catch (error) {
                           console.error('Error updating status:', error);
@@ -1015,7 +1037,7 @@ export default function CRMPage() {
                           });
                           if (response.ok) {
                             setSelectedLead({ ...selectedLead, priority: newPriority });
-                            setLeads(leads.map(l => l.id === selectedLead.id ? { ...l, priority: newPriority } : l));
+                            setLeads((leads || []).map(l => l.id === selectedLead.id ? { ...l, priority: newPriority } : l));
                           }
                         } catch (error) {
                           console.error('Error updating priority:', error);
@@ -1047,7 +1069,7 @@ export default function CRMPage() {
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({ admin_notes: selectedLead.admin_notes }),
                         });
-                        setLeads(leads.map(l => l.id === selectedLead.id ? { ...l, admin_notes: selectedLead.admin_notes } : l));
+                        setLeads((leads || []).map(l => l.id === selectedLead.id ? { ...l, admin_notes: selectedLead.admin_notes } : l));
                       } catch (error) {
                         console.error('Error saving notes:', error);
                       }
