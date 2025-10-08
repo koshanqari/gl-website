@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CTAButton from '@/components/ui/CTAButton';
-import { Testimonial } from '@/lib/supabase';
+import { Testimonial } from '@/lib/types';
 import { query } from '@/lib/db';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 

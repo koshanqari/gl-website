@@ -6,6 +6,7 @@ export async function POST(request: Request) {
     const formData = await request.formData();
     const file = formData.get('file') as File;
     const folder = formData.get('folder') as string || 'uploads';
+    const customFileName = formData.get('fileName') as string;
 
     if (!file) {
       return NextResponse.json(
@@ -14,20 +15,24 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-    if (!allowedTypes.includes(file.type)) {
+    // Validate file type (images and videos)
+    const allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    const allowedVideoTypes = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
+    const isImage = allowedImageTypes.includes(file.type);
+    const isVideo = allowedVideoTypes.includes(file.type);
+    
+    if (!isImage && !isVideo) {
       return NextResponse.json(
-        { error: 'Invalid file type. Only images (JPG, PNG, GIF, WEBP) are allowed.' },
+        { error: 'Invalid file type. Only images (JPG, PNG, GIF, WEBP) and videos (MP4, WEBM, OGG, MOV) are allowed.' },
         { status: 400 }
       );
     }
 
-    // Validate file size (max 5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB
+    // Validate file size (5MB for images, 50MB for videos)
+    const maxSize = isVideo ? 50 * 1024 * 1024 : 5 * 1024 * 1024;
     if (file.size > maxSize) {
       return NextResponse.json(
-        { error: 'File too large. Maximum size is 5MB.' },
+        { error: `File too large. Maximum size is ${isVideo ? '50MB for videos' : '5MB for images'}.` },
         { status: 400 }
       );
     }
@@ -37,7 +42,8 @@ export async function POST(request: Request) {
     const buffer = Buffer.from(bytes);
 
     // Upload to Bunny.net Storage
-    const result = await uploadToStorage(buffer, file.name, folder);
+    const fileName = customFileName || file.name;
+    const result = await uploadToStorage(buffer, fileName, folder);
 
     if (!result.success) {
       return NextResponse.json(

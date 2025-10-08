@@ -73,7 +73,7 @@ export default function MarkdownEditor({ value, onChange, placeholder }: Markdow
     { label: 'Bold', action: () => insertMarkdown('**', '**', 'bold text'), title: 'Bold' },
     { label: 'Italic', action: () => insertMarkdown('*', '*', 'italic text'), title: 'Italic' },
     { label: 'Golden Highlight', action: () => insertMarkdown('<span class="txt-clr-black font-semibold">', '</span>', 'highlighted text'), title: 'Golden Highlight', highlight: true },
-    { label: 'Image', action: () => insertMarkdown('![', '](https://images.unsplash.com/...)', 'Image description'), title: 'Insert Image' },
+    { label: 'Image', action: () => insertMarkdown('![', '](https://images.unsplash.com/...)', 'Image description'), title: 'Insert Image URL' },
     { label: 'Video', action: () => insertMarkdown('@[', '](https://youtube.com/watch?v=...)', 'Video title'), title: 'Insert Video (YouTube/Vimeo)' },
     { label: 'List', action: () => insertMarkdown('- ', '', 'list item'), title: 'Bullet List' },
     { label: 'Numbered', action: () => insertMarkdown('1. ', '', 'numbered item'), title: 'Numbered List' },
@@ -201,7 +201,8 @@ export default function MarkdownEditor({ value, onChange, placeholder }: Markdow
       {!showPreview && (
         <div className="mt-2 text-body-small txt-clr-neutral space-y-1">
           <p>💡 <strong>Tip:</strong> Select text first, then click a format button to wrap it. Or click to insert at cursor position.</p>
-          <p>🖼️ <strong>Images:</strong> Click &quot;Image&quot; button or use: <code className="bg-gray-100 px-2 py-0.5 rounded">![Description](image_url)</code></p>
+          <p>🖼️ <strong>Images:</strong> Go to &quot;📁 Media&quot; in navbar → Upload & crop images → Copy markdown → Paste here</p>
+          <p>🔗 <strong>Or use Image URL:</strong> <code className="bg-gray-100 px-2 py-0.5 rounded">![Description](image_url)</code></p>
           <p>🎬 <strong>Videos:</strong> Click &quot;Video&quot; button or use: <code className="bg-gray-100 px-2 py-0.5 rounded">@[Title](youtube_url)</code> - Supports YouTube &amp; Vimeo</p>
         </div>
       )}

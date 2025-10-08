@@ -26,8 +26,8 @@ When a corporate decision-maker lands on your site, they should immediately thin
 
 ## Backend
 - API Layer: Next.js API Routes (serverless, Node/TypeScript) deployed on Vercel
-- Databse: Supabase
-- File Uploads: Supabase Storage (via presigned URLs)
+- Database: PostgreSQL (web schema)
+- File Uploads: Bunny.net Storage & CDN
 
 ## Deployment
 - Hosting / Deployment: Vercel (CI/CD from GitHub) initially then will be deployed on AWE

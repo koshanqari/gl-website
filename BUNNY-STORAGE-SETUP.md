@@ -27,9 +27,19 @@
 5. Click "Add Storage Zone"
 
 ### 3. Get Storage Password
-1. In your Storage Zone, click on "FTP & API Access"
-2. Copy the **Password** (this is your `BUNNY_STORAGE_PASSWORD`)
-3. Note the **Storage Zone Name** (e.g., `golden-lotus-storage`)
+
+**IMPORTANT:** There are TWO different passwords in Bunny.net:
+1. **FTP Password** - For FileZilla/FTP clients (what your DevOps team provided)
+2. **API Password** - For programmatic access (what we need)
+
+**To get the API Password:**
+1. Go to: https://panel.bunny.net/storage
+2. Click on your storage zone (`golden-lotus-prod`)
+3. Click on "FTP & API Access" tab
+4. Look for **"Password"** field (NOT "FTP Password")
+5. Copy the password - this is your `BUNNY_STORAGE_PASSWORD`
+
+**Note:** The FTP password and API password are usually the same, but if 401 errors occur, verify you're using the correct one.
 
 ### 4. Create Pull Zone (CDN)
 1. Go to: https://panel.bunny.net/pullzones
@@ -42,15 +52,16 @@
 
 ### 5. Update Environment Variables
 
-Update `.env.local` with your Bunny.net credentials:
+✅ **Already configured!** Your DevOps team has set this up:
 
 ```env
 # Bunny.net Storage Configuration
-BUNNY_STORAGE_ZONE_NAME=golden-lotus-storage
-BUNNY_STORAGE_PASSWORD=your-password-from-step-3
-BUNNY_STORAGE_REGION=sg
-BUNNY_CDN_URL=https://golden-lotus-cdn.b-cdn.net
+BUNNY_STORAGE_ZONE_NAME=golden-lotus-prod
+BUNNY_STORAGE_PASSWORD=35af7c7f-3900-4113-9ef07739ce9a-d363-4ed7
+BUNNY_CDN_URL=https://golden-lotus-prod.b-cdn.net
 ```
+
+**Note:** We use the main storage endpoint (`storage.bunnycdn.com`) without region prefix.
 
 ### 6. Test Upload
 

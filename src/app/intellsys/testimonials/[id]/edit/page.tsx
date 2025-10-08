@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { Testimonial } from '@/lib/supabase';
+import { Testimonial } from '@/lib/types';
 
 export default function EditTestimonialPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();

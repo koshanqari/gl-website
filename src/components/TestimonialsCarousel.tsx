@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Testimonial } from '@/lib/supabase';
+import { Testimonial } from '@/lib/types';
 
 interface TestimonialsCarouselProps {
   testimonials: Testimonial[];
