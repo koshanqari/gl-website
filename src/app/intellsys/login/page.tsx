@@ -25,7 +25,7 @@ export default function AdminLoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        router.push('/intellsys/blogs');
+        router.push('/intellsys/crm');
         router.refresh();
       } else {
         setError(data.message || 'Invalid credentials');
