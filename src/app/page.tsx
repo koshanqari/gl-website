@@ -219,9 +219,17 @@ export default async function HomePage() {
 
       {/* Hero Section */}
       <section className="relative h-[70vh] sm:h-[60vh] min-h-[400px] sm:min-h-[500px] flex items-center">
-        {/* Background Image */}
+        {/* Background Image - Using Next.js Image for optimization */}
         <div className="absolute inset-0 z-0">
-          <div className="w-full h-full bg-[url('https://golden-lotus-prod.b-cdn.net/homepage/homepage-hero1.webp?optimizer=image&width=2400&quality=85')] bg-cover bg-center"></div>
+          <Image
+            src="https://golden-lotus-prod.b-cdn.net/homepage/homepage-hero1.webp"
+            alt="Golden Lotus Events - Plan Your Next Event"
+            fill
+            priority
+            quality={85}
+            className="object-cover"
+            sizes="100vw"
+          />
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
