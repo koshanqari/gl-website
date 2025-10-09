@@ -155,6 +155,9 @@
       .section-heading-onColor {
         color: var(--color-white);  /* 🎨 Section headings on COLORED backgrounds - Always white for contrast */
       }
+      .section-heading-accent {
+        color: var(--color-accent-dark);  /* 🎨 Section headings on WHITE backgrounds - Change accent-dark color to update! */
+      }
       
       /* Responsive Section Heading Size */
       .section-heading {

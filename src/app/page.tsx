@@ -481,6 +481,200 @@ export default async function HomePage() {
         </div>
       </section>
 
+
+
+      {/* Services Section 1: Event Strategy */}
+      <section className="bg-clr-primary-dark">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Image Left */}
+          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-auto lg:min-h-[360px] xl:min-h-[576px] order-2 lg:order-1">
+            <Image
+              src={services[0].image}
+              alt={services[0].title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={95}
+            />
+          </div>
+
+          {/* Content Right */}
+          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14 order-1 lg:order-2">
+            <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large section-heading section-heading-accent leading-tight">
+                {services[0].title}
+              </h3>
+              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white leading-relaxed">
+                {services[0].description}
+              </p>
+              <ul className="space-y-2 sm:space-y-3 pt-2 list-disc pl-5 marker:text-accent">
+                {services[0].features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="text-body-small sm:text-body-medium txt-clr-white">
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section 2: Corporate Event Management */}
+      <section className="bg-clr-primary-dark">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Content Left */}
+          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14">
+            <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
+              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large section-heading section-heading-accent leading-tight">
+                {services[1].title}
+              </h3>
+              <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white leading-relaxed">
+                {services[1].description}
+              </p>
+              <ul className="space-y-2 sm:space-y-3 pt-2 list-disc pl-5 marker:text-accent">
+                {services[1].features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="text-body-small sm:text-body-medium txt-clr-white">
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Image Right */}
+          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-auto lg:min-h-[360px] xl:min-h-[576px]">
+            <Image
+              src={services[1].image}
+              alt={services[1].title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={95}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section CTA */}
+      <section className="py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16 bg-clr-primary-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-center">
+              <Link href="/capabilities">
+                <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
+                  Our Capabilities
+                </CTAButton>
+              </Link>
+              <Link href="/our-work">
+                <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
+                  Client Stories
+                </CTAButton>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+       {/* Why Choose Us Section: The Golden Difference */}
+       <section className="py-12 sm:py-16 bg-clr-white">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           {/* Section Header */}
+           <div className="text-center mb-6 sm:mb-10 md:mb-12">
+             <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large section-heading section-heading-onwhite mb-3 sm:mb-4 md:mb-6">
+             The Golden Difference
+             </h2>
+             <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto">
+               The Golden Lotus difference: Where expertise meets excellence in every detail.
+             </p>
+           </div>
+
+           {/* Reason 1: Experience & Expertise - Image Left */}
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 sm:mb-10 md:mb-12">
+             {/* Image */}
+             <div className="lg:col-span-1 order-1">
+               <div className="relative h-[220px] sm:h-[360px] md:h-[460px] lg:h-[550px] overflow-hidden">
+                 <Image
+                   src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
+                   alt="Experience & Expertise"
+                   fill
+                   className="object-cover"
+                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                   quality={95}
+                 />
+                 <div className="absolute inset-0 bg-black/40 flex items-end">
+                   <div className="p-3 sm:p-6">
+                     <h3 className="text-headline-small sm:text-display-small mb-1 sm:mb-2 txt-clr-white">
+                       15+ Years of Excellence
+                     </h3>
+                   </div>
+                 </div>
+               </div>
+             </div>
+             
+             {/* Content */}
+             <div className="lg:col-span-1 order-2">
+               <div className="bg-clr-white shadow-lg p-3 sm:p-6 md:p-8 h-auto lg:h-[550px] flex flex-col text-left">
+                 <h3 className="text-headline-small sm:text-display-small topic-heading mb-2 sm:mb-4">
+                   Proven Track Record
+                 </h3>
+                 <p className="text-body-small sm:text-body-medium md:text-body-large mb-3 sm:mb-6">
+                   With over a decade of experience, we&apos;ve perfected the art of creating unforgettable events that exceed expectations.
+                 </p>
+                 <ul className="space-y-2 sm:space-y-3 mb-3 sm:mb-6 flex-grow list-disc pl-5 marker:text-primary">
+                   <li className="text-body-small sm:text-body-medium">500+ successful events delivered</li>
+                   <li className="text-body-small sm:text-body-medium">50+ Fortune 500 clients trust us</li>
+                   <li className="text-body-small sm:text-body-medium">98% client satisfaction rate</li>
+                   <li className="text-body-small sm:text-body-medium">Award-winning event design</li>
+                 </ul>
+               </div>
+             </div>
+           </div>
+
+           {/* Reason 2: End-to-End Solutions - Image Right */}
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 sm:mb-10 md:mb-12">
+             {/* Image */}
+             <div className="lg:col-span-1 order-1 lg:order-2">
+               <div className="relative h-[220px] sm:h-[360px] md:h-[460px] lg:h-[550px] overflow-hidden">
+                 <Image
+                   src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
+                   alt="End-to-End Solutions"
+                   fill
+                   className="object-cover"
+                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                   quality={95}
+                 />
+                 <div className="absolute inset-0 bg-black/40 flex items-end">
+                   <div className="p-3 sm:p-6">
+                     <h3 className="text-headline-small sm:text-display-small mb-1 sm:mb-2 txt-clr-white">
+                       Comprehensive Solutions
+                     </h3>
+                   </div>
+                 </div>
+               </div>
+             </div>
+             
+             {/* Content */}
+             <div className="lg:col-span-1 order-2 lg:order-1">
+               <div className="bg-clr-white shadow-lg p-3 sm:p-6 md:p-8 h-auto lg:h-[550px] flex flex-col text-left">
+                 <h3 className="text-headline-small sm:text-display-small topic-heading mb-2 sm:mb-4">
+                   End-to-End Event Management
+                 </h3>
+                 <p className="text-body-small sm:text-body-medium md:text-body-large mb-3 sm:mb-6">
+                   From concept to execution, we handle every detail so you can focus on what matters most.
+                 </p>
+                 <ul className="space-y-2 sm:space-y-3 mb-3 sm:mb-6 flex-grow list-disc pl-5 marker:text-primary">
+                   <li className="text-body-small sm:text-body-medium">Strategic planning & creative conceptualization</li>
+                   <li className="text-body-small sm:text-body-medium">Venue selection & logistics management</li>
+                   <li className="text-body-small sm:text-body-medium">On-site coordination & technical support</li>
+                   <li className="text-body-small sm:text-body-medium">Post-event analysis & reporting</li>
+                 </ul>
+               </div>
+             </div>
+           </div>
+         </div>
+       </section>
+
       {/* Our Impact Section */}
       <section className="relative py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
         <div className="absolute inset-0">
@@ -558,141 +752,99 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Services Section 1: Event Strategy */}
-      <section className="bg-clr-neutral-light">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Image Left */}
-          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-auto lg:min-h-[360px] xl:min-h-[576px] order-2 lg:order-1">
-            <Image
-              src={services[0].image}
-              alt={services[0].title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              quality={95}
-            />
-          </div>
 
-          {/* Content Right */}
-          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14 order-1 lg:order-2">
-            <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
-                {services[0].title}
-              </h3>
-              <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
-                {services[0].description}
-              </p>
-              <ul className="space-y-2 sm:space-y-3 pt-2 list-disc pl-5 marker:text-primary">
-                {services[0].features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="text-body-small sm:text-body-medium">
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section 2: Corporate Event Management */}
-      <section className="bg-clr-neutral-light">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Content Left */}
-          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14">
-            <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-              <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large topic-heading leading-tight">
-                {services[1].title}
-              </h3>
-              <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
-                {services[1].description}
-              </p>
-              <ul className="space-y-2 sm:space-y-3 pt-2 list-disc pl-5 marker:text-primary">
-                {services[1].features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="text-body-small sm:text-body-medium">
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Image Right */}
-          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-auto lg:min-h-[360px] xl:min-h-[576px]">
-            <Image
-              src={services[1].image}
-              alt={services[1].title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              quality={95}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section CTA */}
-      <section className="py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16 bg-clr-neutral-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-center">
-              <Link href="/capabilities">
-                <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
-                  Our Capabilities
-                </CTAButton>
-              </Link>
-              <Link href="/our-work">
-                <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
-                  Client Stories
-                </CTAButton>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
-
-
-      {/* Mission & Values Hero */}
+      {/* Featured Blog */}
       <section className="relative primary-section-bg">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Left Content */}
-          <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
-            <div className="max-w-xl space-y-4 sm:space-y-6 md:space-y-8 text-center sm:text-left mx-auto sm:mx-0">
-              <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight section-heading section-heading-onColor">
-                Mission & Vision
-              </h2>
-              <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
-                We combine the talent, technology and creative power of our agency to connect brands, institutions and associations with their audiences in the digital age.
-              </p>
-              <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
-                We act as a bridge for transformation and growth, designing creative and strategic solutions executed with operational excellence.
-              </p>
+        {featuredBlog ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Left Content */}
+            <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20 order-2 lg:order-1">
+              <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <span className="px-2 py-1 text-xs sm:text-body-small font-semibold bg-accent txt-clr-white">
+                    {featuredBlog.category}
+                  </span>
+                  <span className="text-xs sm:text-body-small txt-clr-white">
+                    {featuredBlog.read_time}
+                  </span>
+                </div>
+
+                <h3 className="text-headline-large sm:text-headline-large md:text-display-small section-heading section-heading-onColor leading-tight">
+                  {featuredBlog.title}
+                </h3>
+
+                <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white leading-relaxed">
+                  {featuredBlog.excerpt}
+                </p>
+
+                <div className="flex items-center space-x-2 text-xs sm:text-body-small txt-clr-white">
+                  <span>By {featuredBlog.author}</span>
+                  <span>•</span>
+                  <span>{featuredBlog.date}</span>
+                </div>
+
+                <div className="pt-3 sm:pt-4 grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start">
+                  <Link href={`/blogs/${featuredBlog.id}`}>
+                    <CTAButton variant="white-primary" size="md" className="w-full sm:w-auto">
+                      Read Article
+                    </CTAButton>
+                  </Link>
+                  <Link href="/blogs">
+                    <CTAButton variant="white-secondary" size="md" className="w-full sm:w-auto">
+                      Our Blogs
+                    </CTAButton>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Image */}
+            <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[560px] order-1 lg:order-2">
+              <Image
+                src={featuredBlog.image_url}
+                alt={featuredBlog.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={95}
+              />
             </div>
           </div>
-
-          {/* Right Image */}
-          <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[560px]">
-            <Image
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
-              alt="Our Team"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              quality={95}
-            />
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Fallback Content */}
+            <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
+              <div className="max-w-xl space-y-4 sm:space-y-6 md:space-y-8 text-center sm:text-left mx-auto sm:mx-0">
+                <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight section-heading section-heading-onColor">
+                  Mission & Vision
+                </h2>
+                <p className="text-body-small sm:text-body-medium md:text-body-large txt-clr-white leading-relaxed">
+                  We combine the talent, technology and creative power of our agency to connect brands, institutions and associations with their audiences in the digital age.
+                </p>
+              </div>
+            </div>
+            <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[560px]">
+              <Image
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
+                alt="Our Team"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={95}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 secondary-section-bg">
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
-            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onColor">
+            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onwhite">
               Client Testimonials
             </h2>
-            <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4 txt-clr-white">
+            <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4">
               Hear from our satisfied clients about their experience working with Golden Lotus.
             </p>
           </div>
@@ -700,81 +852,6 @@ export default async function HomePage() {
 
         {/* Testimonials Carousel */}
         <TestimonialsCarousel testimonials={testimonials} />
-      </section>
-
-      {/* Featured Blog Section */}
-      <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 bg-clr-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
-            <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onwhite">
-              Latest Insights
-            </h2>
-            <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4">
-              Stay informed with our latest thoughts on corporate event trends and best practices.
-            </p>
-          </div>
-
-          {featuredBlog ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
-              {/* Image */}
-              <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[400px] xl:min-h-[500px]">
-                <Image
-                  src={featuredBlog.image_url}
-                  alt={featuredBlog.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  quality={95}
-                />
-              </div>
-
-              {/* Content */}
-              <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8">
-                <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-                  <div className="flex items-center space-x-2 sm:space-x-3">
-                    <span className="px-2 py-1 text-xs sm:text-body-small font-semibold tag">
-                      {featuredBlog.category}
-                    </span>
-                    <span className="text-xs sm:text-body-small reading-time">
-                      {featuredBlog.read_time}
-                    </span>
-                  </div>
-
-                  <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight">
-                    {featuredBlog.title}
-                  </h3>
-
-                  <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
-                    {featuredBlog.excerpt}
-                  </p>
-
-                  <div className="flex items-center space-x-2 text-xs sm:text-body-small">
-                    <span className="author-byline">By {featuredBlog.author}</span>
-                    <span>•</span>
-                    <span className="content-date">{featuredBlog.date}</span>
-                  </div>
-
-                  <div className="pt-3 sm:pt-4 grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start sm:items-center sm:flex sm:flex-row sm:justify-start">
-                    <Link href={`/blogs/${featuredBlog.id}`}>
-                      <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
-                        Read Article
-                      </CTAButton>
-                    </Link>
-                    <Link href="/blogs">
-                      <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
-                        Our Blogs
-                      </CTAButton>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-body-medium">No featured blog available at the moment.</p>
-            </div>
-          )}
-        </div>
       </section>
 
       {/* CTA Section */}
