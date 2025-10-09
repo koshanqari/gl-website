@@ -37,9 +37,9 @@ export default function ImageCropper({ onCropComplete, onCancel, currentFolder =
       return;
     }
 
-    // Validate file size (max 10MB for cropping)
-    if (file.size > 10 * 1024 * 1024) {
-      alert('Image too large. Maximum size is 10MB.');
+    // Validate file size (max 25MB for cropping)
+    if (file.size > 25 * 1024 * 1024) {
+      alert('Image too large. Maximum size is 25MB.');
       return;
     }
 
@@ -130,6 +130,10 @@ export default function ImageCropper({ onCropComplete, onCancel, currentFolder =
       const result = await response.json();
 
       if (result.success) {
+        // Show compression stats if available
+        if (result.originalSize && result.compressedSize) {
+          console.log(`✅ Image uploaded: ${result.originalSize} → ${result.compressedSize} (${result.quality})`);
+        }
         onCropComplete(croppedImage.blob, result.url);
       } else {
         alert(`Upload failed: ${result.error}`);

@@ -194,20 +194,14 @@ export default async function HomePage() {
     {
       title: "Event Strategy & Conceptualization",
       description: "Strategic planning and creative conceptualization that transforms your vision into memorable experiences.",
-      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80",
+      image: "https://golden-lotus-prod.b-cdn.net/homepage/what-we-do1.webp?optimizer=image&width=1920&quality=85",
       features: ["Strategic event planning", "Theme development", "Target audience analysis"]
     },
     {
       title: "Corporate Event Management",
       description: "End-to-end management of corporate events, conferences, and business gatherings with precision and excellence.",
-      image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80",
+      image: "https://golden-lotus-prod.b-cdn.net/homepage/what-we-do2.webp?optimizer=image&width=1920&quality=85",
       features: ["Conference management", "Team building events", "Executive retreats"]
-    },
-    {
-      title: "Product Launch & Brand Activation",
-      description: "Creating impactful product launches and brand activations that generate buzz and drive engagement.",
-      image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80",
-      features: ["Product launches", "Brand activations", "Media events"]
     }
   ];
 
@@ -222,12 +216,12 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen bg-bg-primary">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="relative h-[70vh] sm:h-[60vh] min-h-[400px] sm:min-h-[500px] flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1561489396-888724a1543d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center"></div>
+          <div className="w-full h-full bg-[url('https://golden-lotus-prod.b-cdn.net/homepage/homepage-hero1.webp?optimizer=image&width=2400&quality=85')] bg-cover bg-center"></div>
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
@@ -244,13 +238,13 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link href="/contact">
                 <CTAButton variant="white-primary" size="md" className="sm:size-lg">
-                Plan My Event
-              </CTAButton>
+                  Plan My Event
+                </CTAButton>
               </Link>
               <Link href="/about-us">
                 <CTAButton variant="white-secondary" size="md" className="sm:size-lg">
                   About Us
-              </CTAButton>
+                </CTAButton>
               </Link>
             </div>
           </div>
@@ -406,13 +400,15 @@ export default async function HomePage() {
         </div>
       </section>
 
+
+
       {/* Client Stories Section */}
       <section className="py-6 sm:py-8 md:py-12 lg:py-16 bg-clr-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 sm:mb-8 md:mb-12">
             <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onwhite">
               Client Stories
-          </h2>
+            </h2>
             <p className="text-body-small sm:text-body-medium md:text-body-large mb-4 sm:mb-6 md:mb-8 max-w-3xl mx-auto px-4">
               Discover how we&apos;ve transformed corporate events for leading organizations across industries.
             </p>
@@ -433,7 +429,7 @@ export default async function HomePage() {
                       quality={95}
                     />
                   </div>
-                  
+
                   <div className="p-4 sm:p-5 md:p-6 lg:p-8">
                     <div className="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-3 md:mb-4">
                       <span className="px-2 py-1 text-xs sm:text-body-small font-semibold tag">
@@ -443,15 +439,15 @@ export default async function HomePage() {
                         {work.date}
                       </span>
                     </div>
-                    
+
                     <h3 className="text-body-medium sm:text-body-large md:text-headline-small mb-2 sm:mb-3 md:mb-4 leading-tight topic-heading">
                       {work.title}
                     </h3>
-                    
+
                     <p className="text-body-small sm:text-body-medium leading-relaxed mb-3 sm:mb-4 md:mb-6 line-clamp-3">
                       {work.description}
                     </p>
-                    
+
                     <div className="space-y-1 sm:space-y-2 text-xs sm:text-body-small">
                       {work.client && <div><span className="font-semibold">Client:</span> {work.client}</div>}
                       {work.attendees && <div><span className="font-semibold">Scale:</span> {work.attendees}</div>}
@@ -489,7 +485,7 @@ export default async function HomePage() {
       <section className="relative py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80"
+            src="https://golden-lotus-prod.b-cdn.net/homepage/our-impact.webp?optimizer=image&width=2400&quality=85"
             alt="Our Impact"
             fill
             className="object-cover"
@@ -498,7 +494,7 @@ export default async function HomePage() {
           />
         </div>
         <div className="absolute inset-0" style={{ backgroundColor: 'var(--overlay-primary)' }}></div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12 section-heading section-heading-onColor">
             Our Impact
@@ -513,7 +509,7 @@ export default async function HomePage() {
                 Events Delivered
               </div>
             </div>
-            
+
             <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
               <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
                 50+
@@ -522,7 +518,7 @@ export default async function HomePage() {
                 Fortune 500 Clients
               </div>
             </div>
-            
+
             <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
               <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
                 98%
@@ -531,7 +527,7 @@ export default async function HomePage() {
                 Client Satisfaction
               </div>
             </div>
-            
+
             <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
               <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
                 15+
@@ -540,7 +536,7 @@ export default async function HomePage() {
                 Years Experience
               </div>
             </div>
-            
+
             <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
               <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
                 25+
@@ -549,7 +545,7 @@ export default async function HomePage() {
                 Countries Served
               </div>
             </div>
-            
+
             <div className="text-center border-t border-white/50 pt-2 sm:pt-3 md:pt-4 lg:pt-6">
               <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium txt-clr-white mb-1 sm:mb-2 md:mb-3">
                 1000+
@@ -562,19 +558,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-
       {/* Services Section 1: Event Strategy */}
       <section className="bg-clr-neutral-light">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Image Left */}
           <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-auto lg:min-h-[360px] xl:min-h-[576px] order-2 lg:order-1">
-                      <Image
+            <Image
               src={services[0].image}
               alt={services[0].title}
-                        fill
-                        className="object-cover"
+              fill
+              className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
-                        quality={95}
+              quality={95}
             />
           </div>
 
@@ -594,9 +589,9 @@ export default async function HomePage() {
                   </li>
                 ))}
               </ul>
-                        </div>
-                      </div>
-                    </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Services Section 2: Corporate Event Management */}
@@ -635,7 +630,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Services Section CTA */}
       <section className="py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16 bg-clr-neutral-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -652,8 +647,11 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-                  </div>
+        </div>
       </section>
+
+      
+
 
       {/* Mission & Values Hero */}
       <section className="relative primary-section-bg">
@@ -692,13 +690,13 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
             <h2 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large mb-3 sm:mb-4 md:mb-6 section-heading section-heading-onColor">
-            Client Testimonials
-          </h2>
+              Client Testimonials
+            </h2>
             <p className="text-body-small sm:text-body-medium md:text-body-large max-w-3xl mx-auto px-4 txt-clr-white">
               Hear from our satisfied clients about their experience working with Golden Lotus.
-                    </p>
-                  </div>
-                </div>
+            </p>
+          </div>
+        </div>
 
         {/* Testimonials Carousel */}
         <TestimonialsCarousel testimonials={testimonials} />
@@ -718,59 +716,59 @@ export default async function HomePage() {
 
           {featuredBlog ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
-            {/* Image */}
-            <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[400px] xl:min-h-[500px]">
-              <Image
-                src={featuredBlog.image_url}
-                alt={featuredBlog.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                quality={95}
-              />
-            </div>
+              {/* Image */}
+              <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-auto lg:min-h-[400px] xl:min-h-[500px]">
+                <Image
+                  src={featuredBlog.image_url}
+                  alt={featuredBlog.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={95}
+                />
+              </div>
 
-            {/* Content */}
-            <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8">
-              <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <span className="px-2 py-1 text-xs sm:text-body-small font-semibold tag">
-                    {featuredBlog.category}
-                  </span>
-                  <span className="text-xs sm:text-body-small reading-time">
-                    {featuredBlog.read_time}
-                  </span>
-                </div>
-                
-                <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight">
-                  {featuredBlog.title}
-                </h3>
-                
-                <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
-                  {featuredBlog.excerpt}
-                </p>
-                
-                <div className="flex items-center space-x-2 text-xs sm:text-body-small">
-                  <span className="author-byline">By {featuredBlog.author}</span>
-                  <span>•</span>
-                  <span className="content-date">{featuredBlog.date}</span>
-                </div>
-                
-                <div className="pt-3 sm:pt-4 grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start sm:items-center sm:flex sm:flex-row sm:justify-start">
-                  <Link href={`/blogs/${featuredBlog.id}`}>
-                    <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
-                      Read Article
-                    </CTAButton>
-                  </Link>
-                  <Link href="/blogs">
-                    <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
-                      Our Blogs
-                    </CTAButton>
-                  </Link>
+              {/* Content */}
+              <div className="flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8">
+                <div className="max-w-xl space-y-3 sm:space-y-4 md:space-y-5">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <span className="px-2 py-1 text-xs sm:text-body-small font-semibold tag">
+                      {featuredBlog.category}
+                    </span>
+                    <span className="text-xs sm:text-body-small reading-time">
+                      {featuredBlog.read_time}
+                    </span>
+                  </div>
+
+                  <h3 className="text-headline-large sm:text-display-small md:text-display-medium lg:text-display-large leading-tight">
+                    {featuredBlog.title}
+                  </h3>
+
+                  <p className="text-body-small sm:text-body-medium md:text-body-large leading-relaxed">
+                    {featuredBlog.excerpt}
+                  </p>
+
+                  <div className="flex items-center space-x-2 text-xs sm:text-body-small">
+                    <span className="author-byline">By {featuredBlog.author}</span>
+                    <span>•</span>
+                    <span className="content-date">{featuredBlog.date}</span>
+                  </div>
+
+                  <div className="pt-3 sm:pt-4 grid grid-cols-2 gap-3 sm:gap-4 sm:flex sm:flex-row sm:justify-start sm:items-center sm:flex sm:flex-row sm:justify-start">
+                    <Link href={`/blogs/${featuredBlog.id}`}>
+                      <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
+                        Read Article
+                      </CTAButton>
+                    </Link>
+                    <Link href="/blogs">
+                      <CTAButton variant="accent-primary" size="md" className="w-full sm:w-auto">
+                        Our Blogs
+                      </CTAButton>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           ) : (
             <div className="text-center py-8">
               <p className="text-body-medium">No featured blog available at the moment.</p>
@@ -792,12 +790,12 @@ export default async function HomePage() {
             <Link href="/contact">
               <CTAButton variant="white-secondary" size="md" className="w-full sm:w-auto">
                 Get Started
-            </CTAButton>
+              </CTAButton>
             </Link>
             <Link href="/about-us">
               <CTAButton variant="accent-secondary" size="md" className="w-full sm:w-auto">
                 About Us
-            </CTAButton>
+              </CTAButton>
             </Link>
           </div>
         </div>

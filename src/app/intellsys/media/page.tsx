@@ -36,6 +36,8 @@ export default function MediaManagerPage() {
   const [newFolderName, setNewFolderName] = useState('');
   const [deleteMode, setDeleteMode] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
+  const [renameFile, setRenameFile] = useState<MediaFile | null>(null);
+  const [newFileName, setNewFileName] = useState('');
 
   useEffect(() => {
     fetchFiles();
@@ -82,9 +84,9 @@ export default function MediaManagerPage() {
       return;
     }
 
-    // Validate file size (max 50MB for videos)
-    if (file.size > 50 * 1024 * 1024) {
-      alert('Video too large. Maximum size is 50MB.');
+    // Validate file size (max 100MB for videos)
+    if (file.size > 100 * 1024 * 1024) {
+      alert('Video too large. Maximum size is 100MB.');
       return;
     }
 
@@ -156,6 +158,61 @@ export default function MediaManagerPage() {
     setSelectedItems(newSelected);
   };
 
+  const handleRenameFile = async () => {
+    if (!renameFile || !newFileName.trim()) {
+      alert('Please enter a valid filename');
+      return;
+    }
+
+    try {
+      setUploading(true);
+
+      // Get file extension from original file
+      const extension = renameFile.ObjectName.split('.').pop() || '';
+      const sanitizedName = newFileName.toLowerCase().replace(/[^a-z0-9.-]/g, '-');
+      const finalFileName = extension ? `${sanitizedName}.${extension}` : sanitizedName;
+
+      // Download the file from CDN
+      const downloadResponse = await fetch(renameFile.url!);
+      if (!downloadResponse.ok) {
+        throw new Error('Failed to download file');
+      }
+      const fileBlob = await downloadResponse.blob();
+
+      // Upload with new name
+      const formData = new FormData();
+      formData.append('file', fileBlob, finalFileName);
+      formData.append('folder', currentFolder);
+      formData.append('fileName', finalFileName);
+
+      const uploadResponse = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const uploadResult = await uploadResponse.json();
+
+      if (uploadResult.success) {
+        // Delete old file
+        await fetch(`/api/intellsys/media?key=${encodeURIComponent(renameFile.path)}`, {
+          method: 'DELETE',
+        });
+
+        alert('File renamed successfully!');
+        setRenameFile(null);
+        setNewFileName('');
+        fetchFiles();
+        fetchRootFolders();
+      } else {
+        alert('Failed to rename file: ' + (uploadResult.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Rename error:', error);
+      alert('Failed to rename file');
+    } finally {
+      setUploading(false);
+    }
+  };
 
   // Function to delete the folder itself (not just contents)
   const deleteFolderItself = async (folderPath: string): Promise<void> => {
@@ -905,6 +962,17 @@ export default function MediaManagerPage() {
                     </a>
                   )}
                   <button
+                    onClick={() => {
+                      const nameWithoutExt = selectedFile.ObjectName.replace(/\.[^/.]+$/, '');
+                      setNewFileName(nameWithoutExt);
+                      setRenameFile(selectedFile);
+                      setSelectedFile(null);
+                    }}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm"
+                  >
+                    Rename
+                  </button>
+                  <button
                     onClick={() => handleDeleteFile(selectedFile)}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-sm ml-auto"
                   >
@@ -927,6 +995,58 @@ export default function MediaManagerPage() {
             }}
             onCancel={() => setShowCropper(false)}
           />
+        )}
+
+        {/* Rename Modal */}
+        {renameFile && (
+          <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg max-w-md w-full p-6">
+              <h2 className="text-xl font-bold txt-clr-black mb-4">Rename File</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Current name: <span className="font-normal">{renameFile.ObjectName}</span>
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={newFileName}
+                      onChange={(e) => setNewFileName(e.target.value)}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+                      placeholder="Enter new filename"
+                      autoFocus
+                    />
+                    <span className="px-3 py-2 bg-gray-100 border border-gray-300 rounded-md text-sm text-gray-600">
+                      .{renameFile.ObjectName.split('.').pop()}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Extension (.{renameFile.ObjectName.split('.').pop()}) is automatically preserved
+                  </p>
+                </div>
+
+                <div className="flex gap-2 justify-end pt-4 border-t">
+                  <button
+                    onClick={() => {
+                      setRenameFile(null);
+                      setNewFileName('');
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleRenameFile}
+                    disabled={uploading || !newFileName.trim()}
+                    className="px-6 py-2 bg-primary text-white rounded hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {uploading ? 'Renaming...' : 'Rename'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
 
       </div>

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { uploadToStorage } from '@/lib/storage';
+import sharp from 'sharp';
 
 export async function POST(request: Request) {
   try {
@@ -28,35 +29,114 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate file size (5MB for images, 50MB for videos)
-    const maxSize = isVideo ? 50 * 1024 * 1024 : 5 * 1024 * 1024;
+    // Validate file size (25MB for images, 100MB for videos)
+    const maxSize = isVideo ? 100 * 1024 * 1024 : 25 * 1024 * 1024;
     if (file.size > maxSize) {
       return NextResponse.json(
-        { error: `File too large. Maximum size is ${isVideo ? '50MB for videos' : '5MB for images'}.` },
+        { error: `File too large. Maximum size is ${isVideo ? '100MB for videos' : '25MB for images'}.` },
         { status: 400 }
       );
     }
 
     // Convert file to buffer
     const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    let buffer = Buffer.from(bytes);
 
-    // Upload to Bunny.net Storage
-    const fileName = customFileName || file.name;
-    const result = await uploadToStorage(buffer, fileName, folder);
+    // Compress images to target 500KB
+    if (isImage) {
+      try {
+        const targetSizeKB = 500;
+        const targetSizeBytes = targetSizeKB * 1024;
 
-    if (!result.success) {
-      return NextResponse.json(
-        { error: result.error || 'Upload failed' },
-        { status: 500 }
-      );
+        // Get original image metadata
+        const metadata = await sharp(buffer).metadata();
+        
+        // Resize to max 2400px width (covers 4K displays)
+        let quality = 85; // Start with 85% quality
+        let compressed = await sharp(buffer)
+          .resize(2400, null, { 
+            withoutEnlargement: true, // Don't upscale smaller images
+            fit: 'inside'
+          })
+          .webp({ quality })
+          .toBuffer();
+
+        // If still too large, reduce quality iteratively
+        let attempts = 0;
+        while (compressed.length > targetSizeBytes && quality > 60 && attempts < 5) {
+          quality -= 5;
+          compressed = await sharp(buffer)
+            .resize(2400, null, { 
+              withoutEnlargement: true,
+              fit: 'inside'
+            })
+            .webp({ quality })
+            .toBuffer();
+          attempts++;
+        }
+
+        buffer = Buffer.from(compressed);
+        
+        // Update filename to .webp if it wasn't already
+        const fileNameWithoutExt = (customFileName || file.name).replace(/\.[^/.]+$/, '');
+        const finalFileName = `${fileNameWithoutExt}.webp`;
+        
+        console.log(`Image compressed: Original ${(bytes.byteLength / 1024).toFixed(0)}KB -> Final ${(buffer.length / 1024).toFixed(0)}KB at ${quality}% quality`);
+        
+        // Upload compressed image
+        const result = await uploadToStorage(buffer, finalFileName, folder);
+
+        if (!result.success) {
+          return NextResponse.json(
+            { error: result.error || 'Upload failed' },
+            { status: 500 }
+          );
+        }
+
+        return NextResponse.json({
+          success: true,
+          url: result.url,
+          key: result.key,
+          originalSize: `${(bytes.byteLength / 1024).toFixed(0)}KB`,
+          compressedSize: `${(buffer.length / 1024).toFixed(0)}KB`,
+          quality: `${quality}%`
+        });
+
+      } catch (compressionError) {
+        console.error('Compression error:', compressionError);
+        return NextResponse.json(
+          { error: 'Failed to compress image' },
+          { status: 500 }
+        );
+      }
     }
 
-    return NextResponse.json({
-      success: true,
-      url: result.url,
-      key: result.key,
-    });
+    // For videos, upload without compression
+    if (isVideo) {
+      const fileName = customFileName || file.name;
+      const result = await uploadToStorage(buffer, fileName, folder);
+
+      if (!result.success) {
+        return NextResponse.json(
+          { error: result.error || 'Upload failed' },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        url: result.url,
+        key: result.key,
+        size: `${(buffer.length / 1024 / 1024).toFixed(1)}MB`
+      });
+    }
+
+    // Fallback (shouldn't reach here)
+    return NextResponse.json(
+      { error: 'Unknown file type' },
+      { status: 400 }
+    );
+
   } catch (error) {
     console.error('Upload error:', error);
     return NextResponse.json(

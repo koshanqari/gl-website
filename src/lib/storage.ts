@@ -27,13 +27,15 @@ export interface UploadResult {
 export async function uploadToStorage(
   file: Buffer,
   fileName: string,
-  folder: string = 'uploads'
+  folder: string = 'uploads',
+  addTimestamp: boolean = false
 ): Promise<UploadResult> {
   try {
-    // Generate unique filename
-    const timestamp = Date.now();
+    // Generate filename (with optional timestamp for uniqueness)
     const sanitizedFileName = fileName.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const key = `${folder}/${timestamp}-${sanitizedFileName}`;
+    const key = addTimestamp 
+      ? `${folder}/${Date.now()}-${sanitizedFileName}`
+      : `${folder}/${sanitizedFileName}`;
 
     // Bunny.net Storage API endpoint
     const storageZoneName = process.env.BUNNY_STORAGE_ZONE_NAME!;
