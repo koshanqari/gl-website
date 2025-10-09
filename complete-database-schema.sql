@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS work (
   id BIGSERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   description TEXT NOT NULL,
+  content TEXT, -- Optional detailed content for individual work pages
   image_url TEXT NOT NULL,
   category TEXT NOT NULL,
   date TEXT NOT NULL,

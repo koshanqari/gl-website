@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
@@ -145,6 +146,19 @@ export default async function OurWorkPage() {
                       </div>
                     )}
                   </div>
+                  <div className="pt-4">
+                    <Link href={`/our-work/${work.id}`}>
+                      <button type="button" className="px-8 py-3 text-lg
+    cta-btn-accent-primary
+    font-semibold
+    transition-all
+    duration-300
+    ease-in-out
+    cursor-pointer">
+                        View Project
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -166,7 +180,7 @@ export default async function OurWorkPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
             {regularWorks.map((work: Work) => (
-              <article key={work.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300">
+              <article key={work.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
                 <div className="relative h-[200px] sm:h-[250px] md:h-[280px] overflow-hidden">
                   <Image
                     src={work.image_url}
@@ -178,7 +192,7 @@ export default async function OurWorkPage() {
                   />
                 </div>
                 
-                <div className="p-5 sm:p-6 md:p-8">
+                <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-grow">
                   <div className="flex items-center space-x-3 mb-3 sm:mb-4">
                     <span className="px-2 py-1 text-body-small font-semibold tag">
                       {work.category}
@@ -196,10 +210,26 @@ export default async function OurWorkPage() {
                     {work.description}
                   </p>
                   
-                  <div className="space-y-2 text-body-small">
-                    {work.client && <div><span className="font-semibold">Client:</span> {work.client}</div>}
-                    {work.attendees && <div><span className="font-semibold">Scale:</span> {work.attendees}</div>}
-                    {work.location && <div><span className="font-semibold">Location:</span> {work.location}</div>}
+                  <div className="mt-auto grid grid-cols-2 gap-4 items-end">
+                    <div className="space-y-2 text-body-small">
+                      {work.client && <div><span className="font-semibold">Client:</span> {work.client}</div>}
+                      {work.attendees && <div><span className="font-semibold">Scale:</span> {work.attendees}</div>}
+                      {work.location && <div><span className="font-semibold">Location:</span> {work.location}</div>}
+                    </div>
+                    
+                    <div className="flex justify-end">
+                      <Link href={`/our-work/${work.id}`}>
+                        <button type="button" className="px-6 py-2 text-body-medium
+    cta-btn-accent-secondary
+    font-semibold
+    transition-all
+    duration-300
+    ease-in-out
+    cursor-pointer">
+                          View Project
+                        </button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </article>

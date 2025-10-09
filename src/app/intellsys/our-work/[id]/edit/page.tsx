@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
+import MarkdownEditor from '@/components/admin/MarkdownEditor';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function EditOurWorkPage() {
   const router = useRouter();
@@ -12,6 +14,7 @@ export default function EditOurWorkPage() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
+    content: '',
     image_url: '',
     category: 'Conference',
     date: '',
@@ -48,6 +51,7 @@ export default function EditOurWorkPage() {
       setFormData({
         title: data.title,
         description: data.description,
+        content: data.content || '',
         image_url: data.image_url,
         category: data.category,
         date: formattedDate,
@@ -154,21 +158,43 @@ export default function EditOurWorkPage() {
             />
           </div>
 
-          {/* Image URL */}
+          {/* Image Upload */}
           <div>
-            <label htmlFor="image_url" className="block text-body-medium font-semibold txt-clr-black mb-2">
-              Project Image URL *
+            <label className="block text-body-medium font-semibold txt-clr-black mb-2">
+              Project Image *
             </label>
-            <input
-              type="url"
-              id="image_url"
-              name="image_url"
-              value={formData.image_url}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="https://images.unsplash.com/..."
+            
+            {/* Upload Component */}
+            <ImageUpload
+              currentUrl={formData.image_url}
+              onUploadSuccess={(url) => setFormData({ ...formData, image_url: url })}
+              folder="work"
+              label="Upload Project Image"
             />
+            
+            {/* OR separator */}
+            <div className="flex items-center gap-3 my-3">
+              <div className="flex-1 border-t border-gray-300"></div>
+              <span className="text-sm text-gray-500">OR</span>
+              <div className="flex-1 border-t border-gray-300"></div>
+            </div>
+            
+            {/* URL Input */}
+            <div>
+              <label htmlFor="image_url" className="block text-body-small font-medium txt-clr-neutral mb-2">
+                Or paste image URL
+              </label>
+              <input
+                type="url"
+                id="image_url"
+                name="image_url"
+                value={formData.image_url}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
+                placeholder="https://images.unsplash.com/..."
+              />
+            </div>
           </div>
 
           {/* Category and Date */}
@@ -255,6 +281,21 @@ export default function EditOurWorkPage() {
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="e.g., Mumbai, India"
+            />
+          </div>
+
+          {/* Content */}
+          <div>
+            <label htmlFor="content" className="block text-body-medium font-semibold txt-clr-black mb-2">
+              Project Details (Optional)
+            </label>
+            <p className="text-body-small txt-clr-neutral mb-2">
+              Add detailed information about the project that will be displayed on the individual project page.
+            </p>
+            <MarkdownEditor
+              value={formData.content}
+              onChange={(newContent) => setFormData({ ...formData, content: newContent })}
+              placeholder="Write detailed project information here. Use the toolbar buttons above for formatting."
             />
           </div>
 

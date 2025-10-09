@@ -418,7 +418,7 @@ export default async function HomePage() {
           {featuredWorks.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
               {featuredWorks.map((work) => (
-                <article key={work.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300">
+                <article key={work.id} className="bg-clr-white border border-gray-200 shadow-lg group hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
                   <div className="relative h-[180px] sm:h-[200px] md:h-[250px] lg:h-[280px] overflow-hidden">
                     <Image
                       src={work.image_url}
@@ -430,7 +430,7 @@ export default async function HomePage() {
                     />
                   </div>
 
-                  <div className="p-4 sm:p-5 md:p-6 lg:p-8">
+                  <div className="p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col flex-grow">
                     <div className="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-3 md:mb-4">
                       <span className="px-2 py-1 text-xs sm:text-body-small font-semibold tag">
                         {work.category}
@@ -448,10 +448,26 @@ export default async function HomePage() {
                       {work.description}
                     </p>
 
-                    <div className="space-y-1 sm:space-y-2 text-xs sm:text-body-small">
-                      {work.client && <div><span className="font-semibold">Client:</span> {work.client}</div>}
-                      {work.attendees && <div><span className="font-semibold">Scale:</span> {work.attendees}</div>}
-                      {work.location && <div><span className="font-semibold">Location:</span> {work.location}</div>}
+                    <div className="mt-auto grid grid-cols-2 gap-4 items-end">
+                      <div className="space-y-1 sm:space-y-2 text-xs sm:text-body-small">
+                        {work.client && <div><span className="font-semibold">Client:</span> {work.client}</div>}
+                        {work.attendees && <div><span className="font-semibold">Scale:</span> {work.attendees}</div>}
+                        {work.location && <div><span className="font-semibold">Location:</span> {work.location}</div>}
+                      </div>
+                      
+                      <div className="flex justify-end">
+                        <Link href={`/our-work/${work.id}`}>
+                          <button type="button" className="px-4 sm:px-6 py-2 text-xs sm:text-body-medium
+    cta-btn-accent-secondary
+    font-semibold
+    transition-all
+    duration-300
+    ease-in-out
+    cursor-pointer">
+                            View Project
+                          </button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </article>
