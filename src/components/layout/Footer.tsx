@@ -98,7 +98,15 @@ const Footer = () => {
             <div className="w-[80px] sm:w-[184px]">
               <div className="!text-[10px] sm:!text-[16px] font-medium leading-[8px] text-[#FFF] text-left mb-1">Build with</div>
               <a href="https://www.growthjockey.com/" target="_blank">
-                <img alt="" className="w-full" src="https://cdn-sleepyhug-prod.b-cdn.net/media/ottokart-logo.webp" />
+                <img 
+                  alt="" 
+                  className="w-full" 
+                  src="https://golden-lotus-prod.b-cdn.net/components/ottocloud.webp" 
+                  style={{
+                    backgroundColor: 'transparent',
+                    mixBlendMode: 'screen'
+                  }}
+                />
               </a>
             </div>
             <div className="w-[80px] sm:w-[184px]">

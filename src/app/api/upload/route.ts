@@ -50,36 +50,84 @@ export async function POST(request: Request) {
 
         // Get original image metadata
         const metadata = await sharp(buffer).metadata();
+        const hasAlpha = metadata.hasAlpha;
         
         // Resize to max 2400px width (covers 4K displays)
         let quality = 85; // Start with 85% quality
-        let compressed = await sharp(buffer)
-          .resize(2400, null, { 
-            withoutEnlargement: true, // Don't upscale smaller images
-            fit: 'inside'
-          })
-          .webp({ quality })
-          .toBuffer();
-
-        // If still too large, reduce quality iteratively
-        let attempts = 0;
-        while (compressed.length > targetSizeBytes && quality > 60 && attempts < 5) {
-          quality -= 5;
+        let compressed;
+        
+        if (hasAlpha) {
+          // For transparent images, use PNG to preserve transparency
           compressed = await sharp(buffer)
             .resize(2400, null, { 
               withoutEnlargement: true,
               fit: 'inside'
             })
-            .webp({ quality })
+            .png({ 
+              quality,
+              compressionLevel: 6,
+              adaptiveFiltering: true
+            })
             .toBuffer();
+        } else {
+          // For non-transparent images, use WebP
+          compressed = await sharp(buffer)
+            .resize(2400, null, { 
+              withoutEnlargement: true,
+              fit: 'inside'
+            })
+            .webp({ 
+              quality,
+              lossless: false,
+              nearLossless: false,
+              smartSubsample: true,
+              effort: 4
+            })
+            .toBuffer();
+        }
+
+        // If still too large, reduce quality iteratively
+        let attempts = 0;
+        while (compressed.length > targetSizeBytes && quality > 60 && attempts < 5) {
+          quality -= 5;
+          
+          if (hasAlpha) {
+            // For transparent images, use PNG
+            compressed = await sharp(buffer)
+              .resize(2400, null, { 
+                withoutEnlargement: true,
+                fit: 'inside'
+              })
+              .png({ 
+                quality,
+                compressionLevel: 6,
+                adaptiveFiltering: true
+              })
+              .toBuffer();
+          } else {
+            // For non-transparent images, use WebP
+            compressed = await sharp(buffer)
+              .resize(2400, null, { 
+                withoutEnlargement: true,
+                fit: 'inside'
+              })
+              .webp({ 
+                quality,
+                lossless: false,
+                nearLossless: false,
+                smartSubsample: true,
+                effort: 4
+              })
+              .toBuffer();
+          }
           attempts++;
         }
 
         buffer = Buffer.from(compressed);
         
-        // Update filename to .webp if it wasn't already
+        // Update filename - use PNG for transparent images, WebP for others
         const fileNameWithoutExt = (customFileName || file.name).replace(/\.[^/.]+$/, '');
-        const finalFileName = `${fileNameWithoutExt}.webp`;
+        const finalFileName = hasAlpha ? `${fileNameWithoutExt}.png` : `${fileNameWithoutExt}.webp`;
         
         console.log(`Image compressed: Original ${(bytes.byteLength / 1024).toFixed(0)}KB -> Final ${(buffer.length / 1024).toFixed(0)}KB at ${quality}% quality`);
         
