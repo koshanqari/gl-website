@@ -1,8 +1,15 @@
-import React from 'react'
+'use client'
+
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const [currentYear, setCurrentYear] = useState(2024)
+  
+  // Set the year on the client side to avoid hydration mismatch
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear())
+  }, [])
 
   const quickLinks = [
     { name: 'Home', href: '/' },
