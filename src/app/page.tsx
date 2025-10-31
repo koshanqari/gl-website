@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
+import FloatingGetStarted from '@/components/FloatingGetStarted';
 import Footer from '@/components/layout/Footer';
 import CTAButton from '@/components/ui/CTAButton';
 import { Testimonial } from '@/lib/types';
@@ -218,7 +219,7 @@ export default async function HomePage() {
       <Navbar transparent />
 
       {/* Hero Section */}
-      <section className="relative h-screen min-h-[600px] flex items-center">
+      <section id="homepage-hero" className="relative h-screen min-h-[600px] flex items-center">
         {/* Background Image - Using Next.js Image for optimization */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -237,10 +238,10 @@ export default async function HomePage() {
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-2xl">
-            <h1 className="text-headline-large sm:text-display-large lg:text-display-large txt-clr-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">
+            <h1 className="text-display-small sm:text-display-large lg:text-display-large txt-clr-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">
               Step into the Golden Experience
             </h1>
-            <p className="text-body-medium sm:text-body-large txt-clr-white mb-6 sm:mb-8 drop-shadow-md">
+            <p className="text-body-small sm:text-body-large txt-clr-white mb-6 sm:mb-8 drop-shadow-md">
               Corporate events designed with precision & elegance.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -258,6 +259,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Floating Get Started (hidden over hero and footer) */}
+      <FloatingGetStarted />
 
       {/* Client Logos Strip - Continuous Scroll (image-based, easy to update) */}
       <section className="pt-6 sm:pt-8 md:pt-12 lg:pt-16 pb-2 sm:pb-3 md:pb-4 bg-clr-white overflow-hidden">
@@ -284,7 +288,7 @@ export default async function HomePage() {
             ]
 
             return (
-              <div className="relative">
+          <div className="relative">
                 {/* Track: duplicate content for seamless marquee */}
                 <div className="flex animate-scroll">
                   {/* set 1 */}
@@ -292,7 +296,7 @@ export default async function HomePage() {
                     {clientLogos.map((src, idx) => (
                       <div key={`logos-1-${idx}`} className="flex items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg min-w-[130px] sm:min-w-[160px]">
                         <img src={src} alt="Client logo" className="h-14 sm:h-16 md:h-20 w-auto object-contain" />
-                      </div>
+                    </div>
                     ))}
                   </div>
                   {/* set 2 (duplicate) */}
@@ -300,11 +304,11 @@ export default async function HomePage() {
                     {clientLogos.map((src, idx) => (
                       <div key={`logos-2-${idx}`} className="flex items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg min-w-[130px] sm:min-w-[160px]">
                         <img src={src} alt="Client logo" className="h-14 sm:h-16 md:h-20 w-auto object-contain" />
-                      </div>
+                </div>
                     ))}
+                    </div>
                   </div>
                 </div>
-              </div>
             )
           })()}
         </div>
