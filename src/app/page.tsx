@@ -215,14 +215,14 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-bg-primary">
-      <Navbar />
+      <Navbar transparent />
 
       {/* Hero Section */}
-      <section className="relative h-[70vh] sm:h-[60vh] min-h-[400px] sm:min-h-[500px] flex items-center">
+      <section className="relative h-screen min-h-[600px] flex items-center">
         {/* Background Image - Using Next.js Image for optimization */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://golden-lotus-prod.b-cdn.net/homepage/homepage-hero1.webp"
+            src="https://golden-lotus-prod.b-cdn.net/homepage/hero1.webp"
             alt="Golden Lotus Events - Plan Your Next Event"
             fill
             priority
@@ -238,7 +238,7 @@ export default async function HomePage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-2xl">
             <h1 className="text-headline-large sm:text-display-large lg:text-display-large txt-clr-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">
-              Plan Your Next Event with Golden Lotus
+              Step into the Golden Experience
             </h1>
             <p className="text-body-medium sm:text-body-large txt-clr-white mb-6 sm:mb-8 drop-shadow-md">
               Corporate events designed with precision & elegance.
@@ -259,152 +259,42 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Client Logos Strip - Continuous Scroll */}
+      {/* Client Logos Strip - Continuous Scroll (image-based, easy to update) */}
       <section className="pt-6 sm:pt-8 md:pt-12 lg:pt-16 pb-2 sm:pb-3 md:pb-4 bg-clr-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {(() => {
+            const clientLogos: string[] = [
+              // Update these URLs to add/remove client logos
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/tatamotors.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/meta.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/aditya.webp',
 
-          {/* Continuous Scrolling Logos */}
-          <div className="relative">
-            <div className="flex animate-scroll space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12">
-              {/* First set of logos */}
-              <div className="flex items-center space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 flex-shrink-0">
-                {/* TechCorp International */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">TC</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">TechCorp</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">International</p>
+            ]
+
+            return (
+              <div className="relative">
+                {/* Track: duplicate content for seamless marquee */}
+                <div className="flex animate-scroll">
+                  {/* set 1 */}
+                  <div className="flex items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 flex-shrink-0 pr-8 sm:pr-10 md:pr-12 lg:pr-16">
+                    {clientLogos.map((src, idx) => (
+                      <div key={`logos-1-${idx}`} className="flex items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg min-w-[96px] sm:min-w-[120px]">
+                        <img src={src} alt="Client logo" className="h-8 sm:h-10 md:h-12 w-auto object-contain" />
+                      </div>
+                    ))}
                   </div>
-                </div>
-
-                {/* Luxury Auto Group */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">LA</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">Luxury Auto</p>
-                    <p className="text-xs sm:text-body-small">Group</p>
-                  </div>
-                </div>
-
-                {/* Global Finance Ltd */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">GF</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">Global</p>
-                    <p className="text-xs sm:text-body-small">Finance</p>
-                  </div>
-                </div>
-
-                {/* HealthTech India */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">HT</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">HealthTech</p>
-                    <p className="text-xs sm:text-body-small">India</p>
-                  </div>
-                </div>
-
-                {/* Retail Giants Inc */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">RG</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">Retail</p>
-                    <p className="text-xs sm:text-body-small">Giants</p>
-                  </div>
-                </div>
-
-                {/* Mobile Tech Co */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">MT</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">Mobile</p>
-                    <p className="text-xs sm:text-body-small">Tech Co</p>
+                  {/* set 2 (duplicate) */}
+                  <div className="flex items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 flex-shrink-0">
+                    {clientLogos.map((src, idx) => (
+                      <div key={`logos-2-${idx}`} className="flex items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg min-w-[96px] sm:min-w-[120px]">
+                        <img src={src} alt="Client logo" className="h-8 sm:h-10 md:h-12 w-auto object-contain" />
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-
-              {/* Duplicate set for seamless loop */}
-              <div className="flex items-center space-x-8 md:space-x-12 lg:space-x-16 flex-shrink-0">
-                {/* TechCorp International */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">TC</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold txt-clr-black">TechCorp</p>
-                    <p className="text-xs sm:text-body-small txt-clr-neutral">International</p>
-                  </div>
-                </div>
-
-                {/* Luxury Auto Group */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">LA</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">Luxury Auto</p>
-                    <p className="text-xs sm:text-body-small">Group</p>
-                  </div>
-                </div>
-
-                {/* Global Finance Ltd */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">GF</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">Global</p>
-                    <p className="text-xs sm:text-body-small">Finance</p>
-                  </div>
-                </div>
-
-                {/* HealthTech India */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">HT</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">HealthTech</p>
-                    <p className="text-xs sm:text-body-small">India</p>
-                  </div>
-                </div>
-
-                {/* Retail Giants Inc */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">RG</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">Retail</p>
-                    <p className="text-xs sm:text-body-small">Giants</p>
-                  </div>
-                </div>
-
-                {/* Mobile Tech Co */}
-                <div className="flex items-center justify-center p-2 sm:p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-w-[80px] sm:min-w-[100px]">
-                  <div className="text-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-1 md:mb-2">
-                      <span className="txt-clr-white font-bold text-xs sm:text-sm">MT</span>
-                    </div>
-                    <p className="text-xs sm:text-body-small font-semibold">Mobile</p>
-                    <p className="text-xs sm:text-body-small">Tech Co</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            )
+          })()}
         </div>
       </section>
 
