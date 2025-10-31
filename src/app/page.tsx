@@ -245,7 +245,7 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link href="/contact">
-                <CTAButton variant="white-primary" size="md" className="sm:size-lg">
+                <CTAButton variant="white-secondary" size="md" className="sm:size-lg">
                   Plan My Event
                 </CTAButton>
               </Link>
@@ -265,9 +265,21 @@ export default async function HomePage() {
           {(() => {
             const clientLogos: string[] = [
               // Update these URLs to add/remove client logos
-              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/tatamotors.png',
-              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/meta.png',
-              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/aditya.webp',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/abg1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/airtel1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/fedx1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/fena1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/io1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/kribhco1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/meta1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/pnb1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/sail1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/sharp1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/shrm1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/tata1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/towervision1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/tpc1.png',
+              'https://golden-lotus-prod.b-cdn.net/homepage/clientlogos/zydus1.png',
 
             ]
 
@@ -276,18 +288,18 @@ export default async function HomePage() {
                 {/* Track: duplicate content for seamless marquee */}
                 <div className="flex animate-scroll">
                   {/* set 1 */}
-                  <div className="flex items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 flex-shrink-0 pr-8 sm:pr-10 md:pr-12 lg:pr-16">
+                  <div className="flex items-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 flex-shrink-0 pr-6 sm:pr-8 md:pr-10 lg:pr-12">
                     {clientLogos.map((src, idx) => (
-                      <div key={`logos-1-${idx}`} className="flex items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg min-w-[96px] sm:min-w-[120px]">
-                        <img src={src} alt="Client logo" className="h-8 sm:h-10 md:h-12 w-auto object-contain" />
+                      <div key={`logos-1-${idx}`} className="flex items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg min-w-[130px] sm:min-w-[160px]">
+                        <img src={src} alt="Client logo" className="h-14 sm:h-16 md:h-20 w-auto object-contain" />
                       </div>
                     ))}
                   </div>
                   {/* set 2 (duplicate) */}
-                  <div className="flex items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 flex-shrink-0">
+                  <div className="flex items-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 flex-shrink-0">
                     {clientLogos.map((src, idx) => (
-                      <div key={`logos-2-${idx}`} className="flex items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg min-w-[96px] sm:min-w-[120px]">
-                        <img src={src} alt="Client logo" className="h-8 sm:h-10 md:h-12 w-auto object-contain" />
+                      <div key={`logos-2-${idx}`} className="flex items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg min-w-[130px] sm:min-w-[160px]">
+                        <img src={src} alt="Client logo" className="h-14 sm:h-16 md:h-20 w-auto object-contain" />
                       </div>
                     ))}
                   </div>

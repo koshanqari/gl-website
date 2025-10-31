@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: 'Golden Lotus - Corporate Event Planning & Management',
   description: 'India\'s leading MICE and Experience Marketing Agency. Specialists in corporate events, conferences, product launches, and strategic experiential marketing.',
   keywords: 'corporate events, event planning, MICE, conferences, product launches, experiential marketing, India',
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
